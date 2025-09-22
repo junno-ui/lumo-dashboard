@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+
+/* Base fallback */
+:root {
+  --ui-primary: #4f46e5; /* indigo-600-ish */
+  --ui-neutral: #0f172a; /* slate-900-ish for dark surfaces */
+  --ui-radius: 12px;     /* default rounded */
+}
+
+/* ===== Primary palette ===== */
+:root[data-brand="black"]   { --ui-primary: #111111; }
+:root[data-brand="red"]     { --ui-primary: #dc2626; }
+:root[data-brand="orange"]  { --ui-primary: #ea580c; }
+:root[data-brand="amber"]   { --ui-primary: #d97706; }
+:root[data-brand="yellow"]  { --ui-primary: #ca8a04; }
+:root[data-brand="lime"]    { --ui-primary: #65a30d; }
+:root[data-brand="green"]   { --ui-primary: #16a34a; }
+:root[data-brand="emerald"] { --ui-primary: #10b981; }
+:root[data-brand="teal"]    { --ui-primary: #0d9488; }
+:root[data-brand="cyan"]    { --ui-primary: #0891b2; }
+:root[data-brand="sky"]     { --ui-primary: #0284c7; }
+:root[data-brand="blue"]    { --ui-primary: #2563eb; }
+:root[data-brand="indigo"]  { --ui-primary: #4f46e5; }
+:root[data-brand="violet"]  { --ui-primary: #7c3aed; }
+:root[data-brand="purple"]  { --ui-primary: #9333ea; }
+:root[data-brand="fuchsia"] { --ui-primary: #c026d3; }
+:root[data-brand="pink"]    { --ui-primary: #db2777; }
+:root[data-brand="rose"]    { --ui-primary: #e11d48; }
+
+/* ===== Neutral palette (UI surfaces/accents you want to vary) ===== */
+:root[data-neutral="slate"]  { --ui-neutral: #0f172a; }
+:root[data-neutral="gray"]   { --ui-neutral: #111827; }
+:root[data-neutral="zinc"]   { --ui-neutral: #18181b; }
+:root[data-neutral="neutral"]{ --ui-neutral: #171717; }
+:root[data-neutral="stone"]  { --ui-neutral: #1c1917; }
+
+/* ===== Radius ===== */
+:root[data-radius="0"]     { --ui-radius: 0px;     }
+:root[data-radius="0.125"] { --ui-radius: 2px;     }
+:root[data-radius="0.25"]  { --ui-radius: 4px;     }
+:root[data-radius="0.375"] { --ui-radius: 6px;     }
+:root[data-radius="0.5"]   { --ui-radius: 8px;     }
+
+/* Helpers you can reuse */
+.rounded-ui { border-radius: var(--ui-radius); }
+.bg-primary { background: var(--ui-primary); }
+.text-primary { color: var(--ui-primary); }
+
+/* Example button using the tokens */
+.button-primary {
+  background: var(--ui-primary);
+  color: white;
+  border-radius: var(--ui-radius);
+}
