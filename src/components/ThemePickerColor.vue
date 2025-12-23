@@ -4,6 +4,7 @@ import { useColorMode } from '@vueuse/core'
 import { useBrand, type Brand } from '../composable/useBrand'
 import { useNeutral, type Neutral } from '../composable/useNeutral'
 import { useRadius } from '../composable/useRadius'
+import { Icon } from '@iconify/vue'
 
 const { brand, applyBrand } = useBrand()
 const { neutral, applyNeutral } = useNeutral()
@@ -59,9 +60,9 @@ const radiusOptions: RadiusOption[] = [
 
 type ThemeOption = { label: string; value: ThemeKey; icon: string }
 const themeOptions: ThemeOption[] = [
-  { label: 'Light',  value: 'light',  icon: 'i-lucide-sun' },
-  { label: 'Dark',   value: 'dark',   icon: 'i-lucide-moon' },
-  { label: 'System', value: 'auto',   icon: 'i-lucide-monitor' }
+  { label: 'Light',  value: 'light',  icon: 'lucide:sun' },
+  { label: 'Dark',   value: 'dark',   icon: 'lucide:moon' },
+  { label: 'System', value: 'auto',   icon: 'lucide:monitor' }
 ]
 
 const brandItem   = ref<BrandOption  | undefined>(brandOptions.find(o => o.value === brand.value))
@@ -86,12 +87,13 @@ const primaryPreviewStyle = computed(() => ({ background: 'var(--ui-primary)' })
   <div class="fixed bottom-4 right-4 z-[999]">
     <UPopover :ui="{ content: 'p-0 w-72 rounded-2xl shadow-2xl ring-1 ring-white/10 backdrop-blur-3xl bg-white/70 dark:bg-slate-900/70' }">
       <UButton
-        icon="i-heroicons-paint-brush"
         color="primary"
         variant="solid"
         size="xl"
-        class="rounded-full shadow-lg hover:scale-105 transition-transform duration-200"
-      />
+        class="rounded-full shadow-lg hover:scale-105 transition-transform duration-200 flex items-center justify-center"
+      >
+        <Icon icon="heroicons:paint-brush" class="w-6 h-6" />
+      </UButton>
       
       <template #content>
         <div class="p-5 space-y-6">
@@ -116,12 +118,27 @@ const primaryPreviewStyle = computed(() => ({ background: 'var(--ui-primary)' })
                 placeholder="Select a brand color"
                 option-attribute="label"
               >
-                  <template #label>
+                <template #default="{ open }">
+                  <UButton
+                    color="white"
+                    variant="solid"
+                    class="w-full justify-between"
+                  >
                     <div v-if="brandItem" class="flex items-center gap-2">
-                        <span class="w-3 h-3 rounded-full" :class="brandItem.dot" />
-                        <span>{{ brandItem.label }}</span>
+                      <span class="w-3 h-3 rounded-full" :class="brandItem.dot" />
+                      <span>{{ brandItem.label }}</span>
                     </div>
-                  </template>
+                    <span v-else>Select a brand color</span>
+
+                    <template #trailing>
+                      <UIcon
+                        name="i-heroicons-chevron-down-20-solid"
+                        class="w-5 h-5 transition-transform text-gray-400 dark:text-gray-500"
+                        :class="[open && 'transform rotate-180']"
+                      />
+                    </template>
+                  </UButton>
+                </template>
                   <template #item="{ item }">
                      <span class="w-3 h-3 rounded-full" :class="item.dot" />
                      <span>{{ item.label }}</span>
@@ -163,7 +180,7 @@ const primaryPreviewStyle = computed(() => ({ background: 'var(--ui-primary)' })
                         : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'
                   ]"
                  >
-                    <UIcon :name="option.icon" class="w-4 h-4" />
+                    <Icon :icon="option.icon" class="w-4 h-4" />
                  </button>
               </div>
             </div>
