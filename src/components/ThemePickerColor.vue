@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
-import { useColorMode } from '@vueuse/core'
+import { ref, watch } from 'vue'
+
 import { useBrand, type Brand } from '../composable/useBrand'
 import { useNeutral, type Neutral } from '../composable/useNeutral'
 import { useRadius } from '../composable/useRadius'
+import { useFont } from '../composable/useFont'
 import { Icon } from '@iconify/vue'
 
 const { brand, applyBrand } = useBrand()
 const { neutral, applyNeutral } = useNeutral()
 const { radius, applyRadius } = useRadius()
+const { font, applyFont, fontOptions } = useFont()
 
-type ThemeKey = 'light' | 'dark' | 'auto'
-const colorMode = useColorMode<ThemeKey>({
-  attribute: 'class',
-  initialValue: 'auto',
-  storageKey: 'nuxt-color-mode'
-})
+
+
+// const colorMode = useColorMode<ThemeKey>({
+//   attribute: 'class',
+//   initialValue: 'auto',
+//   storageKey: 'nuxt-color-mode'
+// })
 
 type BrandOption = { label: string; value: Brand; dot: string }
 const brandOptions: BrandOption[] = [
@@ -39,13 +42,13 @@ const brandOptions: BrandOption[] = [
   { value: 'rose',    label: 'Rose',    dot: 'bg-rose-500' }
 ]
 
-type NeutralOption = { label: string; value: Neutral }
+type NeutralOption = { label: string; value: Neutral; bg: string }
 const neutralOptions: NeutralOption[] = [
-  { value: 'slate',   label: 'Slate' },
-  { value: 'gray',    label: 'Gray' },
-  { value: 'zinc',    label: 'Zinc' },
-  { value: 'neutral', label: 'Neutral' },
-  { value: 'stone',   label: 'Stone' }
+  { value: 'slate',   label: 'Slate',   bg: 'bg-slate-500' },
+  { value: 'gray',    label: 'Gray',    bg: 'bg-gray-500' },
+  { value: 'zinc',    label: 'Zinc',    bg: 'bg-zinc-500' },
+  { value: 'neutral', label: 'Neutral', bg: 'bg-neutral-500' },
+  { value: 'stone',   label: 'Stone',   bg: 'bg-stone-500' }
 ]
 
 type RadiusKey = '0' | '0.125' | '0.25' | '0.375' | '0.5'
@@ -58,135 +61,168 @@ const radiusOptions: RadiusOption[] = [
   { value: '0.5', label: '0.5' }
 ]
 
-type ThemeOption = { label: string; value: ThemeKey; icon: string }
-const themeOptions: ThemeOption[] = [
-  { label: 'Light',  value: 'light',  icon: 'lucide:sun' },
-  { label: 'Dark',   value: 'dark',   icon: 'lucide:moon' },
-  { label: 'System', value: 'auto',   icon: 'lucide:monitor' }
-]
-
 const brandItem   = ref<BrandOption  | undefined>(brandOptions.find(o => o.value === brand.value))
 const neutralItem = ref<NeutralOption| undefined>(neutralOptions.find(o => o.value === neutral.value))
 const radiusItem  = ref<RadiusOption | undefined>(radiusOptions.find(o => o.value === (radius.value as RadiusKey)))
-const themeItem   = ref<ThemeOption  | undefined>(themeOptions.find(o => o.value === colorMode.value))
+const fontItem    = ref(fontOptions.find(o => o.value === font.value))
 
 watch(brandItem,   v => v && applyBrand(v.value))
 watch(neutralItem, v => v && applyNeutral(v.value))
 watch(radiusItem,  v => v && applyRadius(v.value))
-watch(themeItem,   v => v && (colorMode.value = v.value))
+watch(fontItem,    v => v && applyFont(v.value as any)) // Cast to any or Font to avoid structural strictness issues temporarily
 
 watch(brand,      v => { if (!brandItem.value || brandItem.value.value !== v) brandItem.value   = brandOptions.find(o => o.value === v) })
 watch(neutral,    v => { if (!neutralItem.value || neutralItem.value.value !== v) neutralItem.value = neutralOptions.find(o => o.value === v) })
 watch(radius,     v => { if (!radiusItem.value || radiusItem.value.value !== v) radiusItem.value  = radiusOptions.find(o => o.value === (v as RadiusKey)) })
-watch(colorMode,  v => { if (!themeItem.value || themeItem.value.value !== v) themeItem.value   = themeOptions.find(o => o.value === v) })
-
-const primaryPreviewStyle = computed(() => ({ background: 'var(--ui-primary)' }))
+watch(font,       v => { if (!fontItem.value || fontItem.value.value !== v) fontItem.value = fontOptions.find(o => o.value === v) })
 </script>
 
 <template>
   <div class="fixed bottom-4 right-4 z-[999]">
-    <UPopover :ui="{ content: 'p-0 w-72 rounded-2xl shadow-2xl ring-1 ring-white/10 backdrop-blur-3xl bg-white/70 dark:bg-slate-900/70' }">
+    <UPopover :ui="{ content: 'p-0 w-80 rounded-xl shadow-2xl ring-1 ring-gray-800 backdrop-blur-3xl bg-[#0B1120] border border-white/5' }">
       <UButton
         color="primary"
         variant="solid"
         size="xl"
-        class="rounded-full shadow-lg hover:scale-105 transition-transform duration-200 flex items-center justify-center"
+        class="rounded-full shadow-lg hover:scale-110 transition-transform duration-300 flex items-center justify-center ring-4 ring-white/10 dark:ring-[#0B1120] relative group"
+        :ui="{ rounded: 'rounded-full' }"
       >
-        <Icon icon="heroicons:paint-brush" class="w-6 h-6" />
+        <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-primary-600 to-primary-400 blur-sm opacity-50 group-hover:opacity-100 transition-opacity"></div>
+        <Icon icon="heroicons:paint-brush" class="w-6 h-6 relative z-10" />
       </UButton>
       
       <template #content>
-        <div class="p-5 space-y-6">
-          <div class="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-4">
-             <div class="flex items-center gap-3">
-               <div class="h-8 w-8 rounded-full ring-2 ring-gray-100 dark:ring-white/10 shadow-sm" :style="primaryPreviewStyle" />
-               <div>
-                 <p class="text-sm font-bold text-gray-900 dark:text-white">Theme Settings</p>
-                 <p class="text-[10px] text-gray-400">Customize your look</p>
-               </div>
+        <div class="p-5 space-y-6 max-h-[85vh] overflow-y-auto custom-scrollbar">
+          
+          <!-- Primary Colors -->
+          <div class="space-y-3">
+             <div class="flex items-center gap-2">
+                 <h3 class="text-sm font-bold text-white">Primary</h3>
+                 <UTooltip text="Set your brand's primary color" :popper="{ placement: 'top' }">
+                    <Icon icon="heroicons:question-mark-circle" class="w-4 h-4 text-gray-500 cursor-help" />
+                 </UTooltip>
+             </div>
+             <div class="grid grid-cols-3 gap-2">
+                <button
+                    v-for="option in brandOptions"
+                    :key="option.value"
+                    @click="brandItem = option"
+                    class="flex items-center gap-2 px-2 py-1.5 rounded-lg border transition-all duration-200 group"
+                    :class="[
+                        brandItem?.value === option.value 
+                        ? 'border-primary-500 bg-primary-500/10' 
+                        : 'border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/10'
+                    ]"
+                >
+                    <span class="w-2.5 h-2.5 rounded-full shadow-sm" :class="option.dot" />
+                    <span class="text-xs font-medium" :class="brandItem?.value === option.value ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'">{{ option.label }}</span>
+                </button>
              </div>
           </div>
 
-          <div class="space-y-4">
-            <div class="space-y-2">
-              <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Primary Color</label>
-              <USelectMenu
-                v-model="brandItem"
-                :items="brandOptions"
-                searchable
-                class="w-full"
-                placeholder="Select a brand color"
-                option-attribute="label"
-              >
-                <template #default="{ open }">
-                  <UButton
-                    color="white"
-                    variant="solid"
-                    class="w-full justify-between"
-                  >
-                    <div v-if="brandItem" class="flex items-center gap-2">
-                      <span class="w-3 h-3 rounded-full" :class="brandItem.dot" />
-                      <span>{{ brandItem.label }}</span>
-                    </div>
-                    <span v-else>Select a brand color</span>
-
-                    <template #trailing>
-                      <UIcon
-                        name="i-heroicons-chevron-down-20-solid"
-                        class="w-5 h-5 transition-transform text-gray-400 dark:text-gray-500"
-                        :class="[open && 'transform rotate-180']"
-                      />
-                    </template>
-                  </UButton>
-                </template>
-                  <template #item="{ item }">
-                     <span class="w-3 h-3 rounded-full" :class="item.dot" />
-                     <span>{{ item.label }}</span>
-                  </template>
-              </USelectMenu>
-            </div>
-
-            <div class="space-y-2">
-              <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Neutral Tone</label>
-              <USelectMenu
-                v-model="neutralItem"
-                :items="neutralOptions"
-                 class="w-full"
-                 option-attribute="label"
-              />
-            </div>
-
-             <div class="space-y-2">
-              <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Radius</label>
-              <USelectMenu
-                v-model="radiusItem"
-                :items="radiusOptions"
-                 class="w-full"
-                 option-attribute="label"
-              />
-            </div>
-
-            <div class="space-y-2">
-              <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Mode</label>
-              <div class="flex bg-gray-100 dark:bg-slate-800 p-1 rounded-xl">
-                 <button 
-                  v-for="option in themeOptions" 
-                  :key="option.value"
-                  @click="themeItem = option"
-                  :class="[
-                      'flex-1 flex items-center justify-center p-1.5 rounded-lg transition-all duration-200 text-sm',
-                      themeItem?.value === option.value 
-                        ? 'bg-white dark:bg-slate-600 text-primary-500 shadow-sm' 
-                        : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'
-                  ]"
-                 >
-                    <Icon :icon="option.icon" class="w-4 h-4" />
-                 </button>
-              </div>
-            </div>
+          <!-- Neutral Colors -->
+          <div class="space-y-3">
+             <div class="flex items-center gap-2">
+                 <h3 class="text-sm font-bold text-white">Neutral</h3>
+                 <UTooltip text="Set the base gray scale" :popper="{ placement: 'top' }">
+                    <Icon icon="heroicons:question-mark-circle" class="w-4 h-4 text-gray-500 cursor-help" />
+                 </UTooltip>
+             </div>
+             <div class="grid grid-cols-3 gap-2">
+                <button
+                    v-for="option in neutralOptions"
+                    :key="option.value"
+                    @click="neutralItem = option"
+                    class="flex items-center gap-2 px-2 py-1.5 rounded-lg border transition-all duration-200 group"
+                    :class="[
+                        neutralItem?.value === option.value 
+                        ? 'border-primary-500 bg-primary-500/10' 
+                        : 'border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/10'
+                    ]"
+                >
+                    <span class="w-2.5 h-2.5 rounded-full shadow-sm" :class="option.bg" />
+                    <span class="text-xs font-medium" :class="neutralItem?.value === option.value ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'">{{ option.label }}</span>
+                </button>
+             </div>
           </div>
+
+          <!-- Radius -->
+          <div class="space-y-3">
+             <div class="flex items-center gap-2">
+                 <h3 class="text-sm font-bold text-white">Radius</h3>
+                 <UTooltip text="Corner rounding factor" :popper="{ placement: 'top' }">
+                    <Icon icon="heroicons:question-mark-circle" class="w-4 h-4 text-gray-500 cursor-help" />
+                 </UTooltip>
+             </div>
+             <div class="flex bg-white/5 p-1 rounded-lg border border-white/5">
+                <button
+                    v-for="option in radiusOptions"
+                    :key="option.value"
+                    @click="radiusItem = option"
+                    class="flex-1 py-1 text-xs font-medium rounded-md transition-all duration-200"
+                    :class="[
+                        radiusItem?.value === option.value 
+                        ? 'bg-primary-600 text-white shadow-sm' 
+                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    ]"
+                >
+                    {{ option.label }}
+                </button>
+             </div>
+          </div>
+
+          <!-- Font -->
+          <div class="space-y-3">
+             <div class="flex items-center gap-2">
+                 <h3 class="text-sm font-bold text-white">Font</h3>
+                 <UTooltip text="Global font family" :popper="{ placement: 'top' }">
+                    <Icon icon="heroicons:question-mark-circle" class="w-4 h-4 text-gray-500 cursor-help" />
+                 </UTooltip>
+             </div>
+             <USelectMenu
+                v-model="fontItem"
+                :items="fontOptions"
+                class="w-full"
+                option-attribute="label"
+                :ui="{ 
+                    background: 'bg-white/5 dark:bg-white/5', 
+                    ring: 'ring-1 ring-white/10 dark:ring-white/10'
+                }"
+             >
+                <template #default="{ open }">
+                   <UButton
+                      color="gray"
+                      variant="ghost"
+                      class="w-full justify-between bg-white/5 border border-white/5 hover:bg-white/10 text-white ring-0"
+                   >
+                     <div class="flex items-center gap-2">
+                         <Icon icon="heroicons:language" class="w-4 h-4 text-gray-400" />
+                         <span>{{ fontItem?.label }}</span>
+                     </div>
+                      <Icon icon="heroicons:chevron-down" class="w-4 h-4 text-gray-400 transition-transform" :class="[open && 'rotate-180']" />
+                   </UButton>
+                </template>
+             </USelectMenu>
+          </div>
+
         </div>
       </template>
     </UPopover>
   </div>
 </template>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+</style>
