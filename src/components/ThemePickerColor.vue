@@ -83,51 +83,93 @@ const primaryPreviewStyle = computed(() => ({ background: 'var(--ui-primary)' })
 </script>
 
 <template>
-  <UCard class="rounded-2xl bg-slate-900 text-slate-100 border border-slate-800" :ui="{ body: 'p-4 sm:p-6 space-y-6' }">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="h-6 w-6 rounded-full ring-2 ring-white/10" :style="primaryPreviewStyle" />
-        <div>
-          <p class="text-sm text-slate-300">Primary</p>
-          <p class="text-xs text-slate-400">Powered by <code>--ui-primary</code></p>
+  <div class="fixed bottom-4 right-4 z-[999]">
+    <UPopover :ui="{ content: 'p-0 w-72 rounded-2xl shadow-2xl ring-1 ring-white/10 backdrop-blur-3xl bg-white/70 dark:bg-slate-900/70' }">
+      <UButton
+        icon="i-heroicons-paint-brush"
+        color="primary"
+        variant="solid"
+        size="xl"
+        class="rounded-full shadow-lg hover:scale-105 transition-transform duration-200"
+      />
+      
+      <template #content>
+        <div class="p-5 space-y-6">
+          <div class="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-4">
+             <div class="flex items-center gap-3">
+               <div class="h-8 w-8 rounded-full ring-2 ring-gray-100 dark:ring-white/10 shadow-sm" :style="primaryPreviewStyle" />
+               <div>
+                 <p class="text-sm font-bold text-gray-900 dark:text-white">Theme Settings</p>
+                 <p class="text-[10px] text-gray-400">Customize your look</p>
+               </div>
+             </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="space-y-2">
+              <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Primary Color</label>
+              <USelectMenu
+                v-model="brandItem"
+                :items="brandOptions"
+                searchable
+                class="w-full"
+                placeholder="Select a brand color"
+                option-attribute="label"
+              >
+                  <template #label>
+                    <div v-if="brandItem" class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full" :class="brandItem.dot" />
+                        <span>{{ brandItem.label }}</span>
+                    </div>
+                  </template>
+                  <template #item="{ item }">
+                     <span class="w-3 h-3 rounded-full" :class="item.dot" />
+                     <span>{{ item.label }}</span>
+                  </template>
+              </USelectMenu>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Neutral Tone</label>
+              <USelectMenu
+                v-model="neutralItem"
+                :items="neutralOptions"
+                 class="w-full"
+                 option-attribute="label"
+              />
+            </div>
+
+             <div class="space-y-2">
+              <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Radius</label>
+              <USelectMenu
+                v-model="radiusItem"
+                :items="radiusOptions"
+                 class="w-full"
+                 option-attribute="label"
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Mode</label>
+              <div class="flex bg-gray-100 dark:bg-slate-800 p-1 rounded-xl">
+                 <button 
+                  v-for="option in themeOptions" 
+                  :key="option.value"
+                  @click="themeItem = option"
+                  :class="[
+                      'flex-1 flex items-center justify-center p-1.5 rounded-lg transition-all duration-200 text-sm',
+                      themeItem?.value === option.value 
+                        ? 'bg-white dark:bg-slate-600 text-primary-500 shadow-sm' 
+                        : 'text-gray-500 hover:text-gray-900 dark:hover:text-white'
+                  ]"
+                 >
+                    <UIcon :name="option.icon" class="w-4 h-4" />
+                 </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="text-xs text-slate-400">
-        Radius: <span class="font-medium">{{ radiusItem?.value }}</span> rem
-      </div>
-    </div>
-
-    <section>
-      <h3 class="text-sm font-semibold mb-2 text-slate-200">Primary</h3>
-      <USelectMenu
-        v-model="brandItem"
-        :items="brandOptions"
-        searchable
-      />
-    </section>
-
-    <section>
-      <h3 class="text-sm font-semibold mb-2 text-slate-200">Neutral</h3>
-      <USelectMenu
-        v-model="neutralItem"
-        :items="neutralOptions"
-      />
-    </section>
-
-    <section>
-      <h3 class="text-sm font-semibold mb-2 text-slate-200">Radius</h3>
-      <USelectMenu
-        v-model="radiusItem"
-        :items="radiusOptions"
-      />
-    </section>
-
-    <section>
-      <h3 class="text-sm font-semibold mb-2 text-slate-200">Theme</h3>
-      <USelectMenu
-        v-model="themeItem"
-        :items="themeOptions"
-      />
-    </section>
-  </UCard>
+      </template>
+    </UPopover>
+  </div>
 </template>
