@@ -14,6 +14,7 @@ const pageTitle = computed(() => route.meta.title || 'Dashboard')
 
         <div class="relative z-10 pointer-events-auto flex items-center gap-4">
           <!-- Mobile Menu Toggle -->
+          <UDashboardNavbarToggle class="lg:hidden" />
           
           <h1 class="text-xl font-bold text-gray-800 dark:text-white lg:hidden">{{ pageTitle }}</h1>
 
