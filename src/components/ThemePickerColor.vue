@@ -91,19 +91,15 @@ watch(radius, v => { if (!radiusItem.value || radiusItem.value.value !== v) radi
                </div>
                <div class="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
                      <UButton @click="toggleDark(true)" class="flex-1 justify-center gap-2" size="xs"
-                     :color="isDark ? 'white' : 'gray'" :variant="isDark ? 'solid' : 'ghost'"
-                     :ui="{ rounded: 'rounded-md' }">
-                         <Icon icon="heroicons:moon" class="w-4 h-4" />
-                         Dark
-                     </UButton>
+                     :color="isDark ? 'primary' : 'neutral'" :variant="isDark ? 'soft' : 'ghost'"
+                     :ui="{ rounded: 'rounded-md' }" label="Dark" icon="heroicons:moon"/>
+
                      <UButton @click="toggleDark(false)" class="flex-1 justify-center gap-2" size="xs"
-                     :color="!isDark ? 'white' : 'gray'" :variant="!isDark ? 'solid' : 'ghost'"
-                     :ui="{ rounded: 'rounded-md' }">
-                         <Icon icon="heroicons:sun" class="w-4 h-4" />
-                         Light
-                     </UButton>
+                     :color="!isDark ? 'primary' : 'neutral'" :variant="!isDark ? 'soft' : 'ghost'"
+                     :ui="{ rounded: 'rounded-md' }" label="Light" icon="heroicons:sun"/>
+
                </div>
-            </div>
+            </div>   
 
             <hr class="border-gray-200 dark:border-gray-800" />
 
@@ -115,8 +111,8 @@ watch(radius, v => { if (!radiusItem.value || radiusItem.value.value !== v) radi
                <div class="grid grid-cols-3 gap-2">
                   <UButton v-for="option in brandOptions" :key="option.value" @click="brandItem = option"
                      class="flex justify-start gap-2" size="sm" :ui="{ rounded: 'rounded-lg' }"
-                     :color="brandItem?.value === option.value ? 'primary' : 'gray'"
-                     :variant="brandItem?.value === option.value ? 'subtle' : 'ghost'">
+                     :color="brandItem?.value === option.value ? 'primary' : 'neutral'"
+                     :variant="brandItem?.value === option.value ? 'soft' : 'soft'">
                      <span class="w-2.5 h-2.5 rounded-full shadow-sm" 
                         :class="[
                           option.value === 'black' ? (isDark ? 'bg-white' : 'bg-black') : option.dot
@@ -135,7 +131,7 @@ watch(radius, v => { if (!radiusItem.value || radiusItem.value.value !== v) radi
                   <UButton v-for="option in neutralOptions" :key="option.value" @click="neutralItem = option"
                      class="flex justify-start gap-2" size="sm" :ui="{ rounded: 'rounded-lg' }"
                      :color="neutralItem?.value === option.value ? 'primary' : 'gray'"
-                     :variant="neutralItem?.value === option.value ? 'subtle' : 'ghost'">
+                     :variant="neutralItem?.value === option.value ? 'soft' : 'soft'">
                      <span class="w-2.5 h-2.5 rounded-full shadow-sm" :class="option.bg" />
                      <span class="truncate">{{ option.label }}</span>
                   </UButton>
@@ -150,8 +146,8 @@ watch(radius, v => { if (!radiusItem.value || radiusItem.value.value !== v) radi
                <div class="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
                   <UButton v-for="option in radiusOptions" :key="option.value" @click="radiusItem = option"
                      class="flex-1 justify-center" size="xs"
-                     :color="radiusItem?.value === option.value ? 'white' : 'gray'" 
-                     :variant="radiusItem?.value === option.value ? 'solid' : 'ghost'"
+                     :color="radiusItem?.value === option.value ? 'primary' : 'neutral'" 
+                     :variant="radiusItem?.value === option.value ? 'soft' : 'soft'"
                      :ui="{ rounded: 'rounded-md' }">
                      {{ option.label }}
                   </UButton>
