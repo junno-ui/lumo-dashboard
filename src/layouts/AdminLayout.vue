@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import AppSidebar from '../components/layout/AppSidebar.vue'
 import AppHeader from '../components/layout/AppHeader.vue'
-import ThemePickerColor from '../components/ThemePickerColor.vue'
 </script>
 
 <template>
@@ -16,6 +15,5 @@ import ThemePickerColor from '../components/ThemePickerColor.vue'
       </UDashboardPanelContent>
     </UDashboardPanel>
 
-    <ThemePickerColor />
-  </UDashboardGroup>
+    </UDashboardGroup>
 </template>

@@ -2,8 +2,6 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import * as yup from 'yup'
-// import type { FormSubmitEvent } from '#ui/types'
-import ThemePickerColor from '../components/ThemePickerColor.vue'
 import { Icon } from '@iconify/vue'
 
 const router = useRouter()
@@ -197,8 +195,6 @@ const handleSocialLogin = (provider: string) => {
          </UForm>
       </div>
 
-      <!-- Theme Picker -->
-      <ThemePickerColor />
     </div>
   </div>
 </template>
