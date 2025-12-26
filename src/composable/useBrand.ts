@@ -7,15 +7,16 @@ export type Brand =
 
 const STORAGE_KEY = 'brand'
 
-export function useBrand() {
-  const brand = ref<Brand>('default')
+// Shared state
+const brand = ref<Brand>('default')
 
+export function useBrand() {
   function applyBrand(b: Brand) {
     brand.value = b
     const root = document.documentElement
     if (b === 'default') root.removeAttribute('data-brand')
     else root.setAttribute('data-brand', b)
-    try { localStorage.setItem(STORAGE_KEY, b) } catch {}
+    try { localStorage.setItem(STORAGE_KEY, b) } catch { }
   }
 
   onMounted(() => {

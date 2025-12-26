@@ -4,9 +4,10 @@ export type Font = 'inter' | 'dm-sans' | 'outfit' | 'roboto'
 
 const STORAGE_KEY = 'nuxt-ui-font'
 
-export const useFont = () => {
-    const font = ref<Font>('inter')
+// Shared state
+const font = ref<Font>('inter')
 
+export const useFont = () => {
     const fontMap: Record<Font, string> = {
         'inter': 'font-sans',
         'dm-sans': 'font-dm-sans',

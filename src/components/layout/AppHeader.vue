@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
+import ThemePickerColor from '../ThemePickerColor.vue'
 import type { BreadcrumbItem } from '@nuxt/ui'
 
 const route = useRoute()
@@ -79,6 +80,8 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
     <!-- Right slot: Actions and user profile -->
     <template #right>
       <div class="flex items-center gap-3">
+        <ThemePickerColor />
+        
         <!-- Notification buttons -->
         <div class="flex items-center gap-2">
           <UButton 

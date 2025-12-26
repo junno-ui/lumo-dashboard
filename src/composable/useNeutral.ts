@@ -2,14 +2,15 @@ import { ref, onMounted } from 'vue'
 export type Neutral = 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone'
 const STORAGE_KEY = 'neutral'
 
-export function useNeutral() {
-  const neutral = ref<Neutral>('slate')
+// Shared state
+const neutral = ref<Neutral>('slate')
 
+export function useNeutral() {
   function applyNeutral(n: Neutral) {
     neutral.value = n
     const root = document.documentElement
     root.setAttribute('data-neutral', n)
-    try { localStorage.setItem(STORAGE_KEY, n) } catch {}
+    try { localStorage.setItem(STORAGE_KEY, n) } catch { }
   }
 
   onMounted(() => {
