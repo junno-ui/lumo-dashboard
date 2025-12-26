@@ -113,7 +113,7 @@ watch(radius, v => { if (!radiusItem.value || radiusItem.value.value !== v) radi
                      class="flex justify-start gap-2" size="sm" :ui="{ rounded: 'rounded-lg' }"
                      :color="brandItem?.value === option.value ? 'primary' : 'neutral'"
                      :variant="brandItem?.value === option.value ? 'soft' : 'soft'">
-                     <span class="w-2.5 h-2.5 rounded-full shadow-sm" 
+                     <span class="w-2 h-2 rounded-full shadow-sm" 
                         :class="[
                           option.value === 'black' ? (isDark ? 'bg-white' : 'bg-black') : option.dot
                         ]" />
@@ -132,7 +132,7 @@ watch(radius, v => { if (!radiusItem.value || radiusItem.value.value !== v) radi
                      class="flex justify-start gap-2" size="sm" :ui="{ rounded: 'rounded-lg' }"
                      :color="neutralItem?.value === option.value ? 'primary' : 'gray'"
                      :variant="neutralItem?.value === option.value ? 'soft' : 'soft'">
-                     <span class="w-2.5 h-2.5 rounded-full shadow-sm" :class="option.bg" />
+                     <span class="w-2 h-2 rounded-full shadow-sm" :class="option.bg" />
                      <span class="truncate">{{ option.label }}</span>
                   </UButton>
                </div>
