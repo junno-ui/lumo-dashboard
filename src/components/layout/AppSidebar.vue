@@ -67,10 +67,10 @@ const footerLinks: NavigationMenuItem[] = [
   <UDashboardSidebar
     collapsible
     resizable
-    class="bg-gray-50/50 dark:bg-gray-950/50 backdrop-blur-xl"
+    class="bg-primary-50 dark:bg-primary-950/50 backdrop-blur-xl"
     :ui="{
-      footer: 'border-t border-gray-100 dark:border-gray-800/50',
-      border: 'border-r border-gray-100 dark:border-gray-800/50'
+      footer: 'border-t border-primary-100 dark:border-primary-800/50',
+      border: 'border-r border-primary-100 dark:border-primary-800/50'
     }"
   >
     <template #header="{ collapsed }">

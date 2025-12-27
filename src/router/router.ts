@@ -47,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'analytics',
         redirect: '/analytics/revenue',
         children: [
-          { path: 'revenue', component: () => import('../pages/PlaceholderPage.vue'), meta: { title: 'Revenue Analytics' } },
+          { path: 'revenue', component: () => import('../pages/analytics/RevenuePage.vue'), meta: { title: 'Revenue Analytics' } },
           { path: 'usage', component: () => import('../pages/PlaceholderPage.vue'), meta: { title: 'Usage Analytics' } },
           { path: 'active-users', component: () => import('../pages/PlaceholderPage.vue'), meta: { title: 'Active Users' } }
         ]
@@ -77,15 +77,14 @@ const routes: Array<RouteRecordRaw> = [
         path: 'users',
         redirect: '/users/all',
         children: [
-          { path: 'all', component: () => import('../pages/PlaceholderPage.vue'), meta: { title: 'All Users' } },
+          { path: 'all', component: () => import('../pages/users/UsersPage.vue'), meta: { title: 'All Users' } },
           { path: 'roles', component: () => import('../pages/PlaceholderPage.vue'), meta: { title: 'Roles' } },
           { path: 'activity-log', component: () => import('../pages/PlaceholderPage.vue'), meta: { title: 'Activity Log' } }
         ]
       },
       // Settings
       {
-        path: 'settings', // Keeping top level settings path or nested? The user asked for "Settings > Profile etc".
-        // Existing router had settings page. I will convert it to nested.
+        path: 'settings',
         redirect: '/settings/profile',
         children: [
           { path: 'profile', component: () => import('../pages/PlaceholderPage.vue'), meta: { title: 'Profile Settings' } },
