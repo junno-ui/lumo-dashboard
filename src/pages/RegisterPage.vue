@@ -115,21 +115,29 @@
           <UFormGroup label="Password" name="password" class="space-y-2">
             <UInput
               v-model="state.password"
-              type="password"
+              :type="showPassword ? 'text' : 'password'"
               placeholder="Create a password"
               size="lg"
               icon="i-heroicons-lock-closed"
-            />
+            >
+              <template #trailing>
+                <UButton :icon="showPassword ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'" color="gray" variant="ghost" @click="showPassword = !showPassword" />
+              </template>
+            </UInput>
           </UFormGroup>
 
           <UFormGroup label="Confirm Password" name="confirmPassword" class="space-y-2">
             <UInput
               v-model="state.confirmPassword"
-              type="password"
+              :type="showConfirm ? 'text' : 'password'"
               placeholder="Confirm your password"
               size="lg"
               icon="i-heroicons-lock-closed"
-            />
+            >
+              <template #trailing>
+                <UButton :icon="showConfirm ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'" color="gray" variant="ghost" @click="showConfirm = !showConfirm" />
+              </template>
+            </UInput>
           </UFormGroup>
 
           <UFormGroup name="terms" class="space-y-2">
@@ -164,6 +172,8 @@ import { Icon } from '@iconify/vue'
 const router = useRouter()
 const isLoading = ref(false)
 const toast = useToast()
+const showPassword = ref(false)
+const showConfirm = ref(false)
 
 const schema = yup.object({
   name: yup.string().required('Name is required'),

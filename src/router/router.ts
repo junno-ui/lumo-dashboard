@@ -31,17 +31,29 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../pages/RegisterPage.vue'),
     meta: { title: 'Register' }
   },
-  {
-    path: '/',
-    component: () => import('../layouts/AdminLayout.vue'),
-    meta: { requiresAuth: true },
-    children: [
       {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: () => import('../pages/DashboardPage.vue'),
-        meta: { title: 'Dashboard' }
-      },
+        path: '/',
+        component: () => import('../layouts/AdminLayout.vue'),
+        meta: { requiresAuth: true },
+        children: [
+          {
+            path: 'dashboard',
+            name: 'Dashboard',
+            component: () => import('../pages/DashboardPage.vue'),
+            meta: { title: 'Dashboard' }
+          },
+          {
+            path: 'inbox',
+            name: 'Inbox',
+            component: () => import('../pages/InboxPage.vue'),
+            meta: { title: 'Inbox' }
+          },
+          {
+            path: 'notifications',
+            name: 'Notifications',
+            component: () => import('../pages/NotificationsPage.vue'),
+            meta: { title: 'Notifications' }
+          },
       // Analytics
       {
         path: 'analytics',

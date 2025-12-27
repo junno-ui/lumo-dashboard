@@ -52,7 +52,7 @@
           </h2>
           <p class="text-neutral-600 dark:text-neutral-400 text-sm">
             Don't have an account?
-            <NuxtLink to="/auth/signup" class="text-accent-600 dark:text-accent-400 font-semibold hover:text-accent-700 dark:hover:text-accent-300">
+            <NuxtLink to="/auth/register" class="text-accent-600 dark:text-accent-400 font-semibold hover:text-accent-700 dark:hover:text-accent-300">
               Create one
             </NuxtLink>
           </p>
@@ -91,34 +91,38 @@
           <div class="grow border-t border-neutral-200 dark:border-neutral-800"></div>
         </div>
 
-        <UForm :schema="schema" :state="state" class="space-y-5" @submit="onSignIn">
-          <UFormGroup label="Email address" name="email" class="space-y-2">
-            <UInput
-              v-model="state.email"
-              type="email"
-              placeholder="you@example.com"
-              size="lg"
-              icon="i-heroicons-envelope""
-            />
-          </UFormGroup>
+            <UForm :schema="schema" :state="state" class="space-y-5" @submit="onSignIn">
+              <UFormGroup label="Email address" name="email" class="space-y-2">
+                <UInput
+                  v-model="state.email"
+                  type="email"
+                  placeholder="you@example.com"
+                  size="lg"
+                  icon="i-heroicons-envelope"
+                />
+              </UFormGroup>
 
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <label for="password" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                Password
-              </label>
-              <NuxtLink to="/auth/forgot-password" class="text-sm text-accent-600 dark:text-accent-400 font-semibold hover:underline">
-                Forgot?
-              </NuxtLink>
-            </div>
-            <UInput
-              v-model="state.password"
-              type="password"
-              placeholder="Enter your password"
-              size="lg"
-              icon="i-heroicons-lock-closed"
-            />
-          </div>
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <label for="password" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                    Password
+                  </label>
+                  <NuxtLink to="/auth/forgot-password" class="text-sm text-accent-600 dark:text-accent-400 font-semibold hover:underline">
+                    Forgot?
+                  </NuxtLink>
+                </div>
+                <UInput
+                  v-model="state.password"
+                  :type="showPassword ? 'text' : 'password'"
+                  placeholder="Enter your password"
+                  size="lg"
+                  icon="i-heroicons-lock-closed"
+                >
+                  <template #trailing>
+                    <UButton :icon="showPassword ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'" color="gray" variant="ghost" @click="showPassword = !showPassword" />
+                  </template>
+                </UInput>
+              </div>
 
           <UFormGroup name="remember" class="space-y-2">
             <div class="flex items-center gap-2">
@@ -151,6 +155,7 @@ import * as yup from 'yup'
 const router = useRouter()
 const isLoading = ref(false)
 const toast = useToast()
+const showPassword = ref(false)
 
 const schema = yup.object({
   email: yup.string().email('Invalid email').required('Email is required'),
