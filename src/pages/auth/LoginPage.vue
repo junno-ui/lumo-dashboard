@@ -18,10 +18,10 @@
 
       <div class="relative z-10 max-w-lg">
         <h1 class="text-5xl lg:text-6xl font-bold leading-tight mb-8">
-          Join<br />Nova Today
+          Welcome<br />Back to Nova
         </h1>
         <p class="text-primary-100 text-lg leading-relaxed mb-12">
-          Create an account to start managing your projects and collaborating with your team.
+          Access your dashboard, manage projects, and collaborate with your team seamlessly.
         </p>
 
         <div class="p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 inline-block hover:bg-white/10 transition-all duration-300 group">
@@ -30,30 +30,30 @@
             <div class="w-12 h-2 bg-accent-400/50 rounded-full"></div>
           </div>
           <div class="w-full h-32 bg-linear-to-br from-accent-500/20 to-primary-500/20 rounded-xl mb-4 flex items-center justify-center group-hover:from-accent-500/30 group-hover:to-primary-500/30 transition-all">
-            <Icon icon="mdi:account-plus" class="w-16 h-16 text-accent-400/40" />
+            <Icon icon="mdi:shield-check" class="w-16 h-16 text-accent-400/40" />
           </div>
           <div class="flex items-center gap-2">
             <div class="w-8 h-8 rounded-full bg-accent-400/30 flex items-center justify-center">
-              <Icon icon="mdi:rocket-launch" class="w-4 h-4 text-accent-300" />
+              <Icon icon="mdi:lock" class="w-4 h-4 text-accent-300" />
             </div>
-            <div class="text-sm text-primary-100 leading-relaxed">Start your journey with us.</div>
+            <div class="text-sm text-primary-100 leading-relaxed">Your data is secure with enterprise-grade encryption.</div>
           </div>
-          <div class="mt-4 text-sm font-semibold text-accent-300">Get Started</div>
+          <div class="mt-4 text-sm font-semibold text-accent-300">Security First</div>
         </div>
       </div>
     </div>
 
-    <!-- Right Side: Registration Form -->
+    <!-- Right Side: Login Form -->
     <div class="relative flex items-center justify-center p-6 sm:p-8 bg-white dark:bg-neutral-950 min-h-screen">
       <div class="w-full max-w-md">
         <div class="mb-10">
           <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight">
-            Create Account
+            Sign in
           </h2>
           <p class="text-neutral-600 dark:text-neutral-400 text-sm">
-            Already have an account?
-            <NuxtLink to="/auth/login" class="text-accent-600 dark:text-accent-400 font-semibold hover:text-accent-700 dark:hover:text-accent-300">
-              Sign in
+            Don't have an account?
+            <NuxtLink to="/auth/register" class="text-accent-600 dark:text-accent-400 font-semibold hover:text-accent-700 dark:hover:text-accent-300">
+              Create one
             </NuxtLink>
           </p>
         </div>
@@ -91,60 +91,44 @@
           <div class="grow border-t border-neutral-200 dark:border-neutral-800"></div>
         </div>
 
-        <UForm :schema="schema" :state="state" class="space-y-5" @submit="onSignUp">
-          <UFormGroup label="Full Name" name="name" class="space-y-2">
-            <UInput
-              v-model="state.name"
-              type="text"
-              placeholder="John Doe"
-              size="lg"
-              icon="i-heroicons-user"
-            />
-          </UFormGroup>
+            <UForm :schema="schema" :state="state" class="space-y-5" @submit="onSignIn">
+              <UFormGroup label="Email address" name="email" class="space-y-2">
+                <UInput
+                  v-model="state.email"
+                  type="email"
+                  placeholder="you@example.com"
+                  size="lg"
+                  icon="i-heroicons-envelope"
+                />
+              </UFormGroup>
 
-          <UFormGroup label="Email address" name="email" class="space-y-2">
-            <UInput
-              v-model="state.email"
-              type="email"
-              placeholder="you@example.com"
-              size="lg"
-              icon="i-heroicons-envelope"
-            />
-          </UFormGroup>
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <label for="password" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                    Password
+                  </label>
+                  <NuxtLink to="/auth/forgot-password" class="text-sm text-accent-600 dark:text-accent-400 font-semibold hover:underline">
+                    Forgot?
+                  </NuxtLink>
+                </div>
+                <UInput
+                  v-model="state.password"
+                  :type="showPassword ? 'text' : 'password'"
+                  placeholder="Enter your password"
+                  size="lg"
+                  icon="i-heroicons-lock-closed"
+                >
+                  <template #trailing>
+                    <UButton :icon="showPassword ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'" color="gray" variant="ghost" @click="showPassword = !showPassword" />
+                  </template>
+                </UInput>
+              </div>
 
-          <UFormGroup label="Password" name="password" class="space-y-2">
-            <UInput
-              v-model="state.password"
-              :type="showPassword ? 'text' : 'password'"
-              placeholder="Create a password"
-              size="lg"
-              icon="i-heroicons-lock-closed"
-            >
-              <template #trailing>
-                <UButton :icon="showPassword ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'" color="gray" variant="ghost" @click="showPassword = !showPassword" />
-              </template>
-            </UInput>
-          </UFormGroup>
-
-          <UFormGroup label="Confirm Password" name="confirmPassword" class="space-y-2">
-            <UInput
-              v-model="state.confirmPassword"
-              :type="showConfirm ? 'text' : 'password'"
-              placeholder="Confirm your password"
-              size="lg"
-              icon="i-heroicons-lock-closed"
-            >
-              <template #trailing>
-                <UButton :icon="showConfirm ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'" color="gray" variant="ghost" @click="showConfirm = !showConfirm" />
-              </template>
-            </UInput>
-          </UFormGroup>
-
-          <UFormGroup name="terms" class="space-y-2">
+          <UFormGroup name="remember" class="space-y-2">
             <div class="flex items-center gap-2">
-              <UCheckbox v-model="state.terms" />
+              <UCheckbox v-model="state.remember" />
               <label class="text-sm text-neutral-600 dark:text-neutral-400">
-                I agree to the <a href="#" class="text-accent-600 dark:text-accent-400 hover:underline">Terms</a> and <a href="#" class="text-accent-600 dark:text-accent-400 hover:underline">Privacy Policy</a>
+                Remember me
               </label>
             </div>
           </UFormGroup>
@@ -155,7 +139,7 @@
             size="lg"
             :loading="isLoading"
           >
-            Create Account
+            Sign in
           </UButton>
         </UForm>
       </div>
@@ -167,41 +151,33 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import * as yup from 'yup'
-import { Icon } from '@iconify/vue'
 
 const router = useRouter()
 const isLoading = ref(false)
 const toast = useToast()
 const showPassword = ref(false)
-const showConfirm = ref(false)
 
 const schema = yup.object({
-  name: yup.string().required('Name is required'),
   email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
-  confirmPassword: yup.string()
-    .oneOf([yup.ref('password')], 'Passwords must match')
-    .required('Confirm password is required'),
-  terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+  password: yup.string().required('Password is required'),
+  remember: yup.boolean(),
 })
 
 const state = reactive({
-  name: '',
   email: '',
   password: '',
-  confirmPassword: '',
-  terms: false,
+  remember: false,
 })
 
-const onSignUp = async () => {
+const onSignIn = async () => {
   isLoading.value = true
 
   await new Promise(resolve => setTimeout(resolve, 1500))
 
   isLoading.value = false
   toast.add({
-    title: 'Account created',
-    description: 'Your account has been created successfully.',
+    title: 'Welcome back',
+    description: 'You have signed in successfully.',
     icon: 'i-heroicons-check-circle',
     color: 'green',
   })
@@ -216,4 +192,5 @@ const handleSocialLogin = (provider: string) => {
     icon: 'i-heroicons-arrow-right',
   })
 }
+
 </script>

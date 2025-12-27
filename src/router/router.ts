@@ -22,13 +22,13 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/auth/login',
     name: 'Login',
-    component: () => import('../pages/LoginPage.vue'),
+    component: () => import('../pages/auth/LoginPage.vue'),
     meta: { title: 'Login' }
   },
   {
     path: '/auth/register',
     name: 'Register',
-    component: () => import('../pages/RegisterPage.vue'),
+    component: () => import('../pages/auth/RegisterPage.vue'),
     meta: { title: 'Register' }
   },
       {
@@ -39,19 +39,19 @@ const routes: Array<RouteRecordRaw> = [
           {
             path: 'dashboard',
             name: 'Dashboard',
-            component: () => import('../pages/DashboardPage.vue'),
+            component: () => import('../pages/dashboard/DashboardPage.vue'),
             meta: { title: 'Dashboard' }
           },
           {
             path: 'inbox',
             name: 'Inbox',
-            component: () => import('../pages/InboxPage.vue'),
+            component: () => import('../pages/communication/InboxPage.vue'),
             meta: { title: 'Inbox' }
           },
           {
             path: 'notifications',
             name: 'Notifications',
-            component: () => import('../pages/NotificationsPage.vue'),
+            component: () => import('../pages/communication/NotificationsPage.vue'),
             meta: { title: 'Notifications' }
           },
       // Analytics
