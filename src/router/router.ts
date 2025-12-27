@@ -26,6 +26,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: 'Login' }
   },
   {
+    path: '/auth/register',
+    name: 'Register',
+    component: () => import('../pages/RegisterPage.vue'),
+    meta: { title: 'Register' }
+  },
+  {
     path: '/',
     component: () => import('../layouts/AdminLayout.vue'),
     meta: { requiresAuth: true },
