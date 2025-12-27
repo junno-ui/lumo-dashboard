@@ -98,8 +98,7 @@
               type="email"
               placeholder="you@example.com"
               size="lg"
-              icon="i-heroicons-envelope"
-              :ui="{ rounded: 'rounded-lg' }"
+              icon="i-heroicons-envelope""
             />
           </UFormGroup>
 
@@ -118,7 +117,6 @@
               placeholder="Enter your password"
               size="lg"
               icon="i-heroicons-lock-closed"
-              :ui="{ rounded: 'rounded-lg' }"
             />
           </div>
 
@@ -135,7 +133,6 @@
             type="submit"
             block
             size="lg"
-            color="primary"
             :loading="isLoading"
           >
             Sign in
@@ -144,9 +141,11 @@
       </div>
     </div>
   </div>
+  <ThemePickerColor />
 </template>
 
 <script setup lang="ts">
+  import ThemePickerColor from '../components/ThemePickerColor.vue'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import * as yup from 'yup'
