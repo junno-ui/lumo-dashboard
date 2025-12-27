@@ -21,3 +21,26 @@ export const activityLog = [
     { id: 4, user: 'David Lee', action: 'Deleted post', time: '1 day ago', icon: 'i-heroicons-trash' },
     { id: 5, user: 'Alice Johnson', action: 'Updated settings', time: '2 days ago', icon: 'i-heroicons-cog-6-tooth' }
 ];
+
+export const growthData = [
+    { month: 'Jun', newUsers: 320, totalUsers: 1280 },
+    { month: 'Jul', newUsers: 410, totalUsers: 1690 },
+    { month: 'Aug', newUsers: 520, totalUsers: 2210 },
+    { month: 'Sep', newUsers: 480, totalUsers: 2690 },
+    { month: 'Oct', newUsers: 560, totalUsers: 3250 }
+];
+
+export const geoDistribution = [
+    { region: 'US', users: 980 },
+    { region: 'EU', users: 620 },
+    { region: 'APAC', users: 420 },
+    { region: 'Other', users: 230 }
+];
+
+export const activityOverTime = [
+    { date: '2025-10-01', actions: 120 },
+    { date: '2025-10-02', actions: 150 },
+    { date: '2025-10-03', actions: 98 },
+    { date: '2025-10-04', actions: 176 },
+    { date: '2025-10-05', actions: 189 }
+];

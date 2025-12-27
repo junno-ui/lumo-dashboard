@@ -19,3 +19,17 @@ export const paymentMethods = [
     { id: 2, type: 'Mastercard', last4: '8888', expiry: '09/26', default: false, icon: 'i-heroicons-credit-card' },
     { id: 3, type: 'PayPal', email: 'john@example.com', default: false, icon: 'i-logos-paypal' }
 ];
+
+export const monthlySpend = [
+    { month: 'Jun', amount: 29 },
+    { month: 'Jul', amount: 29 },
+    { month: 'Aug', amount: 79 },
+    { month: 'Sep', amount: 79 },
+    { month: 'Oct', amount: 79 }
+];
+
+export const spendBreakdown = [
+    { category: 'Subscriptions', amount: 79 },
+    { category: 'Usage', amount: 0 },
+    { category: 'Refunds', amount: -29 }
+];

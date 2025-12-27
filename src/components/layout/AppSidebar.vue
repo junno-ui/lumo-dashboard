@@ -8,46 +8,46 @@ const links: NavigationMenuItem[] = [
     label: 'Analytics', 
     icon: 'heroicons:chart-bar', 
     children: [
-      { label: 'Revenue', to: '/analytics/revenue' },
-      { label: 'Usage', to: '/analytics/usage' },
-      { label: 'Active Users', to: '/analytics/active-users' }
+      { label: 'Revenue', to: '/analytics/revenue', icon: 'heroicons:banknotes' },
+      { label: 'Usage', to: '/analytics/usage', icon: 'heroicons:chart-bar' },
+      { label: 'Active Users', to: '/analytics/active-users', icon: 'heroicons:user-group' }
     ]
   },
   { 
     label: 'Subscriptions', 
     icon: 'heroicons:credit-card', 
     children: [
-      { label: 'Plans', to: '/subscriptions/plans' },
-      { label: 'User Subscriptions', to: '/subscriptions/user-subscriptions' },
-      { label: 'Usage Limits', to: '/subscriptions/usage-limits' }
+      { label: 'Plans', to: '/subscriptions/plans', icon: 'heroicons:rectangle-stack' },
+      { label: 'User Subscriptions', to: '/subscriptions/user-subscriptions', icon: 'heroicons:user-group' },
+      { label: 'Usage Limits', to: '/subscriptions/usage-limits', icon: 'heroicons:chart-pie' }
     ]
   },
   { 
     label: 'Billing', 
     icon: 'heroicons:banknotes', 
     children: [
-      { label: 'Overview', to: '/billing/overview' },
-      { label: 'Invoices', to: '/billing/invoices' },
-      { label: 'Payment Methods', to: '/billing/payment-methods' }
+      { label: 'Overview', to: '/billing/overview', icon: 'heroicons:document-chart-bar' },
+      { label: 'Invoices', to: '/billing/invoices', icon: 'heroicons:document-text' },
+      { label: 'Payment Methods', to: '/billing/payment-methods', icon: 'heroicons:credit-card' }
     ]
   },
   { 
     label: 'Users', 
     icon: 'heroicons:users', 
     children: [
-      { label: 'All Users', to: '/users/all' },
-      { label: 'Roles', to: '/users/roles' },
-      { label: 'Activity Log', to: '/users/activity-log' }
+      { label: 'All Users', to: '/users/all', icon: 'heroicons:users' },
+      { label: 'Roles', to: '/users/roles', icon: 'heroicons:shield-check' },
+      { label: 'Activity Log', to: '/users/activity-log', icon: 'heroicons:clock' }
     ]
   },
   { 
     label: 'Settings', 
     icon: 'heroicons:cog-6-tooth', 
     children: [
-      { label: 'Profile', to: '/settings/profile' },
-      { label: 'Organization', to: '/settings/organization' },
-      { label: 'Preferences', to: '/settings/preferences' },
-      { label: 'Security', to: '/settings/security' }
+      { label: 'Profile', to: '/settings/profile', icon: 'heroicons:user-circle' },
+      { label: 'Organization', to: '/settings/organization', icon: 'heroicons:building-office' },
+      { label: 'Preferences', to: '/settings/preferences', icon: 'heroicons:adjustments-horizontal' },
+      { label: 'Security', to: '/settings/security', icon: 'heroicons:lock-closed' }
     ]
   }
 ]

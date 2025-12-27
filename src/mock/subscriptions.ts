@@ -43,3 +43,27 @@ export const usageLimits = [
     { resource: 'Projects', used: 12, total: 50, unit: 'projects', percentage: 24, color: 'green' },
     { resource: 'Members', used: 8, total: 10, unit: 'users', percentage: 80, color: 'orange' }
 ];
+
+export const churnData = [
+    { month: 'Jun', churnRate: 2.1 },
+    { month: 'Jul', churnRate: 1.8 },
+    { month: 'Aug', churnRate: 2.3 },
+    { month: 'Sep', churnRate: 2.0 },
+    { month: 'Oct', churnRate: 1.6 }
+];
+
+export const mrrData = [
+    { month: 'Jun', mrr: 18200 },
+    { month: 'Jul', mrr: 20500 },
+    { month: 'Aug', mrr: 22800 },
+    { month: 'Sep', mrr: 24100 },
+    { month: 'Oct', mrr: 25900 }
+];
+
+export const arpuData = [
+    { month: 'Jun', arpu: 24.8 },
+    { month: 'Jul', arpu: 25.3 },
+    { month: 'Aug', arpu: 26.1 },
+    { month: 'Sep', arpu: 26.9 },
+    { month: 'Oct', arpu: 27.2 }
+];

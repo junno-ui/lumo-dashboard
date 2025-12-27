@@ -42,3 +42,43 @@ export const analyticsStats = {
     activeUsersNow: 89,
     activeUsersGrowth: '+3.1%'
 };
+
+export const revenueByProduct = [
+    { product: 'Core', revenue: 420000 },
+    { product: 'API', revenue: 260000 },
+    { product: 'Add-ons', revenue: 132000 }
+];
+
+export const usageByRegion = [
+    { region: 'North America', requests: 1800000 },
+    { region: 'Europe', requests: 1200000 },
+    { region: 'APAC', requests: 900000 },
+    { region: 'LATAM', requests: 300000 }
+];
+
+export const deviceDistribution = [
+    { device: 'Desktop', percent: 58 },
+    { device: 'Mobile', percent: 34 },
+    { device: 'Tablet', percent: 8 }
+];
+
+export const conversionFunnel = [
+    { stage: 'Visited', users: 100000 },
+    { stage: 'Signed Up', users: 22000 },
+    { stage: 'Activated', users: 16000 },
+    { stage: 'Paid', users: 5800 }
+];
+
+export const forecastRevenue = [
+    { month: 'Jan', forecast: 102000 },
+    { month: 'Feb', forecast: 106000 },
+    { month: 'Mar', forecast: 109000 }
+];
+
+export const usageDataNumeric = [
+    { date: '2025-10-01', requests: 12000, bandwidthGB: 450 },
+    { date: '2025-10-02', requests: 13500, bandwidthGB: 480 },
+    { date: '2025-10-03', requests: 11000, bandwidthGB: 410 },
+    { date: '2025-10-04', requests: 14200, bandwidthGB: 520 },
+    { date: '2025-10-05', requests: 15800, bandwidthGB: 590 }
+];
