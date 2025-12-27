@@ -7,10 +7,7 @@ import type { BreadcrumbItem } from '@nuxt/ui'
 
 const route = useRoute()
 
-// Generate page title from route meta
-const pageTitle = computed(() => route.meta.title || 'Dashboard')
 
-// Generate breadcrumb items dynamically from route
 const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
   const items: BreadcrumbItem[] = [
     {
@@ -20,7 +17,6 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
     }
   ]
 
-  // Split path and create breadcrumb items
   const pathSegments = route.path.split('/').filter(Boolean)
   
   pathSegments.forEach((segment, index) => {
@@ -41,7 +37,7 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
 </script>
 
 <template>
-  <UDashboardNavbar :title="pageTitle" icon="i-lucide-layout-dashboard">
+  <UDashboardNavbar icon="i-lucide-layout-dashboard">
     <!-- Leading slot: Mobile toggle and breadcrumb -->
     <template #leading>
       <UDashboardSidebarCollapse class="lg:hidden" />
