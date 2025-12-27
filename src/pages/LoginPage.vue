@@ -141,11 +141,9 @@
       </div>
     </div>
   </div>
-  <ThemePickerColor />
 </template>
 
 <script setup lang="ts">
-  import ThemePickerColor from '../components/ThemePickerColor.vue'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import * as yup from 'yup'
