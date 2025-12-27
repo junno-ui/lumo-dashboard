@@ -4,18 +4,55 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 
 const links: NavigationMenuItem[] = [
   { label: 'Dashboard', icon: 'heroicons:squares-2x2', to: '/dashboard' },
-  { label: 'Inbox', icon: 'heroicons:inbox', to: '/inbox', badge: 'New' },
-  { label: 'Lesson', icon: 'heroicons:book-open', to: '/lesson' },
-  { label: 'Task', icon: 'heroicons:clipboard-document-list', to: '/task' },
-  { label: 'Group', icon: 'heroicons:user-group', to: '/group' }
+  { 
+    label: 'Analytics', 
+    icon: 'heroicons:chart-bar', 
+    children: [
+      { label: 'Revenue', to: '/analytics/revenue' },
+      { label: 'Usage', to: '/analytics/usage' },
+      { label: 'Active Users', to: '/analytics/active-users' }
+    ]
+  },
+  { 
+    label: 'Subscriptions', 
+    icon: 'heroicons:credit-card', 
+    children: [
+      { label: 'Plans', to: '/subscriptions/plans' },
+      { label: 'User Subscriptions', to: '/subscriptions/user-subscriptions' },
+      { label: 'Usage Limits', to: '/subscriptions/usage-limits' }
+    ]
+  },
+  { 
+    label: 'Billing', 
+    icon: 'heroicons:banknotes', 
+    children: [
+      { label: 'Overview', to: '/billing/overview' },
+      { label: 'Invoices', to: '/billing/invoices' },
+      { label: 'Payment Methods', to: '/billing/payment-methods' }
+    ]
+  },
+  { 
+    label: 'Users', 
+    icon: 'heroicons:users', 
+    children: [
+      { label: 'All Users', to: '/users/all' },
+      { label: 'Roles', to: '/users/roles' },
+      { label: 'Activity Log', to: '/users/activity-log' }
+    ]
+  },
+  { 
+    label: 'Settings', 
+    icon: 'heroicons:cog-6-tooth', 
+    children: [
+      { label: 'Profile', to: '/settings/profile' },
+      { label: 'Organization', to: '/settings/organization' },
+      { label: 'Preferences', to: '/settings/preferences' },
+      { label: 'Security', to: '/settings/security' }
+    ]
+  }
 ]
 
 const footerLinks: NavigationMenuItem[] = [
-  {
-    label: 'Settings',
-    icon: 'heroicons:cog-6-tooth',
-    to: '/settings'
-  },
   {
     label: 'Logout',
     icon: 'heroicons:arrow-left-on-rectangle',
@@ -66,7 +103,7 @@ const footerLinks: NavigationMenuItem[] = [
                bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900
                dark:from-white dark:via-blue-100 dark:to-white"
       >
-        Nova
+        Lumo
       </span>
       <span
         class="text-[10px] font-medium text-gray-500 dark:text-gray-400
