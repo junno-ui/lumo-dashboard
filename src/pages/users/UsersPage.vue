@@ -2,13 +2,13 @@
 import { ref, h, resolveComponent } from 'vue'
 import BaseDataTable from '../../components/common/BaseDataTable.vue'
 import UserFormModal from '../../components/users/UserFormModal.vue'
+import { users as mockUsers } from '@/mock/users'
 
 const UBadge = resolveComponent('UBadge')
 const UButton = resolveComponent('UButton')
 const UDropdownMenu = resolveComponent('UDropdownMenu')
 const UAvatar = resolveComponent('UAvatar')
 
-// Types
 interface User {
   id: number
   name: string
@@ -17,15 +17,7 @@ interface User {
   status: string
 }
 
-// Mock Data
-const users = ref<User[]>([
-  { id: 1, name: 'Lindsay Walton', email: 'lindsay.walton@example.com', role: 'member', status: 'active' },
-  { id: 2, name: 'Courtney Henry', email: 'courtney.henry@example.com', role: 'admin', status: 'active' },
-  { id: 3, name: 'Tom Cook', email: 'tom.cook@example.com', role: 'member', status: 'inactive' },
-  { id: 4, name: 'Whitney Francis', email: 'whitney.francis@example.com', role: 'admin', status: 'active' },
-  { id: 5, name: 'Leonard Krasner', email: 'leonard.krasner@example.com', role: 'viewer', status: 'active' },
-  { id: 6, name: 'Floyd Miles', email: 'floyd.miles@example.com', role: 'member', status: 'warning' },
-])
+const users = ref<User[]>(mockUsers.map((u:any) => ({ id: u.id, name: u.name, email: u.email, role: u.role.toLowerCase(), status: u.status.toLowerCase() })))
 
 // Columns
 const columns = [
@@ -84,7 +76,7 @@ const columns = [
             }]
         ]
         
-        return h(UDropdownMenu, { items }, () => 
+        return h(UDropdownMenu, { items }, () =>
             h(UButton, { color: 'gray', variant: 'ghost', icon: 'i-heroicons-ellipsis-horizontal-20-solid' })
         )
     }
