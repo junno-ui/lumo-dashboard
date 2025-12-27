@@ -10,7 +10,7 @@ import AppHeader from '../components/layout/AppHeader.vue'
     <UDashboardPanel grow>
       <AppHeader />
       
-      <UDashboardPanelContent class="p-8">
+      <UDashboardPanelContent class="p-8 overflow-auto">
         <RouterView />
       </UDashboardPanelContent>
     </UDashboardPanel>
