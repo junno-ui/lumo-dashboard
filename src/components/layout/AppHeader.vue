@@ -25,7 +25,7 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
 </script>
 
 <template>
-  <UDashboardNavbar icon="i-lucide-layout-dashboard">
+  <UDashboardNavbar icon="i-lucide-layout-dashboard" >
     <!-- Leading slot: Mobile toggle and breadcrumb -->
     <template #leading>
       <UDashboardSidebarCollapse class="lg:hidden" />
