@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
 import type { NavigationMenuItem } from '@nuxt/ui'
 
 const links: NavigationMenuItem[] = [
@@ -74,78 +73,30 @@ const footerLinks: NavigationMenuItem[] = [
     }"
   >
     <template #header="{ collapsed }">
-  <!-- Expanded -->
-  <div
-    v-if="!collapsed"
-    class="relative flex items-center gap-4 px-2 py-2"
-  >
-    <!-- Logo -->
-    <div class="relative group">
-      <div
-        class="absolute inset-0 bg-blue-500/30 dark:bg-blue-400/20
-               rounded-xl blur-lg opacity-0 group-hover:opacity-100
-               transition-all duration-300"
-      />
-      <div
-        class="relative h-10 w-10 rounded-xl bg-gradient-to-br
-               from-blue-600 via-violet-600 to-fuchsia-600
-               flex items-center justify-center text-white
-               shadow-lg shadow-blue-500/20 ring-1 ring-white/20"
+      <div 
+        class="flex items-center px-3 py-4 w-full group/header transition-all duration-300 relative"
+        :class="[collapsed ? 'flex-col justify-center gap-3' : 'flex-row justify-between gap-2']"
       >
-        <Icon icon="solar:stars-bold-duotone" class="w-6 h-6" />
+        <div class="flex items-center overflow-visible">
+          <UBadge
+            :avatar="{
+              src: 'https://github.com/nuxt.png'
+            }"
+            size="lg"
+            variant="soft"
+            class="flex-shrink-0 !rounded-xl ring-1 ring-primary-100/50 dark:ring-primary-900/50 shadow-sm transition-all duration-300"
+            :class="[collapsed ? 'w-10 h-10 flex items-center justify-center p-0 pt-5 ' : 'px-3 py-1.5']"
+          >
+            <span v-if="!collapsed" class="font-bold tracking-tight text-gray-900 dark:text-white ml-2 whitespace-nowrap">Lumo Dashboard</span>
+          </UBadge>
+        </div>
+
+        <UDashboardSidebarCollapse
+          class="shrink-0 p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-800 shadow-sm border border-transparent hover:border-gray-100 dark:hover:border-slate-700 transition-all"
+          :class="[collapsed ? 'opacity-100' : 'opacity-0 group-hover/header:opacity-100']"
+        />
       </div>
-    </div>
-
-    <!-- Title -->
-    <div class="flex flex-col">
-      <span
-        class="text-xl font-bold bg-clip-text text-transparent
-               bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900
-               dark:from-white dark:via-blue-100 dark:to-white"
-      >
-        Lumo
-      </span>
-      <span
-        class="text-[10px] font-medium text-gray-500 dark:text-gray-400
-               -mt-1 tracking-wider uppercase"
-      >
-        Dashboard
-      </span>
-    </div>
-
-    <!-- 🔥 Collapse Button di POJOK -->
-    <UDashboardSidebarCollapse
-      class="absolute top-2 right-2
-             rounded-lg p-1
-             hover:bg-gray-100 dark:hover:bg-slate-800
-             transition"
-    />
-  </div>
-
-  <!-- Collapsed -->
-  <div
-    v-else
-    class="relative flex justify-center py-2"
-  >
-    <!-- Icon only -->
-    <div
-      class="h-9 w-9 rounded-xl bg-gradient-to-br
-             from-blue-600 via-violet-600 to-fuchsia-600
-             flex items-center justify-center text-white
-             shadow-lg shadow-blue-500/20 ring-1 ring-white/20"
-    >
-      <Icon icon="solar:stars-bold-duotone" class="w-5 h-5" />
-    </div>
-
-    <!-- 🔥 Collapse Button tetap di pojok -->
-    <UDashboardSidebarCollapse
-      class="absolute top-2 right-2
-             rounded-lg p-1
-             hover:bg-gray-100 dark:hover:bg-slate-800
-             transition"
-    />
-  </div>
-</template>
+    </template>
 
 
     <!-- ================= CONTENT ================= -->

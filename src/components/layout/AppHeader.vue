@@ -25,37 +25,48 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
 </script>
 
 <template>
-  <UDashboardNavbar icon="i-lucide-layout-dashboard" >
+  <UDashboardNavbar 
+    :ui="{ 
+      wrapper: 'border-b border-primary-100 dark:border-primary-800/50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-50',
+      container: 'max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 h-16'
+    }"
+  >
     <!-- Leading slot: Mobile toggle and breadcrumb -->
     <template #leading>
-      <UDashboardSidebarCollapse class="lg:hidden" />
-      
-      <!-- Breadcrumb for desktop -->
-      <div class="hidden lg:block">
-        <UBreadcrumb :items="breadcrumbItems" separator-icon="i-lucide-chevron-right" />
+      <div class="flex items-center gap-4">
+        <UDashboardSidebarCollapse class="lg:hidden p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors" />
+        
+        <!-- Breadcrumb for desktop -->
+        <div class="hidden lg:block">
+          <UBreadcrumb 
+            :items="breadcrumbItems" 
+            separator-icon="i-lucide-chevron-right"
+            :ui="{ 
+              ol: 'gap-1',
+              li: 'text-sm font-medium transition-colors hover:text-primary-600 dark:hover:text-primary-400',
+              active: 'text-gray-900 dark:text-white font-bold',
+              inactive: 'text-gray-400 dark:text-gray-500'
+            }"
+          />
+        </div>
       </div>
-    </template>
-
-    <!-- Trailing slot: Badge or additional info next to title -->
-    <template #trailing>
-      <!-- You can add badges or additional info here if needed -->
     </template>
 
     <!-- Default slot: Search bar for desktop -->
     <template #default>
-      <div class="hidden lg:flex flex-1 justify-center max-w-2xl mx-auto">
+      <div class="hidden lg:flex flex-1 justify-center max-w-xl mx-auto px-8">
         <UInput 
-          placeholder="Search for courses, mentors, or tasks..." 
-          class="w-full transition-all duration-300 focus-within:ring-2 focus-within:ring-primary-500/20"
+          placeholder="Quick search... (Alt + K)" 
+          class="w-full transition-all duration-300 focus-within:scale-[1.02]"
           :ui="{ 
             rounded: 'rounded-2xl', 
-            base: 'bg-gray-100/50 dark:bg-slate-800/50 border-0 focus:ring-0 focus:shadow-lg pl-11' 
+            base: 'bg-gray-100/50 dark:bg-slate-800/50 border-0 focus:ring-2 focus:ring-primary-500/20 focus:shadow-xl transition-all pl-11 pr-4' 
           }"
-          size="lg"
+          size="md"
           variant="none"
         >
           <template #leading>
-            <Icon icon="heroicons:magnifying-glass" class="w-5 h-5 text-gray-400" />
+            <Icon icon="heroicons:magnifying-glass" class="w-5 h-5 text-gray-400 group-focus-within:text-primary-500 transition-colors" />
           </template>
         </UInput>
       </div>
@@ -63,13 +74,13 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
 
     <!-- Right slot: Actions and user profile -->
     <template #right>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-4">
         <ThemePickerColor />
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1 sm:gap-2">
           <MailMenu />
           <NotificationMenu />
         </div>
-        <div class="hidden lg:block w-px h-8 bg-gray-200 dark:bg-slate-700"></div>
+        <div class="hidden sm:block w-px h-6 bg-gray-200 dark:bg-slate-700 mx-1"></div>
         <ProfileMenu />
       </div>
     </template>
