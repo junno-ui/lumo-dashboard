@@ -2,10 +2,12 @@
 import { ref } from 'vue'
 import type { ButtonProps, AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 import * as yup from 'yup'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const schema = yup.object({
   email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
+  password: yup.string().required('Password is required'),
 })
 
 const providers = ref<ButtonProps[]>([
@@ -49,6 +51,8 @@ const fields = ref<AuthFormField[]>([
 
 const toast = useToast()
 type Schema = yup.InferType<typeof schema>
+
+const goToRegister = () => router.push('/auth/register')
 function onSubmit(payload: FormSubmitEvent<Schema>) {
   toast.add({ icon: 'mdi:view-dashboard', title: 'Login', description: `Login with ${payload.data.email}` })
 }
@@ -103,12 +107,7 @@ function onError() {
             </h2>
             <p class="text-neutral-600 dark:text-neutral-400 text-sm">
               Don't have an account?
-              <NuxtLink
-                to="/auth/register"
-                class="text-accent-600 dark:text-accent-400 font-semibold hover:text-accent-700 dark:hover:text-accent-300"
-              >
-                Create one
-              </NuxtLink>
+              <UButton label="Create one" @click="goToRegister()" variant="link" />
             </p>
           </div>
 

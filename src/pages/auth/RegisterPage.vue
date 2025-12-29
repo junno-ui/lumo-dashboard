@@ -3,9 +3,10 @@ import { ref } from 'vue'
 import type { ButtonProps, AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 import * as yup from 'yup'
 import RegisterPreview from '@/components/dashboard/RegisterPreview.vue'
+import { useRouter } from 'vue-router'
 
 const toast = useToast()
-
+const router = useRouter()
 const schema = yup.object({
   name: yup.string().required('Full name is required'),
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -96,6 +97,10 @@ function onError() {
     color: 'error',
   })
 }
+
+function goToLogin() {
+  router.push('/auth/login')
+}
 </script>
 
 <template>
@@ -140,12 +145,8 @@ function onError() {
             </h2>
             <p class="text-neutral-600 dark:text-neutral-400 text-sm">
               Already have an account?
-              <NuxtLink
-                to="/auth/login"
-                class="text-accent-600 dark:text-accent-400 font-semibold hover:text-accent-700 dark:hover:text-accent-300"
-              >
-                Sign in
-              </NuxtLink>
+              <UButton label="Sign In" @click="goToLogin()" variant="link" />
+              
             </p>
           </div>
 
