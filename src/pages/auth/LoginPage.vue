@@ -87,7 +87,8 @@ function onError() {
               Log in to access your CRM dashboard and manage your team.
             </p>
           </div>
-
+          <!-- Put Dashboard Simple like this iamge using nuxt ui  -->
+           <DashboardPreview/>
         </div>
       </div>
 
