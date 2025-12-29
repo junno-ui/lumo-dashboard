@@ -13,10 +13,6 @@ function openInbox() { router.push('/inbox') }
   <UPopover v-model:open="open" arrow :content="{ side: 'bottom', sideOffset: 8 }">
     <UButton color="neutral" variant="ghost" class="rounded-xl w-10 h-10 flex items-center justify-center">
       <UIcon name="i-heroicons-envelope" class="w-5 h-5 text-gray-500 dark:text-gray-400" />
-      <span v-if="unread" class="absolute top-2 right-2">
-        <span class="absolute inline-flex h-2.5 w-2.5 rounded-full bg-primary-400 opacity-75 animate-ping"></span>
-        <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary-500 border-2 border-white dark:border-slate-900"></span>
-      </span>
     </UButton>
     <template #content>
       <div class="w-80 p-2">

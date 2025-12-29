@@ -17,10 +17,6 @@ import { notifications } from '@/mock/notifications'
           <div class="flex-1">
             <div class="flex items-center gap-2">
               <span class="text-sm font-medium">{{ n.title }}</span>
-              <span v-if="n.unread" class="relative inline-block">
-                <span class="absolute inline-flex h-2 w-2 rounded-full bg-red-400 opacity-75 animate-ping"></span>
-                <span class="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
-              </span>
             </div>
             <div class="text-xs text-gray-600 dark:text-gray-400">{{ n.description }}</div>
             <div class="text-xs text-gray-400">{{ n.time }}</div>
