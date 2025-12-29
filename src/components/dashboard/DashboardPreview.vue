@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { Icon } from '@iconify/vue';
+
+</script>
+
 <template>
 <!-- Dashboard Preview (compact SaaS style) -->
 <div class="mt-auto pt-10">
@@ -76,7 +81,7 @@
             <div class="mt-3 space-y-2">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-md bg-neutral-100 dark:bg-white/10" />
+                  <UBadge icon="mdi:credit-card-outline" variant="soft"/>
                   <div>
                     <p class="text-[11px] font-medium text-neutral-900 dark:text-white">Invoice paid</p>
                     <p class="text-[10px] text-neutral-500 dark:text-white/60">Acme Inc.</p>
@@ -87,7 +92,8 @@
 
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-md bg-neutral-100 dark:bg-white/10" />
+                  <UBadge icon="mdi:account-outline" variant="soft"/>
+                  
                   <div>
                     <p class="text-[11px] font-medium text-neutral-900 dark:text-white">New signup</p>
                     <p class="text-[10px] text-neutral-500 dark:text-white/60">pro plan</p>

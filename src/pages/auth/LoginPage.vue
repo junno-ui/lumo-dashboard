@@ -63,7 +63,7 @@ function onError() {
 </script>
 
 <template>
-  <div class="h-screen w-full p-5 bg-neutral-50 dark:bg-neutral-950 overflow-hidden">
+  <div class="h-screen w-full p-5 bg-white dark:bg-neutral-950 overflow-hidden">
     <div class="grid h-full grid-cols-1 lg:grid-cols-2 gap-5">
       <div
         class="hidden lg:flex relative flex-col h-full rounded-2xl overflow-hidden
