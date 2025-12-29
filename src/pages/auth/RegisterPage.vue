@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import type { ButtonProps, AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 import * as yup from 'yup'
+import RegisterPreview from '@/components/dashboard/RegisterPreview.vue'
 
 const toast = useToast()
 
@@ -98,12 +99,11 @@ function onError() {
 </script>
 
 <template>
-  <div class="h-screen w-full p-5 bg-neutral-50 dark:bg-neutral-950 overflow-hidden">
+  <div class="h-screen w-full p-5 bg-neutral-50 dark:bg-neutral-900 overflow-hidden">
     <div class="grid h-full grid-cols-1 lg:grid-cols-2 gap-5">
-      <!-- LEFT CARD -->
       <div
         class="hidden lg:flex relative flex-col h-full rounded-2xl overflow-hidden
-               bg-gradient-to-br from-primary-700 via-primary-800 to-primary-950 text-white"
+               bg-linear-to-br from-primary-700 via-primary-800 to-primary-950 text-white"
       >
         <div class="relative flex flex-col h-full p-12">
           <div class="flex items-center gap-3">
@@ -124,8 +124,7 @@ function onError() {
             </p>
           </div>
 
-          <!-- optional: you can add a preview card here later using mt-auto -->
-          <!-- <div class="mt-auto pt-12">...</div> -->
+          <RegisterPreview/>
         </div>
       </div>
 
