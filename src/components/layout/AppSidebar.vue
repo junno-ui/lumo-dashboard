@@ -76,7 +76,7 @@ const links: NavigationMenuItem[] = [
             size="sm"
             class="shrink-0 ring-1 ring-primary-100/60 dark:ring-primary-900/50"
           />
-          <span class="ml-3 font-bold tracking-tight text-gray-900 dark:text-white whitespace-nowrap">
+          <span class="ml-2.5 text-xs font-extrabold tracking-tight text-gray-900 dark:text-white whitespace-nowrap">
             Lumo Dashboard
           </span>
         </div>

@@ -82,10 +82,20 @@ function onError() {
           </div>
 
           <div class="mt-14 max-w-xl">
-            <h1 class="text-5xl font-semibold leading-tight">
-              Effortlessly manage your team<br />
-              and operations.
-            </h1>
+            <h1
+  class="
+    text-3xl
+    lg:text-4xl
+    font-semibold
+    leading-snug
+    sm:leading-snug
+    lg:leading-tight
+  "
+>
+  Effortlessly manage your team<br class="hidden sm:block" />
+  and operations.
+</h1>
+
 
             <p class="mt-5 text-white/75 text-sm leading-relaxed max-w-md">
               Log in to access your CRM dashboard and manage your team.

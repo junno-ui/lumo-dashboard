@@ -117,17 +117,28 @@ function goToLogin() {
             </div>
             <span class="text-2xl font-semibold">Lumo</span>
           </div>
+<div class="mt-14 max-w-xl">
+  <h1
+    class="
+      text-3xl
+      sm:text-3xl
+      lg:text-4xl
+      xl:text-5xl
+      font-semibold
+      leading-snug
+      sm:leading-snug
+      lg:leading-tight
+    "
+  >
+    Join Lumo today<br class="hidden sm:block" />
+    and get started.
+  </h1>
 
-          <div class="mt-14 max-w-xl">
-            <h1 class="text-5xl font-semibold leading-tight">
-              Join Lumo today<br />
-              and get started.
-            </h1>
+  <p class="mt-5 text-white/75 text-sm leading-relaxed max-w-md">
+    Create an account to start managing your projects and collaborating with your team.
+  </p>
+</div>
 
-            <p class="mt-5 text-white/75 text-sm leading-relaxed max-w-md">
-              Create an account to start managing your projects and collaborating with your team.
-            </p>
-          </div>
 
           <RegisterPreview/>
         </div>
