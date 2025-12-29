@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
-import { Icon } from '@iconify/vue'
 import ThemePickerColor from '../ThemePickerColor.vue'
 import NotificationMenu from './NotificationMenu.vue'
 import MailMenu from './MailMenu.vue'
