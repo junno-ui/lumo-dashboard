@@ -84,7 +84,7 @@ const footerLinks: NavigationMenuItem[] = [
             }"
             size="lg"
             variant="soft"
-            class="flex-shrink-0 !rounded-xl ring-1 ring-primary-100/50 dark:ring-primary-900/50 shadow-sm transition-all duration-300"
+            class="shrink-0 rounded-xl! ring-1 ring-primary-100/50 dark:ring-primary-900/50 shadow-sm transition-all duration-300"
             :class="[collapsed ? 'w-10 h-10 flex items-center justify-center p-0 pt-5 ' : 'px-3 py-1.5']"
           >
             <span v-if="!collapsed" class="font-bold tracking-tight text-gray-900 dark:text-white ml-2 whitespace-nowrap">Lumo Dashboard</span>
