@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import AppSidebar from '../components/layout/AppSidebar.vue'
-import AppHeader from '../components/layout/AppHeader.vue'
+import Sidebar from '@/components/general/Sidebar/Sidebar.vue';
+import Header from '@/components/general/Header/Header.vue';
 </script>
 
 <template>
   <UDashboardGroup class="font-sans">
-    <AppSidebar />
+    <Sidebar />
     
     <UDashboardPanel grow>
-      <AppHeader />
+      <Header />
       
       <UDashboardPanelContent class="p-8 overflow-auto">
         <RouterView />

@@ -24,7 +24,7 @@ const items: MenuItem[][] = [
     { label: 'Billing', icon: 'i-heroicons-credit-card', to: '/dashboard/billing/overview' }
   ],
   [
-    { label: 'Logout', icon: 'i-heroicons-arrow-left-on-rectangle', color: 'red', onSelect: logout }
+    { label: 'Logout', icon: 'i-heroicons-arrow-left-on-rectangle', color: 'error', onSelect: logout }
   ]
 ]
 </script>
