@@ -3,11 +3,11 @@
   <div class="mt-auto pt-10">
     <div class="relative max-w-3xl">
       <!-- Base card (interactive) -->
-      <UCard class="group rounded-2xl overflow-hidden
+       <UCard class=" dark:bg-gray-900 group rounded-2xl overflow-hidden
                border border-black/5 bg-white/90 text-neutral-900 shadow-2xl shadow-black/20
                transition-all duration-300 ease-out
                hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/30
-               dark:border-white/10 dark:bg-neutral-950/60 dark:text-white dark:shadow-black/50"
+               dark:border-white/10 dark:bg-gray-950/60 dark:text-white dark:shadow-black/50"
         :ui="{ body: 'p-0', header: 'p-0', footer: 'p-0' }">
         <!-- top strip (FIX: linear class) -->
         <div class="h-10 bg-linear-to-r from-primary-600/20 to-primary-700/10
@@ -28,7 +28,7 @@
 
               <p class="mt-1 text-sm font-semibold text-neutral-900 dark:text-white">$18,930</p>
 
-              <div class="mt-2 h-6 rounded-lg bg-neutral-100 dark:bg-white/10 overflow-hidden">
+              <div class="mt-2 h-6 rounded-lg bg-gray-100 dark:bg-white/10 overflow-hidden">
                 <div class="h-full w-[68%] bg-primary-600/40 dark:bg-primary-400/35
                          transition-all duration-500 group-hover/kpi:w-[76%]" />
               </div>
@@ -48,13 +48,13 @@
 
               <div class="mt-2 flex items-end gap-1 h-6">
                 <div
-                  class="w-1.5 h-2 bg-neutral-200 dark:bg-white/15 rounded transition-all duration-300 group-hover/kpi:h-3" />
+                  class="w-1.5 h-2 bg-gray-200 dark:bg-white/15 rounded transition-all duration-300 group-hover/kpi:h-3" />
                 <div
-                  class="w-1.5 h-3 bg-neutral-200 dark:bg-white/15 rounded transition-all duration-300 group-hover/kpi:h-4" />
+                  class="w-1.5 h-3 bg-gray-200 dark:bg-white/15 rounded transition-all duration-300 group-hover/kpi:h-4" />
                 <div
                   class="w-1.5 h-5 bg-primary-600/50 dark:bg-primary-400/35 rounded transition-all duration-300 group-hover/kpi:h-6" />
                 <div
-                  class="w-1.5 h-4 bg-neutral-200 dark:bg-white/15 rounded transition-all duration-300 group-hover/kpi:h-5" />
+                  class="w-1.5 h-4 bg-gray-200 dark:bg-white/15 rounded transition-all duration-300 group-hover/kpi:h-5" />
                 <div
                   class="w-1.5 h-6 bg-primary-600/50 dark:bg-primary-400/35 rounded transition-all duration-300 group-hover/kpi:h-7" />
               </div>
@@ -90,7 +90,7 @@
                 <p class="text-[10px] text-neutral-500 dark:text-white/60">Weekly</p>
               </div>
 
-              <div class="mt-3 rounded-xl bg-neutral-50 dark:bg-white/5 p-3">
+              <div class="mt-3 rounded-xl bg-gray-50 dark:bg-white/5 p-3">
                 <p class="text-[10px] text-neutral-500 dark:text-white/60">Rate</p>
                 <p class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">4.8%</p>
 
@@ -110,7 +110,7 @@
                      dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:shadow-black/40">
               <div class="flex items-center justify-between">
                 <p class="text-[10px] font-medium text-neutral-700 dark:text-white/80">Recent Activity</p>
-                <UBadge size="xs" color="neutral" variant="soft" class="bg-neutral-100 text-neutral-700
+                <UBadge size="xs" color="neutral" variant="soft" class="bg-gray-100 text-neutral-700
                          dark:bg-white/10 dark:text-white/80">
                   Today
                 </UBadge>
@@ -120,7 +120,7 @@
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <div class="flex items-center justify-center w-7 h-7 rounded-lg
-                             bg-neutral-100 text-neutral-700
+                             bg-gray-100 text-neutral-700
                              transition-all duration-300
                              group-hover/widget:bg-primary-600/15
                              dark:bg-white/10 dark:text-white/80 dark:group-hover/widget:bg-white/15">
@@ -139,7 +139,7 @@
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <div class="flex items-center justify-center w-7 h-7 rounded-lg
-                             bg-neutral-100 text-neutral-700
+                             bg-gray-100 text-neutral-700
                              transition-all duration-300
                              group-hover/widget:bg-primary-600/15
                              dark:bg-white/10 dark:text-white/80 dark:group-hover/widget:bg-white/15">
@@ -163,7 +163,7 @@
                    transition-all duration-300
                    hover:border-primary-300/60
                    dark:border-white/10 dark:hover:border-white/20">
-            <div class="flex items-center justify-between bg-neutral-50 px-3 py-2 dark:bg-white/5">
+            <div class="flex items-center justify-between bg-gray-50 px-3 py-2 dark:bg-white/5">
               <p class="text-[11px] font-medium text-neutral-700 dark:text-white/80">Latest Transactions</p>
               <UBadge size="xs" color="primary" variant="soft">Sync</UBadge>
             </div>
@@ -171,7 +171,7 @@
             <div class="divide-y divide-neutral-200/80 dark:divide-white/10 text-[11px]">
               <div class="px-3 py-2 flex items-center justify-between
                        transition-colors duration-200
-                       hover:bg-neutral-50/70 dark:hover:bg-white/5">
+                       hover:bg-gray-50/70 dark:hover:bg-white/5">
                 <div class="flex items-center gap-2">
                   <UIcon name="mdi:credit-card-outline" class="w-4 h-4" />
                   <div>
@@ -188,7 +188,7 @@
 
               <div class="px-3 py-2 flex items-center justify-between
                        transition-colors duration-200
-                       hover:bg-neutral-50/70 dark:hover:bg-white/5">
+                       hover:bg-gray-50/70 dark:hover:bg-white/5">
                 <div class="flex items-center gap-2">
                   <UIcon name="mdi:credit-card-outline" class="w-4 h-4" />
                   <div>
@@ -208,11 +208,11 @@
       </UCard>
 
       <!-- Floating small KPI -->
-      <UCard class="absolute -top-8 left-5 w-44 rounded-2xl
+       <UCard class=" dark:bg-gray-900 absolute -top-8 left-5 w-44 rounded-2xl
                border border-black/5 bg-white/95 text-neutral-900 shadow-xl
                transition-all duration-300 ease-out
                hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
-               dark:border-white/10 dark:bg-neutral-950/75 dark:text-white dark:hover:shadow-black/50"
+               dark:border-white/10 dark:bg-gray-950/75 dark:text-white dark:hover:shadow-black/50"
         :ui="{ body: 'p-3' }">
         <div class="flex items-center justify-between">
           <p class="text-[10px] text-neutral-500 dark:text-white/60">NPS</p>
@@ -223,11 +223,11 @@
       </UCard>
 
       <!-- Floating chart -->
-      <UCard class="absolute top-10 -right-10 w-56 rounded-2xl
+       <UCard class=" dark:bg-gray-900 absolute top-10 -right-10 w-56 rounded-2xl
                border border-black/5 bg-white/95 text-neutral-900 shadow-xl
                transition-all duration-300 ease-out
                hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
-               dark:border-white/10 dark:bg-neutral-950/75 dark:text-white dark:hover:shadow-black/50"
+               dark:border-white/10 dark:bg-gray-950/75 dark:text-white dark:hover:shadow-black/50"
         :ui="{ body: 'p-3' }">
         <div class="flex items-center justify-between">
           <p class="text-[10px] font-medium text-neutral-700 dark:text-white/80">Revenue</p>

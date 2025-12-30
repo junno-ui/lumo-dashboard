@@ -93,7 +93,7 @@ const initials = computed(() => {
           v-if="props.name || props.email || props.avatar"
           class="flex items-center gap-3 rounded-xl
                  border border-neutral-200/70 dark:border-neutral-800/70
-                 bg-white dark:bg-neutral-900 p-4"
+                 bg-white dark:bg-gray-900 p-4"
         >
           <UAvatar
             :src="props.avatar"
@@ -116,7 +116,7 @@ const initials = computed(() => {
 
           <div
             class="ml-auto inline-flex items-center gap-1 rounded-full px-2 py-1
-                   bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 text-xs"
+                   bg-gray-100 dark:bg-gray-800 text-neutral-700 dark:text-neutral-200 text-xs"
           >
             <UIcon name="i-heroicons-shield-check" class="h-4 w-4" />
             Session active

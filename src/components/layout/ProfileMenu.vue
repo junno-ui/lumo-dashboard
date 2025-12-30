@@ -46,7 +46,7 @@ const items: MenuItem[][] = [
     <UButton
       color="neutral"
       variant="ghost"
-      class="p-1.5 pr-2 rounded-xl border border-transparent hover:border-gray-100 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-800 shadow-sm hover:shadow transition"
+      class="p-1.5 pr-2 rounded-xl border border-transparent hover:border-gray-100 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-gray-800 shadow-sm hover:shadow transition"
       :ui="{ base: 'justify-start w-full' }"
     >
       <UAvatar

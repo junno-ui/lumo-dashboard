@@ -6,7 +6,7 @@ import { preferences } from '@/mock/settings'
   <div class="space-y-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Appearance Card -->
-      <UCard class="shadow-sm border-0 bg-white dark:bg-slate-800/50">
+       <UCard class=" dark:bg-gray-900 shadow-sm border-0 bg-white dark:bg-gray-800/50">
         <template #header>
           <div class="flex items-center gap-2">
             <UIcon name="i-heroicons-swatch" class="w-5 h-5 text-primary-500" />
@@ -25,7 +25,7 @@ import { preferences } from '@/mock/settings'
       </UCard>
 
       <!-- Notifications Card -->
-      <UCard class="shadow-sm border-0 bg-white dark:bg-slate-800/50">
+       <UCard class=" dark:bg-gray-900 shadow-sm border-0 bg-white dark:bg-gray-800/50">
         <template #header>
           <div class="flex items-center gap-2">
             <UIcon name="i-heroicons-bell" class="w-5 h-5 text-primary-500" />

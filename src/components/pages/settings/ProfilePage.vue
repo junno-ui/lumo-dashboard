@@ -6,7 +6,7 @@ import { profileSettings } from '@/mock/settings'
   <div class="space-y-6">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Profile Overview Card -->
-      <UCard class="lg:col-span-1 shadow-sm border-0 bg-white dark:bg-slate-800/50">
+       <UCard class=" dark:bg-gray-900 lg:col-span-1 shadow-sm border-0 bg-white dark:bg-gray-800/50">
         <div class="flex flex-col items-center text-center p-4">
           <UAvatar 
             :src="profileSettings.avatar" 
@@ -23,7 +23,7 @@ import { profileSettings } from '@/mock/settings'
       </UCard>
 
       <!-- Account Details Card -->
-      <UCard class="lg:col-span-2 shadow-sm border-0 bg-white dark:bg-slate-800/50">
+       <UCard class=" dark:bg-gray-900 lg:col-span-2 shadow-sm border-0 bg-white dark:bg-gray-800/50">
         <template #header>
           <h3 class="text-lg font-semibold">Account Information</h3>
         </template>

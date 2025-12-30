@@ -10,7 +10,7 @@ import Header from '@/components/general/Header/Header.vue';
     <UDashboardPanel grow>
       <Header />
       
-      <UDashboardPanelContent class="p-8 overflow-auto">
+      <UDashboardPanelContent class="p-8 overflow-auto bg-gray-50 dark:bg-gray-950 transition-colors duration-200">
         <RouterView />
       </UDashboardPanelContent>
     </UDashboardPanel>

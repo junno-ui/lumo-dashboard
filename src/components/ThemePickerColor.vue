@@ -38,10 +38,10 @@ const brandOptions: BrandOption[] = [
 
 type NeutralOption = { label: string; value: Neutral; bg: string }
 const neutralOptions: NeutralOption[] = [
-   { value: 'slate', label: 'Slate', bg: 'bg-slate-500' },
+   { value: 'slate', label: 'Slate', bg: 'bg-gray-500' },
    { value: 'gray', label: 'Gray', bg: 'bg-gray-500' },
    { value: 'zinc', label: 'Zinc', bg: 'bg-zinc-500' },
-   { value: 'neutral', label: 'Neutral', bg: 'bg-neutral-500' },
+   { value: 'neutral', label: 'Neutral', bg: 'bg-gray-500' },
    { value: 'stone', label: 'Stone', bg: 'bg-stone-500' }
 ]
 

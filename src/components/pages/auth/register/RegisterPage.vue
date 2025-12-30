@@ -102,7 +102,7 @@ function goToLogin() {
 </script>
 
 <template>
-  <div class="h-screen w-full p-5 bg-neutral-50 dark:bg-neutral-900 overflow-hidden">
+  <div class="h-screen w-full p-5 bg-gray-50 dark:bg-gray-900 overflow-hidden">
     <div class="grid h-full grid-cols-1 lg:grid-cols-2 gap-5">
       <div
         class="hidden lg:flex relative flex-col h-full rounded-2xl overflow-hidden
@@ -144,7 +144,7 @@ function goToLogin() {
 
       <div
         class="relative flex items-center justify-center h-full rounded-2xl overflow-hidden
-               bg-white dark:bg-neutral-900"
+               bg-white dark:bg-gray-900"
       >
         <div class="w-full max-w-md p-6 sm:p-10 overflow-y-auto">
           <div class="mb-10">

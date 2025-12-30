@@ -195,7 +195,7 @@ function getPlanDropdownItems(planTitle: string) {
 </script>
 
 <template>
-  <div class="p-6 space-y-6 bg-white dark:bg-gray-950 min-h-screen">
+  <div class="p-6 space-y-6 bg-white dark:bg-gray-950 min-h-screen transition-colors duration-200">
     <!-- Header + controls -->
     <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div>

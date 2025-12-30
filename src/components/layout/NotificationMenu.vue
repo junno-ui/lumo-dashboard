@@ -55,7 +55,7 @@ function openNotif(n: Notif) {
       <UButton
           :color="unreadCount > 0 ? 'primary' : 'gray'"
         variant="subtle"
-        class="rounded-xl w-10 h-10 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800"
+        class="rounded-xl w-10 h-10 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
         aria-label="Open notifications"
         icon="i-heroicons-bell"
       />
@@ -64,14 +64,14 @@ function openNotif(n: Notif) {
     <template #content>
       <div
         class="w-88 p-2 rounded-2xl
-               bg-white/95 dark:bg-neutral-900/95 backdrop-blur
-               border border-neutral-200/70 dark:border-neutral-800/70
+               bg-white/95 dark:bg-gray-900/95 backdrop-blur
+               border border-gray-200/70 dark:border-gray-800/70
                shadow-xl"
       >
         <!-- Header -->
         <div class="flex items-center justify-between px-2 py-2">
           <div class="flex items-center gap-2">
-            <div class="text-sm font-semibold text-neutral-900 dark:text-white">Notifications</div>
+            <div class="text-sm font-semibold text-gray-900 dark:text-white">Notifications</div>
             <UBadge v-if="unreadCount" color="red" variant="soft">{{ unreadCount }} new</UBadge>
           </div>
 
@@ -107,11 +107,11 @@ function openNotif(n: Notif) {
         <div class="max-h-72 overflow-auto px-1 space-y-1">
           <!-- Empty state -->
           <div v-if="items.length === 0" class="p-6 text-center">
-            <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100 dark:bg-neutral-800">
-              <UIcon name="i-heroicons-bell-slash" class="w-5 h-5 text-neutral-500" />
+            <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800">
+              <UIcon name="i-heroicons-bell-slash" class="w-5 h-5 text-gray-500" />
             </div>
-            <div class="text-sm font-medium text-neutral-900 dark:text-white">No notifications</div>
-            <div class="text-xs text-neutral-500 dark:text-neutral-400">You’re all caught up.</div>
+            <div class="text-sm font-medium text-gray-900 dark:text-white">No notifications</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">You're all caught up.</div>
           </div>
 
           <!-- Items -->
@@ -120,7 +120,7 @@ function openNotif(n: Notif) {
             :key="n.id"
             type="button"
             class="w-full text-left p-3 rounded-xl
-                   hover:bg-neutral-50 dark:hover:bg-neutral-800/60
+                   hover:bg-gray-50 dark:hover:bg-gray-800/60
                    transition"
             @click="openNotif(n)"
           >
@@ -136,13 +136,13 @@ function openNotif(n: Notif) {
                 <div class="flex items-start justify-between gap-3">
                   <div
                     class="text-sm font-semibold truncate"
-                    :class="n.unread ? 'text-neutral-900 dark:text-white' : 'text-neutral-700 dark:text-neutral-200'"
+                    :class="n.unread ? 'text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-200'"
                   >
                     {{ n.title }}
                   </div>
 
                   <div class="flex items-center gap-2">
-                    <span class="text-[11px] text-neutral-500 dark:text-neutral-400 whitespace-nowrap">
+                    <span class="text-[11px] text-gray-500 dark:text-gray-400 whitespace-nowrap">
                       {{ n.time }}
                     </span>
                     <span
@@ -153,7 +153,7 @@ function openNotif(n: Notif) {
                   </div>
                 </div>
 
-                <div class="mt-1 text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2">
+                <div class="mt-1 text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
                   {{ n.description }}
                 </div>
               </div>
@@ -163,7 +163,7 @@ function openNotif(n: Notif) {
 
         <!-- Footer -->
         <div class="flex items-center justify-between px-2 pt-2">
-          <div class="text-xs text-neutral-500 dark:text-neutral-400">
+          <div class="text-xs text-gray-500 dark:text-gray-400">
             Showing {{ items.length }} of {{ notifs.length }}
           </div>
 

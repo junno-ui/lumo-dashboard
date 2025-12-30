@@ -80,8 +80,8 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
 </script>
 
 <template>
-  <UDashboardNavbar :ui="{
-    wrapper: 'sticky top-0 z-50 border-b border-neutral-200/60 dark:border-neutral-800/60 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-xl',
+  <UDashboardNavbar class="dark:bg-gray-950" :ui="{
+    wrapper: 'sticky top-0 z-50 border-b border-gray-200/60 dark:border-gray-800/60 bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl transition-colors duration-200',
     container: 'max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 h-16'
   }">
     <!-- LEFT -->
@@ -90,7 +90,7 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
         <!-- Mobile sidebar toggle -->
         <UTooltip text="Toggle sidebar" placement="bottom">
           <UDashboardSidebarCollapse class="lg:hidden p-2 rounded-xl
-                   hover:bg-neutral-100 dark:hover:bg-neutral-800
+                   hover:bg-gray-100 dark:hover:bg-gray-800
                    transition" />
         </UTooltip>
 
@@ -117,7 +117,7 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
           <NotificationMenu />
         </UTooltip>
 
-        <div class="hidden sm:block w-px h-6 bg-neutral-200 dark:bg-neutral-700 mx-1"></div>
+        <div class="hidden sm:block w-px h-6 bg-gray-200 dark:bg-gray-700 mx-1 transition-colors duration-200"></div>
 
         <UTooltip text="Account">
           <ProfileMenu />

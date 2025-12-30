@@ -93,7 +93,7 @@ const peakPoint = computed(() => {
 </script>
 
 <template>
-  <div class="p-6 space-y-6 bg-white dark:bg-gray-950 min-h-screen">
+  <div class="p-6 space-y-6 bg-white dark:bg-gray-950 min-h-screen transition-colors duration-200">
     <!-- Header -->
     <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div>
@@ -200,7 +200,7 @@ const peakPoint = computed(() => {
     </div>
 
     <!-- Active users chart -->
-    <UCard class="hover:shadow-md transition-shadow duration-200">
+     <UCard class=" dark:bg-gray-900 hover:shadow-md transition-shadow duration-200">
       <template #header>
         <div class="flex items-center justify-between">
           <div>

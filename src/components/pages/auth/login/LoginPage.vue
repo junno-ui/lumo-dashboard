@@ -68,7 +68,7 @@ function onError() {
 </script>
 
 <template>
-  <div class="h-screen w-full p-5 bg-white dark:bg-neutral-900 overflow-hidden">
+  <div class="h-screen w-full p-5 bg-white dark:bg-gray-900 overflow-hidden">
     <div class="grid h-full grid-cols-1 lg:grid-cols-2 gap-5">
       <div class="hidden lg:flex relative flex-col h-full rounded-2xl overflow-hidden bg-linear-to-br dark:from-primary-700 dark:via-primary-800 dark:to-primary-950 text-white from-primary-800 via-primary-700 to-primary-800">
         <div class="relative flex flex-col h-full p-12">
@@ -102,7 +102,7 @@ function onError() {
       </div>
 
       <div class="relative flex items-center justify-center h-full rounded-2xl overflow-hidden
-               bg-white dark:bg-neutral-900">
+               bg-white dark:bg-gray-900">
         <div class="w-full max-w-md p-6 sm:p-10 overflow-y-auto">
           <div class="mb-10">
             <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight">

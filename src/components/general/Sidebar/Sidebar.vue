@@ -64,10 +64,10 @@ const links: NavigationMenuItem[] = [
     collapsible
     resizable
     :min-size="12"
-    class="bg-neutral-50 dark:bg-neutral-950/50 backdrop-blur-xl"
+    class="bg-gray-50 dark:bg-gray-950 backdrop-blur-xl transition-colors duration-200"
     :ui="{
-      footer: 'border-t border-primary-100 dark:border-primary-800/50',
-      border: 'border-r border-primary-100 dark:border-primary-800/50'
+      footer: 'border-t border-gray-200 dark:border-gray-800/50',
+      border: 'border-r border-gray-200 dark:border-gray-800/50'
     }"
   >
     <!-- ================= HEADER ================= -->
@@ -76,12 +76,12 @@ const links: NavigationMenuItem[] = [
         <div
           v-if="!collapsed"
           class="flex items-center h-10 px-3 rounded-xl
-                 hover:bg-white/60 dark:hover:bg-white/5 transition-colors"
+                 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
         >
           <UAvatar
             src="https://github.com/nuxt.png"
             size="sm"
-            class="shrink-0 ring-1 ring-primary-100/60 dark:ring-primary-900/50"
+            class="shrink-0 ring-1 ring-gray-200/60 dark:ring-gray-800/50"
           />
           <span class="ml-2.5 text-xs font-extrabold tracking-tight text-gray-900 dark:text-white whitespace-nowrap">
             Lumo Dashboard

@@ -6,9 +6,9 @@ const maxLogin = Math.max(...loginAttempts.map((l: { success: number; fail: numb
 <template>
   <div class="p-6 space-y-6">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <UCard class="p-4"><p class="text-sm text-gray-500">MFA Enabled</p><p class="text-2xl font-bold">{{ securitySettings.mfaEnabled ? 'Yes' : 'No' }}</p></UCard>
-      <UCard class="p-4"><p class="text-sm text-gray-500">Last Login</p><p class="text-2xl font-bold">{{ securitySettings.lastLogin }}</p></UCard>
-      <UCard class="p-4"><p class="text-sm text-gray-500">Active Sessions</p><p class="text-2xl font-bold">{{ securitySettings.activeSessions }}</p></UCard>
+       <UCard class=" dark:bg-gray-900 p-4"><p class="text-sm text-gray-500">MFA Enabled</p><p class="text-2xl font-bold">{{ securitySettings.mfaEnabled ? 'Yes' : 'No' }}</p></UCard>
+       <UCard class=" dark:bg-gray-900 p-4"><p class="text-sm text-gray-500">Last Login</p><p class="text-2xl font-bold">{{ securitySettings.lastLogin }}</p></UCard>
+       <UCard class=" dark:bg-gray-900 p-4"><p class="text-sm text-gray-500">Active Sessions</p><p class="text-2xl font-bold">{{ securitySettings.activeSessions }}</p></UCard>
     </div>
 
     <UCard>

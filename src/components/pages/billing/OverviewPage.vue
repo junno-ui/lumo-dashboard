@@ -8,19 +8,19 @@ const total = spendBreakdown.reduce((acc, curr) => acc + curr.amount, 0)
 <template>
   <div class="space-y-6">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <UCard class="shadow-sm border-0 bg-white dark:bg-slate-800/50">
+       <UCard class=" dark:bg-gray-900 shadow-sm border-0 bg-white dark:bg-gray-800/50">
         <p class="text-sm text-gray-500 dark:text-gray-400">Current Balance</p>
         <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{{ billingStats.currentBalance }}</p>
       </UCard>
-      <UCard class="shadow-sm border-0 bg-white dark:bg-slate-800/50">
+       <UCard class=" dark:bg-gray-900 shadow-sm border-0 bg-white dark:bg-gray-800/50">
         <p class="text-sm text-gray-500 dark:text-gray-400">Next Invoice</p>
         <p class="text-2xl font-bold">{{ billingStats.nextInvoice }}</p>
       </UCard>
-      <UCard class="shadow-sm border-0 bg-white dark:bg-slate-800/50">
+       <UCard class=" dark:bg-gray-900 shadow-sm border-0 bg-white dark:bg-gray-800/50">
         <p class="text-sm text-gray-500 dark:text-gray-400">Next Invoice Date</p>
         <p class="text-2xl font-bold text-orange-500">{{ billingStats.nextInvoiceDate }}</p>
       </UCard>
-      <UCard class="shadow-sm border-0 bg-white dark:bg-slate-800/50">
+       <UCard class=" dark:bg-gray-900 shadow-sm border-0 bg-white dark:bg-gray-800/50">
         <p class="text-sm text-gray-500 dark:text-gray-400">Payment Method</p>
         <p class="text-lg font-bold flex items-center gap-2">
           <UIcon name="i-heroicons-credit-card" />
@@ -30,7 +30,7 @@ const total = spendBreakdown.reduce((acc, curr) => acc + curr.amount, 0)
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <UCard class="lg:col-span-2">
+       <UCard class=" dark:bg-gray-900 lg:col-span-2">
         <template #header>
           <div class="flex items-center justify-between">
             <h3 class="text-base font-semibold">Monthly Spend</h3>
@@ -52,7 +52,7 @@ const total = spendBreakdown.reduce((acc, curr) => acc + curr.amount, 0)
         </div>
       </UCard>
 
-      <UCard class="lg:col-span-1">
+       <UCard class=" dark:bg-gray-900 lg:col-span-1">
         <template #header>
           <h3 class="text-base font-semibold">Spend Breakdown</h3>
         </template>

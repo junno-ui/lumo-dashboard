@@ -4,7 +4,7 @@ import { organizationSettings } from '@/mock/settings'
 
 <template>
   <div class="p-6">
-    <UCard class="p-4">
+     <UCard class=" dark:bg-gray-900 p-4">
       <div class="flex items-center gap-4">
         <UAvatar :src="organizationSettings.logo" size="lg" />
         <div>
