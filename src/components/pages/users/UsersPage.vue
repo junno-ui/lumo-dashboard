@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, h, resolveComponent } from 'vue'
-import BaseDataTable from '@/components/common/BaseDataTable.vue'
+import BaseDataTable from '@/components/global/common/BaseDataTable.vue'
 import UserFormModal from '@/components/users/UserFormModal.vue'
 import { users as mockUsers } from '@/mock/users'
 

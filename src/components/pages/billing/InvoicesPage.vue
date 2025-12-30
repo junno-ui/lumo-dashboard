@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { h, resolveComponent } from 'vue'
-import BaseDataTable from '@/components/common/BaseDataTable.vue'
+import BaseDataTable from '@/components/global/common/BaseDataTable.vue'
 import { invoices } from '@/mock/billing'
 const UBadge = resolveComponent('UBadge')
 

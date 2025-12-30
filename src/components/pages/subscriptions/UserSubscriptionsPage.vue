@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, h, resolveComponent, watch } from 'vue'
-import BaseDataTable from '@/components/common/BaseDataTable.vue'
+import BaseDataTable from '@/components/global/common/BaseDataTable.vue'
 import { userSubscriptions as mockSubs } from '@/mock/subscriptions'
 
 const UBadge = resolveComponent('UBadge')

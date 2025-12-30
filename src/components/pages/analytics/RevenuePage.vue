@@ -2,7 +2,7 @@
 import { ref, h, resolveComponent } from 'vue'
 import type { ApexOptions } from 'apexcharts'
 import VueApexCharts from 'vue3-apexcharts'
-import BaseDataTable from '@/components/common/BaseDataTable.vue'
+import BaseDataTable from '@/components/global/common/BaseDataTable.vue'
 import { analyticsStats, revenueData } from '@/mock/analytics'
 
 const UBadge = resolveComponent('UBadge')
