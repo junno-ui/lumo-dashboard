@@ -24,8 +24,12 @@ export function useBrand() {
     }
 
     // Determine which palette to use, ensuring a valid fallback
-    const palette = colors[b] ?? colors['default']
-    if (!palette) return // Should not happen given the fallback
+      // For 'default', use indigo as fallback
+    let palette = colors[b]
+    if (!palette && b === 'default') {
+      palette = colors['indigo'] // Use indigo as default
+    }
+    if (!palette) return
 
     const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
 
@@ -33,28 +37,57 @@ export function useBrand() {
     shades.forEach(shade => {
       const colorValue = palette[shade]
       if (colorValue) {
+        // Set Tailwind's primary color variables
         root.style.setProperty(`--color-primary-${shade}`, colorValue)
+        // Also set Nuxt UI's primary color variables
+        root.style.setProperty(`--ui-color-primary-${shade}`, colorValue)
       }
     })
-    // Also map DEFAULT to 500
+    // Set default primary color (used by Nuxt UI components)
     if (palette[500]) {
+      root.style.setProperty('--ui-primary', palette[500])
       root.style.setProperty('--color-primary-DEFAULT', palette[500])
+      root.style.setProperty('--ui-color-primary-DEFAULT', palette[500])
     }
 
     try { localStorage.setItem(STORAGE_KEY, b) } catch { }
   }
 
-  onMounted(() => {
+  function initialize() {
     try {
-      const saved = (localStorage.getItem(STORAGE_KEY) as Brand | null) ?? 'default'
-      applyBrand(saved)
-    } catch { applyBrand('default') }
-
-    window.addEventListener('storage', (e) => {
-      if (e.key === STORAGE_KEY && typeof e.newValue === 'string') {
-        applyBrand((e.newValue as Brand) || 'default')
+      if (typeof localStorage !== 'undefined') {
+        const saved = (localStorage.getItem(STORAGE_KEY) as Brand | null) ?? 'default'
+        applyBrand(saved)
+      } else {
+        applyBrand('default')
       }
-    })
+    } catch { 
+      applyBrand('default') 
+    }
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('storage', (e) => {
+        if (e.key === STORAGE_KEY && typeof e.newValue === 'string') {
+          applyBrand((e.newValue as Brand) || 'default')
+        }
+      })
+    }
+  }
+
+  // Initialize immediately if DOM is ready
+  if (typeof document !== 'undefined' && document.documentElement) {
+    if (typeof requestAnimationFrame !== 'undefined') {
+      requestAnimationFrame(() => {
+        initialize()
+      })
+    } else {
+      initialize()
+    }
+  }
+
+  // Also initialize on mount as fallback
+  onMounted(() => {
+    initialize()
   })
 
   return { brand, applyBrand }

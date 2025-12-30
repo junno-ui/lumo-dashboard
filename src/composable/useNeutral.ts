@@ -50,10 +50,20 @@ export function useNeutral() {
       shades.forEach((shade) => {
         const color = palette[shade]
         if (color) {
-          // Override Tailwind's gray palette
+          // Override Tailwind's gray palette (for Tailwind classes)
           root.style.setProperty(`--color-gray-${shade}`, color)
+          // Also set Nuxt UI's neutral color variables
+          root.style.setProperty(`--ui-color-neutral-${shade}`, color)
         }
       })
+      // Set default neutral color (used by Nuxt UI components)
+      if (palette[500]) {
+        root.style.setProperty('--ui-neutral', palette[500])
+      }
+      // Set semantic neutral colors for Nuxt UI
+      if (palette[900]) {
+        root.style.setProperty('--ui-color-neutral-DEFAULT', palette[900])
+      }
     }
     
     // Save to localStorage

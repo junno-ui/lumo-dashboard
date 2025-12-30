@@ -2,17 +2,33 @@
 @import "@nuxt/ui";
 
 @theme {
-  --color-primary-50: var(--color-primary-50);
-  --color-primary-100: var(--color-primary-100);
-  --color-primary-200: var(--color-primary-200);
-  --color-primary-300: var(--color-primary-300);
-  --color-primary-400: var(--color-primary-400);
-  --color-primary-500: var(--color-primary-500);
-  --color-primary-600: var(--color-primary-600);
-  --color-primary-700: var(--color-primary-700);
-  --color-primary-800: var(--color-primary-800);
-  --color-primary-900: var(--color-primary-900);
-  --color-primary-950: var(--color-primary-950);
+  /* Primary colors are set dynamically via useBrand composable */
+  /* These will be overridden by JavaScript */
+  --color-primary-50: #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
+  --color-primary-950: #1e1b4b;
+  
+  /* Neutral colors are set dynamically via useNeutral composable */
+  /* These will be overridden by JavaScript */
+  --color-gray-50: #f8fafc;
+  --color-gray-100: #f1f5f9;
+  --color-gray-200: #e2e8f0;
+  --color-gray-300: #cbd5e1;
+  --color-gray-400: #94a3b8;
+  --color-gray-500: #64748b;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1e293b;
+  --color-gray-900: #0f172a;
+  --color-gray-950: #020617;
 }
 
 
@@ -34,92 +50,64 @@
 
 
 
-/* Base fallback */
+/* Base fallback - Nuxt UI CSS Variables */
 :root {
-  --ui-primary: #4f46e5;
-  /* indigo-600-ish */
-  --ui-neutral: #0f172a;
-  /* slate-900-ish for dark surfaces */
-  --ui-radius: 12px;
-  /* default rounded */
+  /* Primary color - set by useBrand */
+  --ui-primary: var(--ui-color-primary-500, #4f46e5);
+  --ui-color-primary-DEFAULT: var(--ui-color-primary-500, #4f46e5);
+  
+  /* Neutral color - set by useNeutral */
+  --ui-neutral: var(--ui-color-neutral-500, #64748b);
+  --ui-color-neutral-DEFAULT: var(--ui-color-neutral-900, #0f172a);
+  
+  /* Radius - set by useRadius */
+  --ui-radius: 4px;
+  
+  /* Semantic text colors */
+  --ui-text-dimmed: var(--ui-color-neutral-400, #94a3b8);
+  --ui-text-muted: var(--ui-color-neutral-500, #64748b);
+  --ui-text-toned: var(--ui-color-neutral-600, #475569);
+  --ui-text: var(--ui-color-neutral-700, #334155);
+  --ui-text-highlighted: var(--ui-color-neutral-900, #0f172a);
+  --ui-text-inverted: white;
+  
+  /* Semantic background colors */
+  --ui-bg: white;
+  --ui-bg-muted: var(--ui-color-neutral-50, #f8fafc);
+  --ui-bg-elevated: var(--ui-color-neutral-100, #f1f5f9);
+  --ui-bg-accented: var(--ui-color-neutral-200, #e2e8f0);
+  --ui-bg-inverted: var(--ui-color-neutral-900, #0f172a);
+  
+  /* Semantic border colors */
+  --ui-border: var(--ui-color-neutral-200, #e2e8f0);
+  --ui-border-muted: var(--ui-color-neutral-200, #e2e8f0);
+  --ui-border-accented: var(--ui-color-neutral-300, #cbd5e1);
+  --ui-border-inverted: var(--ui-color-neutral-900, #0f172a);
+}
+
+.dark {
+  --ui-text-dimmed: var(--ui-color-neutral-500, #64748b);
+  --ui-text-muted: var(--ui-color-neutral-400, #94a3b8);
+  --ui-text-toned: var(--ui-color-neutral-300, #cbd5e1);
+  --ui-text: white;
+  --ui-text-highlighted: white;
+  --ui-text-inverted: var(--ui-color-neutral-900, #0f172a);
+  
+  --ui-bg: var(--ui-color-neutral-950, #020617);
+  --ui-bg-muted: var(--ui-color-neutral-900, #0f172a);
+  --ui-bg-elevated: var(--ui-color-neutral-800, #1e293b);
+  --ui-bg-accented: var(--ui-color-neutral-700, #334155);
+  --ui-bg-inverted: var(--ui-color-neutral-50, #f8fafc);
+  
+  --ui-border: var(--ui-color-neutral-800, #1e293b);
+  --ui-border-muted: var(--ui-color-neutral-800, #1e293b);
+  --ui-border-accented: var(--ui-color-neutral-700, #334155);
+  --ui-border-inverted: var(--ui-color-neutral-50, #f8fafc);
 }
 
 /* ===== Primary palette ===== */
-:root[data-brand="black"] {
-  --ui-primary: #000000;
-}
-
-:root.dark[data-brand="black"] {
-  --ui-primary: #ffffff;
-}
-
-:root[data-brand="red"] {
-  --ui-primary: #dc2626;
-}
-
-:root[data-brand="orange"] {
-  --ui-primary: #ea580c;
-}
-
-:root[data-brand="amber"] {
-  --ui-primary: #d97706;
-}
-
-:root[data-brand="yellow"] {
-  --ui-primary: #ca8a04;
-}
-
-:root[data-brand="lime"] {
-  --ui-primary: #65a30d;
-}
-
-:root[data-brand="green"] {
-  --ui-primary: #16a34a;
-}
-
-:root[data-brand="emerald"] {
-  --ui-primary: #10b981;
-}
-
-:root[data-brand="teal"] {
-  --ui-primary: #0d9488;
-}
-
-:root[data-brand="cyan"] {
-  --ui-primary: #0891b2;
-}
-
-:root[data-brand="sky"] {
-  --ui-primary: #0284c7;
-}
-
-:root[data-brand="blue"] {
-  --ui-primary: #2563eb;
-}
-
-:root[data-brand="indigo"] {
-  --ui-primary: #4f46e5;
-}
-
-:root[data-brand="violet"] {
-  --ui-primary: #7c3aed;
-}
-
-:root[data-brand="purple"] {
-  --ui-primary: #9333ea;
-}
-
-:root[data-brand="fuchsia"] {
-  --ui-primary: #c026d3;
-}
-
-:root[data-brand="pink"] {
-  --ui-primary: #db2777;
-}
-
-:root[data-brand="rose"] {
-  --ui-primary: #e11d48;
-}
+/* Colors are set dynamically via useBrand composable */
+/* CSS fallback for initial load - will be overridden by JavaScript */
 
 /* ===== Neutral palette ===== */
 /* Colors are set dynamically via useNeutral composable */
@@ -208,16 +196,19 @@
 }
 
 /* ===== Radius ===== */
+/* Radius is set dynamically via useRadius composable */
+/* CSS fallback for initial load */
+:root:not([data-radius]),
+:root[data-radius="0.25"] {
+  --ui-radius: 4px;
+}
+
 :root[data-radius="0"] {
   --ui-radius: 0px;
 }
 
 :root[data-radius="0.125"] {
   --ui-radius: 2px;
-}
-
-:root[data-radius="0.25"] {
-  --ui-radius: 4px;
 }
 
 :root[data-radius="0.375"] {
