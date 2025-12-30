@@ -9,6 +9,31 @@ import type { BreadcrumbItem } from '@nuxt/ui'
 
 const route = useRoute()
 
+const SEGMENT_ICON: Record<string, string> = {
+  dashboard: 'i-lucide-layout-dashboard',
+  analytics: 'i-lucide-bar-chart-3',
+  subscriptions: 'i-lucide-credit-card',
+  billing: 'i-lucide-receipt',
+  users: 'i-lucide-users',
+  settings: 'i-lucide-settings',
+  revenue: 'i-lucide-banknote',
+  usage: 'i-lucide-line-chart',
+  'active-users': 'i-lucide-user-check',
+  plans: 'i-lucide-layers',
+  'user-subscriptions': 'i-lucide-users',
+  'usage-limits': 'i-lucide-pie-chart',
+  overview: 'i-lucide-layout-dashboard',
+  invoices: 'i-lucide-file-text',
+  'payment-methods': 'i-lucide-credit-card',
+  all: 'i-lucide-users',
+  roles: 'i-lucide-shield-check',
+  'activity-log': 'i-lucide-clock',
+  profile: 'i-lucide-user',
+  organization: 'i-lucide-building-2',
+  preferences: 'i-lucide-sliders-horizontal',
+  security: 'i-lucide-lock'
+}
+
 const toTitle = (seg: string) =>
   seg
     .split('-')
@@ -25,6 +50,7 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
       const path = '/' + segments.slice(0, idx + 1).join('/')
       items.push({
         label: toTitle(seg),
+        icon: SEGMENT_ICON[seg] ?? 'i-lucide-chevron-right',
         to: path
       })
     })
@@ -33,7 +59,7 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
   }
 
   const items: BreadcrumbItem[] = [
-    { label: 'Dashboard', icon: 'i-lucide-home', to: '/dashboard' }
+    { label: 'Dashboard', icon: SEGMENT_ICON.dashboard, to: '/dashboard' }
   ]
 
   const cleaned = segments.slice(1).filter(seg => seg !== 'home') // remove base + default
@@ -42,6 +68,7 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
     const path = '/dashboard/' + cleaned.slice(0, idx + 1).join('/')
     items.push({
       label: toTitle(seg),
+      icon: SEGMENT_ICON[seg] ?? 'i-lucide-folder',
       to: path
     })
   })
@@ -53,36 +80,24 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
 </script>
 
 <template>
-  <UDashboardNavbar
-    :ui="{
-      wrapper: 'sticky top-0 z-50 border-b border-neutral-200/60 dark:border-neutral-800/60 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-xl',
-      container: 'max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 h-16'
-    }"
-  >
+  <UDashboardNavbar :ui="{
+    wrapper: 'sticky top-0 z-50 border-b border-neutral-200/60 dark:border-neutral-800/60 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-xl',
+    container: 'max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 h-16'
+  }">
     <!-- LEFT -->
     <template #leading>
       <div class="flex items-center gap-4">
         <!-- Mobile sidebar toggle -->
         <UTooltip text="Toggle sidebar" placement="bottom">
-          <UDashboardSidebarCollapse
-            class="lg:hidden p-2 rounded-xl
+          <UDashboardSidebarCollapse class="lg:hidden p-2 rounded-xl
                    hover:bg-neutral-100 dark:hover:bg-neutral-800
-                   transition"
-          />
+                   transition" />
         </UTooltip>
 
         <!-- Breadcrumb -->
         <div class="hidden lg:block">
-          <UBreadcrumb
-            :items="breadcrumbItems"
-            separator-icon="tabler:slash"
-            :ui="{
-              ol: 'gap-1',
-              li: 'text-sm font-medium text-neutral-500 hover:text-primary-600 dark:hover:text-primary-400',
-              active: 'text-neutral-900 dark:text-white font-semibold',
-              inactive: 'text-neutral-400 dark:text-neutral-500'
-            }"
-          />
+          <UBreadcrumb :items="breadcrumbItems" separator-icon="iconamoon:sign-division-slash"
+            class="text-xs leading-none [&_a]:py-0 [&_a]:px-1 [&_svg]:h-3 [&_svg]:w-3 [&_li]:gap-1" />
         </div>
       </div>
     </template>
