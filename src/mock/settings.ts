@@ -1,8 +1,8 @@
 
 export const profileSettings = {
-    name: 'Jun Z',
-    email: 'junz@example.com',
-    bio: 'Full Stack Developer',
+    name: 'John Doe',
+    email: 'johndoe@example.com',
+    bio: 'Software Engineer',
     avatar: 'https://i.pravatar.cc/150?u=junz'
 };
 
