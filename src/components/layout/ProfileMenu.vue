@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { profileSettings } from '@/mock/settings'
+import LogoutModal from '../modal/LogoutModal.vue'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 type MenuItem = {
   label: string
@@ -8,11 +11,15 @@ type MenuItem = {
   color?: 'red' | 'primary' | 'neutral' | string
   onSelect?: () => void
 }
+const router = useRouter()
+const openLogout = ref(false)
+const handleLogout = () => {
+  openLogout.value = false
+  router.push('/auth/login')
+}
 
 const logout = async () => {
-  // TODO: replace with your real logout logic
-  // await $fetch('/api/logout', { method: 'POST' })
-  // await navigateTo('/login')
+  openLogout.value = true
 }
 
 const items: MenuItem[][] = [
@@ -24,7 +31,7 @@ const items: MenuItem[][] = [
     { label: 'Billing', icon: 'i-heroicons-credit-card', to: '/dashboard/billing/overview' }
   ],
   [
-    { label: 'Logout', icon: 'i-heroicons-arrow-left-on-rectangle', color: 'error', onSelect: logout }
+    { label: 'Logout', icon: 'i-heroicons-arrow-left-on-rectangle', color: 'primary', onSelect: logout }
   ]
 ]
 </script>
@@ -64,4 +71,12 @@ const items: MenuItem[][] = [
       />
     </UButton>
   </UDropdownMenu>
+    <LogoutModal
+    v-model:open="openLogout"
+    :email="profileSettings.email"
+    :avatar="profileSettings.avatar"
+    :name="profileSettings.name"
+    @confirm="handleLogout"
+    @cancel="openLogout = false"
+  />
 </template>
