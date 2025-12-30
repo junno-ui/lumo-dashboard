@@ -112,7 +112,7 @@ const peakPoint = computed(() => {
           size="sm"
           color="gray"
           variant="outline"
-          class="min-w-[150px]"
+          class="min-w-xl"
         />
       </div>
     </div>
