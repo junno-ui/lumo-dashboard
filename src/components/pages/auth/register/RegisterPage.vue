@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 import type { ButtonProps, AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 import * as yup from 'yup'
-import RegisterPreview from '@/components/dashboard/RegisterPreview.vue'
 import { useRouter } from 'vue-router'
+import RegisterDashboard from './RegisterDashboard.vue'
 
 const toast = useToast()
 const router = useRouter()
@@ -71,8 +71,6 @@ const fields = ref<AuthFormField[]>([
     placeholder: '••••••••',
     required: true,
   },
-  // Checkbox field: Nuxt UI UAuthForm supports extra fields,
-  // if your version doesn't render checkbox, I’ll give an alternative using UForm.
   {
     name: 'terms',
     type: 'checkbox' as any,
@@ -108,7 +106,7 @@ function goToLogin() {
     <div class="grid h-full grid-cols-1 lg:grid-cols-2 gap-5">
       <div
         class="hidden lg:flex relative flex-col h-full rounded-2xl overflow-hidden
-               bg-linear-to-br from-primary-700 via-primary-800 to-primary-950 text-white"
+               bg-linear-to-br dark:from-primary-700 dark:via-primary-800 dark:to-primary-950 text-white from-primary-800 via-primary-700 to-primary-800"
       >
         <div class="relative flex flex-col h-full p-12">
           <div class="flex items-center gap-3">
@@ -140,11 +138,10 @@ function goToLogin() {
 </div>
 
 
-          <RegisterPreview/>
+          <RegisterDashboard />
         </div>
       </div>
 
-      <!-- RIGHT CARD -->
       <div
         class="relative flex items-center justify-center h-full rounded-2xl overflow-hidden
                bg-white dark:bg-neutral-900"

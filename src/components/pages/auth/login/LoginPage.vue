@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import type { ButtonProps, AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 import * as yup from 'yup'
 import { useRouter } from 'vue-router'
+import LoginDashboard from './LoginDashboard.vue'
 
 const router = useRouter()
 const schema = yup.object({
@@ -69,10 +70,7 @@ function onError() {
 <template>
   <div class="h-screen w-full p-5 bg-white dark:bg-neutral-900 overflow-hidden">
     <div class="grid h-full grid-cols-1 lg:grid-cols-2 gap-5">
-      <div
-        class="hidden lg:flex relative flex-col h-full rounded-2xl overflow-hidden
-               bg-linear-to-br from-primary-700 via-primary-800 to-primary-950 text-white"
-      >
+      <div class="hidden lg:flex relative flex-col h-full rounded-2xl overflow-hidden bg-linear-to-br dark:from-primary-700 dark:via-primary-800 dark:to-primary-950 text-white from-primary-800 via-primary-700 to-primary-800">
         <div class="relative flex flex-col h-full p-12">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
@@ -82,34 +80,29 @@ function onError() {
           </div>
 
           <div class="mt-14 max-w-xl">
-            <h1
-  class="
+            <h1 class="
     text-3xl
     lg:text-4xl
     font-semibold
     leading-snug
     sm:leading-snug
     lg:leading-tight
-  "
->
-  Effortlessly manage your team<br class="hidden sm:block" />
-  and operations.
-</h1>
+  ">
+              Effortlessly manage your team<br class="hidden sm:block" />
+              and operations.
+            </h1>
 
 
             <p class="mt-5 text-white/75 text-sm leading-relaxed max-w-md">
               Log in to access your CRM dashboard and manage your team.
             </p>
           </div>
-          <!-- Put Dashboard Simple like this iamge using nuxt ui  -->
-           <DashboardPreview/>
+          <LoginDashboard />
         </div>
       </div>
 
-      <div
-        class="relative flex items-center justify-center h-full rounded-2xl overflow-hidden
-               bg-white dark:bg-neutral-900"
-      >
+      <div class="relative flex items-center justify-center h-full rounded-2xl overflow-hidden
+               bg-white dark:bg-neutral-900">
         <div class="w-full max-w-md p-6 sm:p-10 overflow-y-auto">
           <div class="mb-10">
             <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight">
@@ -121,19 +114,10 @@ function onError() {
             </p>
           </div>
 
-          <UAuthForm
-            :schema="schema"
-            :providers="providers"
-            :fields="fields"
-            :separator="{ label: 'Or continue with' }"
-            class="max-w-md"
-            @submit="onSubmit"
-            @error="onError"
-          />
+          <UAuthForm :schema="schema" :providers="providers" :fields="fields" :separator="{ label: 'Or continue with' }"
+            class="max-w-md" @submit="onSubmit" @error="onError" />
         </div>
       </div>
     </div>
   </div>
 </template>
-
-

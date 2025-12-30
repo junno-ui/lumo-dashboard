@@ -107,9 +107,7 @@ const links: NavigationMenuItem[] = [
       />
     </template>
 
-    <!-- ================= FOOTER ================= -->
     <template #footer="{ collapsed }">
-      <!-- Logout dihapus. Footer hanya collapse button -->
       <div class="px-2 py-3">
         <div class="flex" :class="collapsed ? 'justify-center' : 'justify-end'">
             <UDashboardSidebarCollapse :label="collapsed ? '' : 'Collapse'" class="w-full" />

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
-import ThemePickerColor from '../ThemePickerColor.vue'
-import NotificationMenu from './NotificationMenu.vue'
-import MailMenu from './MailMenu.vue'
-import ProfileMenu from './ProfileMenu.vue'
+import ThemePickerColor from '@/components/ThemePickerColor.vue'
+import NotificationMenu from '@/components/layout/NotificationMenu.vue'
+import MailMenu from '@/components/layout/MailMenu.vue'
+import ProfileMenu from '@/components/layout/ProfileMenu.vue'
 import type { BreadcrumbItem } from '@nuxt/ui'
 
 const route = useRoute()
