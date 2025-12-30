@@ -9,19 +9,49 @@ import type { BreadcrumbItem } from '@nuxt/ui'
 
 const route = useRoute()
 
+const toTitle = (seg: string) =>
+  seg
+    .split('-')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ')
+
 const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
+  const segments = route.path.split('/').filter(Boolean)
+
+  if (segments[0] !== 'dashboard') {
+    const items: BreadcrumbItem[] = [{ label: 'Home', icon: 'i-lucide-home', to: '/' }]
+
+    segments.forEach((seg, idx) => {
+      const path = '/' + segments.slice(0, idx + 1).join('/')
+      items.push({
+        label: toTitle(seg),
+        to: path
+      })
+    })
+
+    return items
+  }
+
   const items: BreadcrumbItem[] = [
-    { label: 'Home', icon: 'i-lucide-home', to: '/' }
+    { label: 'Dashboard', icon: 'i-lucide-home', to: '/dashboard' }
   ]
-  const pathSegments = route.path.split('/').filter(Boolean)
-  pathSegments.forEach((segment, index) => {
-    const path = '/' + pathSegments.slice(0, index + 1).join('/')
-    const label = segment.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
-    items.push({ label, to: path })
+
+  const cleaned = segments.slice(1).filter(seg => seg !== 'home') // remove base + default
+
+  cleaned.forEach((seg, idx) => {
+    const path = '/dashboard/' + cleaned.slice(0, idx + 1).join('/')
+    items.push({
+      label: toTitle(seg),
+      to: path
+    })
   })
+
   return items
 })
+
+
 </script>
+
 <template>
   <UDashboardNavbar
     :ui="{
@@ -45,7 +75,7 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
         <div class="hidden lg:block">
           <UBreadcrumb
             :items="breadcrumbItems"
-            separator-icon="i-lucide-chevron-right"
+            separator-icon="tabler:slash"
             :ui="{
               ol: 'gap-1',
               li: 'text-sm font-medium text-neutral-500 hover:text-primary-600 dark:hover:text-primary-400',
