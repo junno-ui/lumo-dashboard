@@ -4,6 +4,7 @@ import type { ButtonProps, AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 import * as yup from 'yup'
 import { useRouter } from 'vue-router'
 import LoginDashboard from './LoginDashboard.vue'
+import BrandLogo from '@/components/global/logo/BrandLogo.vue'
 
 const router = useRouter()
 const schema = yup.object({
@@ -74,9 +75,9 @@ function onError() {
         <div class="relative flex flex-col h-full p-12">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
-              <UAvatar src="https://github.com/nuxt.png" size="sm" />
+              <BrandLogo :collapsed="true" size="lg" />
             </div>
-            <span class="text-2xl font-semibold">Lumo</span>
+            <span class="text-xl font-semibold">Lumo Dashboard</span>
           </div>
 
           <div class="mt-14 max-w-xl">
