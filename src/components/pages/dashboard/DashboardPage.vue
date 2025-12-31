@@ -7,7 +7,7 @@
   const ApexChart = VueApexCharts
   
   // User Data
-  const userName = ref('Oripio')
+  const userName = ref('John Doe')
   
   // Date Range
   const selectedDateRange = ref('30d')
@@ -366,7 +366,7 @@
     <!-- Header Section with Date Range Picker -->
     <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div>
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 class="text-3xl font-semibold text-gray-900 dark:text-white mb-2">
           Good {{ getGreeting }}, {{ userName }}
         </h1>
         <p class="text-gray-600 dark:text-gray-400">
@@ -388,7 +388,7 @@
     <!-- Key SaaS Metrics Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <!-- MRR Card -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900  hover:shadow-lg transition-shadow duration-200">
         <div class="flex items-start justify-between">
           <div class="flex-1">
             <div class="flex items-center gap-2 mb-2">
@@ -397,7 +397,7 @@
               </div>
               <span class="text-sm font-medium text-gray-600 dark:text-gray-400">MRR</span>
             </div>
-            <p class="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+            <p class="text-3xl font-semibold text-gray-900 dark:text-white mb-1">
               ${{ formatCurrency(mrr) }}
             </p>
             <div class="flex items-center gap-1 text-sm">
@@ -415,7 +415,7 @@
       </UCard>
 
       <!-- ARR Card -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
+       <UCard class="   dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
         <div class="flex items-start justify-between">
           <div class="flex-1">
             <div class="flex items-center gap-2 mb-2">
@@ -424,7 +424,7 @@
               </div>
               <span class="text-sm font-medium text-gray-600 dark:text-gray-400">ARR</span>
             </div>
-            <p class="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+            <p class="text-3xl font-semibold text-gray-900 dark:text-white mb-1">
               ${{ formatCurrency(arr) }}
             </p>
             <div class="flex items-center gap-1 text-sm">
@@ -442,7 +442,7 @@
       </UCard>
 
       <!-- Active Customers -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
         <div class="flex items-start justify-between">
           <div class="flex-1">
             <div class="flex items-center gap-2 mb-2">
@@ -451,7 +451,7 @@
               </div>
               <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Customers</span>
             </div>
-            <p class="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+            <p class="text-3xl font-semibold text-gray-900 dark:text-white mb-1">
               {{ formatNumber(activeCustomers) }}
             </p>
             <div class="flex items-center gap-1 text-sm">
@@ -468,7 +468,7 @@
       </UCard>
 
       <!-- Churn Rate -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
+       <UCard class="  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
         <div class="flex items-start justify-between">
           <div class="flex-1">
             <div class="flex items-center gap-2 mb-2">
@@ -477,7 +477,7 @@
               </div>
               <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Churn Rate</span>
             </div>
-            <p class="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+            <p class="text-3xl font-semibold text-gray-900 dark:text-white mb-1">
               {{ churnRate }}%
             </p>
             <div class="flex items-center gap-1 text-sm">
@@ -497,40 +497,40 @@
 
     <!-- Secondary Metrics Grid -->
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-md transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900 hover:shadow-md transition-shadow duration-200">
         <div class="text-center">
           <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">LTV</p>
-          <p class="text-xl font-bold text-gray-900 dark:text-white">${{ formatCurrency(ltv) }}</p>
+          <p class="text-xl font-semibold text-gray-900 dark:text-white">${{ formatCurrency(ltv) }}</p>
         </div>
       </UCard>
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-md transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900 hover:shadow-md transition-shadow duration-200">
         <div class="text-center">
           <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">CAC</p>
-          <p class="text-xl font-bold text-gray-900 dark:text-white">${{ formatCurrency(cac) }}</p>
+          <p class="text-xl font-semibold text-gray-900 dark:text-white">${{ formatCurrency(cac) }}</p>
         </div>
       </UCard>
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-md transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900 hover:shadow-md transition-shadow duration-200">
         <div class="text-center">
           <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">LTV:CAC</p>
-          <p class="text-xl font-bold text-gray-900 dark:text-white">{{ ltvCacRatio }}:1</p>
+          <p class="text-xl font-semibold text-gray-900 dark:text-white">{{ ltvCacRatio }}:1</p>
         </div>
       </UCard>
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-md transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900  hover:shadow-md transition-shadow duration-200">
         <div class="text-center">
           <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">NRR</p>
-          <p class="text-xl font-bold text-gray-900 dark:text-white">{{ nrr }}%</p>
+          <p class="text-xl font-semibold text-gray-900 dark:text-white">{{ nrr }}%</p>
         </div>
       </UCard>
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-md transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900  hover:shadow-md transition-shadow duration-200">
         <div class="text-center">
           <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">ARPU</p>
-          <p class="text-xl font-bold text-gray-900 dark:text-white">${{ formatCurrency(arpu) }}</p>
+          <p class="text-xl font-semibold text-gray-900 dark:text-white">${{ formatCurrency(arpu) }}</p>
         </div>
       </UCard>
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-md transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900  hover:shadow-md transition-shadow duration-200">
         <div class="text-center">
           <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">Trial Conv.</p>
-          <p class="text-xl font-bold text-gray-900 dark:text-white">{{ trialConversionRate }}%</p>
+          <p class="text-xl font-semibold text-gray-900 dark:text-white">{{ trialConversionRate }}%</p>
         </div>
       </UCard>
     </div>
@@ -538,7 +538,7 @@
     <!-- Charts Section -->
     <div class="grid gap-6 lg:grid-cols-2">
       <!-- MRR Growth Chart -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900  hover:shadow-lg transition-shadow duration-200">
         <template #header>
           <div class="flex items-center justify-between">
             <div>
@@ -563,7 +563,7 @@
       </UCard>
 
       <!-- Revenue vs Expenses -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900  hover:shadow-lg transition-shadow duration-200">
         <template #header>
           <div class="flex items-center justify-between">
             <div>
@@ -591,7 +591,7 @@
     <!-- Customer Metrics Charts -->
     <div class="grid gap-6 lg:grid-cols-3">
       <!-- Customer Growth -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 lg:col-span-2 hover:shadow-lg transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900 lg:col-span-2 hover:shadow-lg transition-shadow duration-200">
         <template #header>
           <div class="flex items-center justify-between">
             <div>
@@ -609,7 +609,7 @@
       </UCard>
 
       <!-- Plan Distribution -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900  hover:shadow-lg transition-shadow duration-200">
         <template #header>
           <div>
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Plan Distribution</h3>
@@ -628,7 +628,7 @@
     <!-- Revenue by Source and Top Customers -->
     <div class="grid gap-6 lg:grid-cols-2">
       <!-- Revenue by Source -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900  hover:shadow-lg transition-shadow duration-200">
         <template #header>
           <div>
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Revenue by Source</h3>
@@ -644,7 +644,7 @@
       </UCard>
 
       <!-- Top Customers -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900  hover:shadow-lg transition-shadow duration-200">
         <template #header>
           <div class="flex items-center justify-between">
             <div>
@@ -672,7 +672,7 @@
               </div>
             </div>
             <div class="text-right">
-              <p class="font-bold text-gray-900 dark:text-white">${{ formatCurrency(customer.mrr) }}/mo</p>
+              <p class="font-semibold text-gray-900 dark:text-white">${{ formatCurrency(customer.mrr) }}/mo</p>
               <UBadge :color="customer.status === 'Active' ? 'green' : 'gray'" variant="soft" size="xs">
                 {{ customer.status }}
               </UBadge>
@@ -685,7 +685,7 @@
     <!-- Recent Transactions and Activity Feed -->
     <div class="grid gap-6 lg:grid-cols-2">
       <!-- Recent Transactions -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900  hover:shadow-lg transition-shadow duration-200">
         <template #header>
           <div class="flex items-center justify-between">
             <div>
@@ -722,7 +722,7 @@
       </UCard>
 
       <!-- Activity Feed -->
-       <UCard class=" dark:bg-gray-900  dark:bg-gray-900 hover:shadow-lg transition-shadow duration-200">
+       <UCard class=" dark:bg-gray-900  hover:shadow-lg transition-shadow duration-200">
         <template #header>
           <div>
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Activity Feed</h3>
