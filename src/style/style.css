@@ -32,24 +32,6 @@
 }
 
 
-@utility font-sans {
-  font-family: 'Inter', sans-serif;
-}
-
-@utility font-dm-sans {
-  font-family: 'DM Sans', sans-serif;
-}
-
-@utility font-outfit {
-  font-family: 'Outfit', sans-serif;
-}
-
-@utility font-roboto {
-  font-family: 'Roboto', sans-serif;
-}
-
-
-
 /* Base fallback - Nuxt UI CSS Variables */
 :root {
   /* Primary color - set by useBrand */
@@ -105,13 +87,6 @@
   --ui-border-inverted: var(--ui-color-neutral-50, #f8fafc);
 }
 
-/* ===== Primary palette ===== */
-/* Colors are set dynamically via useBrand composable */
-/* CSS fallback for initial load - will be overridden by JavaScript */
-
-/* ===== Neutral palette ===== */
-/* Colors are set dynamically via useNeutral composable */
-/* CSS fallback for initial load - will be overridden by JavaScript */
 :root:not([data-neutral]),
 :root[data-neutral="slate"] {
   --color-gray-50: #f8fafc;

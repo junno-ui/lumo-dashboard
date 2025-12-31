@@ -78,12 +78,11 @@ const links: NavigationMenuItem[] = [
           class="flex items-center h-10 px-3 rounded-xl
                  hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
         >
-          <UAvatar
-            src="https://github.com/nuxt.png"
-            size="sm"
-            class="shrink-0 ring-1 ring-gray-200/60 dark:ring-gray-800/50"
+          <UIcon
+            name="duo-icons:dashboard"
+            class="w-6 h-6 text-primary-500"
           />
-          <span class="ml-2.5 text-xs font-extrabold tracking-tight text-gray-900 dark:text-white whitespace-nowrap">
+          <span class="ml-2.5 text-xs font-semibold  text-gray-900 dark:text-white whitespace-nowrap">
             Lumo Dashboard
           </span>
         </div>
