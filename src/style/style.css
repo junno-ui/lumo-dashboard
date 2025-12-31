@@ -2,6 +2,9 @@
 @import "@nuxt/ui";
 
 @theme {
+  /* Font Family - Poppins */
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  
   /* Primary colors are set dynamically via useBrand composable */
   /* These will be overridden by JavaScript */
   --color-primary-50: #eef2ff;
@@ -168,6 +171,13 @@
   transition-property: background-color, border-color, color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
+}
+
+/* Apply Poppins font globally */
+body {
+  font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ===== Radius ===== */
