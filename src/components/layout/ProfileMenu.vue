@@ -53,7 +53,7 @@ const items: MenuItem[][] = [
         :src="profileSettings.avatar"
         :alt="profileSettings.name"
         size="md"
-        class="ring-2 ring-white dark:ring-slate-700 shadow-sm"
+        class="ring-2 ring-primary shadow-sm"
       />
 
       <span class="ml-3 text-left hidden lg:block leading-tight">
