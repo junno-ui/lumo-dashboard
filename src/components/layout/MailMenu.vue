@@ -52,15 +52,16 @@ function markAllRead() {
       :show="unreadCount > 0"
       :text="unreadCount"
       size="3xl"
-      class="select-none"
+      class="select-none "
     >
       <UButton
   :color="unreadCount > 0 ? 'primary' : 'gray'"
-  variant="subtle"
-  class="rounded-xl w-10 h-10 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+  variant="soft"
+  class="rounded-xl flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
   aria-label="Open inbox notifications"
   icon="i-heroicons-envelope"
 />
+
     </UChip>
 
     <!-- Content -->
