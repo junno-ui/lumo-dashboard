@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
+import BrandLogo from '@/components/global/logo/BrandLogo.vue';
 
 const links: NavigationMenuItem[] = [
   { label: 'Dashboard', icon: 'heroicons:squares-2x2', to: '/dashboard' }, // atau '/dashboard/home' kalau kamu pakai home
@@ -7,7 +8,7 @@ const links: NavigationMenuItem[] = [
   {
     label: 'Analytics',
     icon: 'heroicons:chart-bar',
-    children: [
+    children: [ 
       { label: 'Revenue', to: '/dashboard/analytics/revenue', icon: 'heroicons:banknotes' },
       { label: 'Usage', to: '/dashboard/analytics/usage', icon: 'heroicons:chart-bar' },
       { label: 'Active Users', to: '/dashboard/analytics/active-users', icon: 'heroicons:user-group' }
@@ -72,32 +73,12 @@ const links: NavigationMenuItem[] = [
   >
     <!-- ================= HEADER ================= -->
     <template #header="{ collapsed }">
-      <div class="px-2 py-4">
-        <div
-          v-if="!collapsed"
-          class="flex items-center h-10 px-3 rounded-xl
-                 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-        >
-          <UIcon
-            name="duo-icons:dashboard"
-            class="w-6 h-6 text-primary-500"
-          />
-          <span class="ml-2.5 text-xs font-semibold  text-gray-900 dark:text-white whitespace-nowrap">
-            Lumo Dashboard
-          </span>
-        </div>
-
-        <div v-else class="flex justify-start">
-          <UTooltip text="Lumo Dashboard" placement="right">
-          <UAvatar src="https://github.com/nuxt.png" size="xs" class="ring-0" />
-          </UTooltip>
-        </div>
+      <div class="py-4" :class="collapsed ? 'px-0' : 'px-0'">
+        <BrandLogo :collapsed="collapsed" />
       </div>
     </template>
 
     <template #default="{ collapsed }">
-
-
       <!-- Navigation -->
       <UNavigationMenu
         :collapsed="collapsed"
