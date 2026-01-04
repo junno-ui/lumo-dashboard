@@ -552,7 +552,7 @@ const columns: TableColumn<Payment>[] = [
               <span>Margin health</span>
               <span class="font-medium text-gray-900 dark:text-white">{{ grossMarginPct }}%</span>
             </div>
-            <UProgress :value="grossMarginPct" class="mt-2" />
+            <UProgress :model-value="grossMarginPct" class="mt-2" />
           </div>
         </UCard>
       </div>

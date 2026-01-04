@@ -554,7 +554,7 @@ watch(selectedRange, () => {
                 {{ row.dateLabel }}
               </div>
 
-              <UProgress class="flex-1" :value="row.percent" />
+              <UProgress class="flex-1" :model-value="row.percent" />
 
               <div class="w-24 text-right">
                 <div class="text-xs font-medium text-gray-900 dark:text-white">

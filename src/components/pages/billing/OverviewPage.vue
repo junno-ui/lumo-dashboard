@@ -65,7 +65,7 @@ const total = spendBreakdown.reduce((acc, curr) => acc + curr.amount, 0)
               </div>
               <span class="text-sm font-bold text-gray-600 dark:text-gray-400">${{ b.amount }}</span>
             </div>
-            <UProgress :value="(b.amount / total) * 100" color="primary" size="sm" />
+            <UProgress :model-value="(b.amount / total) * 100" color="primary" size="sm" />
           </div>
         </div>
       </UCard>
