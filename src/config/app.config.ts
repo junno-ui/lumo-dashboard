@@ -1,11 +1,11 @@
 import type { NavigationMenuItem } from '@nuxt/ui'
 
 export const appConfig = {
-  name: 'Vue Starter',
+  name: 'Lumo',
   subtitle: 'Insights at a Glance',
   icon: 'duo-icons:dashboard',
   logo: {
-    alt: 'Vue Starter Logo',
+    alt: 'Lumo',
     light: '/logo-light.svg',
     dark: '/logo-dark.svg'
   },
