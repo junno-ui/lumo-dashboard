@@ -4,7 +4,6 @@ import type { ButtonProps, AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 import * as yup from 'yup'
 import { useRouter } from 'vue-router'
 import LoginDashboard from './LoginDashboard.vue'
-import BrandLogo from '@/components/global/logo/BrandLogo.vue'
 
 const router = useRouter()
 const schema = yup.object({
