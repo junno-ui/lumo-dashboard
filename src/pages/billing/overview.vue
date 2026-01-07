@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import OverviewPage from '@/components/pages/billing/OverviewPage.vue'
+import OverviewPage from '@/components/features/billing/OverviewPage.vue'
 </script>
 
 <template>

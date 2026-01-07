@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
-import ThemePickerColor from '@/components/common/ThemePickerColor.vue'
+import ThemePickerColor from '@/components/features/theme/ThemePickerColor.vue'
 import NotificationMenu from '@/components/layout/NotificationMenu.vue'
 import MailMenu from '@/components/layout/MailMenu.vue'
 import ProfileMenu from '@/components/layout/ProfileMenu.vue'

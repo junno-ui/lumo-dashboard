@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RevenuePage from '@/components/pages/analytics/RevenuePage.vue'
+import RevenuePage from '@/components/features/analytics/RevenuePage.vue'
 </script>
 
 <template>

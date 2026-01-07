@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ActiveUsersPage from '@/components/pages/analytics/ActiveUsersPage.vue'
+import ActiveUsersPage from '@/components/features/analytics/ActiveUsersPage.vue'
 </script>
 
 <template>

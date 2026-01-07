@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SecurityPage from '@/components/pages/settings/SecurityPage.vue'
+import SecurityPage from '@/components/features/settings/SecurityPage.vue'
 </script>
 
 <template>

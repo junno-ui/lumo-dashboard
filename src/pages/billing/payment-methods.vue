@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PaymentMethodsPage from '@/components/pages/billing/PaymentMethodsPage.vue'
+import PaymentMethodsPage from '@/components/features/billing/PaymentMethodsPage.vue'
 </script>
 
 <template>

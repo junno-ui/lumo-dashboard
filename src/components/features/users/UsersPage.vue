@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, h, resolveComponent } from 'vue'
-import BaseDataTable from '@/components/global/common/BaseDataTable.vue'
-import UserFormModal from '@/components/users/UserFormModal.vue'
+import BaseDataTable from '@/components/ui/BaseDataTable.vue'
+import UserFormModal from '@/components/features/users/UserFormModal.vue'
 import { users as mockUsers } from '@/mock/users'
 
 const UBadge = resolveComponent('UBadge')

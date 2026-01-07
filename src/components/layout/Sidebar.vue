@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import BrandLogo from '@/components/common/BrandLogo.vue';
+import BrandLogo from '@/components/ui/BrandLogo.vue';
 import { navigationMenu } from '@/config/app.config';
 
 const route = useRoute();
