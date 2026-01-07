@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { computed, h, ref, resolveComponent, watch } from 'vue'
+import { computed, h, ref, resolveComponent } from 'vue'
 import type { ApexOptions } from 'apexcharts'
 import VueApexCharts from 'vue3-apexcharts'
 import type { TableColumn } from '@nuxt/ui'
 import { analyticsStats, usageDataNumeric } from '@/mock/analytics'
+import { useColorMode } from '@vueuse/core'
 
 /**
- * Resolved components (for h() in table cells)
+ * Nuxt UI resolved (for h() in table cells)
  */
 const UBadge = resolveComponent('UBadge')
 const UButton = resolveComponent('UButton')
 const UDropdownMenu = resolveComponent('UDropdownMenu')
 const UIcon = resolveComponent('UIcon')
+
+const toast = useToast()
+const colorMode = useColorMode()
+const isDark = computed(() => colorMode.value === 'dark')
 
 type UsagePoint = { date: string; requests: number; bandwidthGB: number }
 type UsageRow = { date: string; dateLabel: string; requests: number; bandwidthGB: number; percent: number }
@@ -24,7 +29,6 @@ const ApexChart = VueApexCharts
  * -----------------------------
  */
 type RangeValue = '7d' | '30d' | '90d' | 'all'
-
 const selectedRange = ref<RangeValue>('7d')
 
 const rangeItems = [
@@ -44,11 +48,10 @@ const windowSize = computed(() => {
   if (selectedRange.value === '7d') return 7
   if (selectedRange.value === '30d') return 30
   if (selectedRange.value === '90d') return 90
-  return 0 // all
+  return 0
 })
 
 function sliceWindow<T>(arr: T[], size: number, offsetFromEnd: number) {
-  // offsetFromEnd: 0 => latest window, 1 => previous window
   if (size <= 0) return arr
   const end = arr.length - offsetFromEnd * size
   const start = Math.max(0, end - size)
@@ -63,11 +66,8 @@ const udPrev = computed(() => sliceWindow(sortedUd.value, windowSize.value, 1))
  * Metrics helpers
  * -----------------------------
  */
-const sum = (arr: UsagePoint[], key: keyof UsagePoint) =>
-  arr.reduce((a, b) => a + (Number(b[key]) || 0), 0)
-
-const max = (arr: UsagePoint[], key: keyof UsagePoint) =>
-  arr.reduce((m, x) => Math.max(m, Number(x[key]) || 0), 0)
+const sum = (arr: UsagePoint[], key: keyof UsagePoint) => arr.reduce((a, b) => a + (Number(b[key]) || 0), 0)
+const max = (arr: UsagePoint[], key: keyof UsagePoint) => arr.reduce((m, x) => Math.max(m, Number(x[key]) || 0), 0)
 
 function pctChange(prev: number, curr: number) {
   if (!prev) return null
@@ -94,12 +94,10 @@ const avgBandwidth = computed(() => {
 
 const peakRequests = computed(() => max(udCurrent.value, 'requests'))
 const peakBandwidth = computed(() => max(udCurrent.value, 'bandwidthGB'))
-
 const maxBandwidth = computed(() => Math.max(0, peakBandwidth.value))
 
 const lastDateLabel = computed(() => {
-  
-  const last = udCurrent.value.slice(-1)[0]?.date || sortedUd.value.slice(-1)[0]?.date;
+  const last = udCurrent.value.slice(-1)[0]?.date || sortedUd.value.slice(-1)[0]?.date
   return last ? new Date(last).toLocaleDateString() : '-'
 })
 
@@ -115,17 +113,18 @@ const formatGB = (n: number) =>
   `${new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 }).format(n)} GB`
 
 const deltaBadge = (delta: number | null) => {
-  if (delta === null) return { color: 'neutral' as const, label: '—' }
+  if (delta === null) return { color: 'neutral' as const, label: '—', icon: 'i-heroicons-minus' }
   const up = delta >= 0
   return {
     color: up ? ('success' as const) : ('error' as const),
-    label: `${up ? '+' : '-'}${Math.abs(delta).toFixed(1)}%`
+    label: `${up ? '+' : '-'}${Math.abs(delta).toFixed(1)}%`,
+    icon: up ? 'i-heroicons-arrow-trending-up' : 'i-heroicons-arrow-trending-down'
   }
 }
 
 /**
  * -----------------------------
- * KPI cards (more informative)
+ * KPI cards
  * -----------------------------
  */
 const statCards = computed(() => {
@@ -151,14 +150,14 @@ const statCards = computed(() => {
       label: 'Peak Requests',
       value: formatCompact(peakRequests.value),
       sub: `Last updated ${lastDateLabel.value}`,
-      badge: { color: 'neutral' as const, label: pointsLabel.value },
+      badge: { color: 'neutral' as const, label: pointsLabel.value, icon: 'i-heroicons-clock' },
       icon: 'i-heroicons-bolt'
     },
     {
       label: 'Active Users (now)',
       value: formatCompact(Number(analyticsStats.activeUsersNow || 0)),
       sub: 'Realtime',
-      badge: { color: 'success' as const, label: String(analyticsStats.activeUsersGrowth || '+0%') },
+      badge: { color: 'success' as const, label: String(analyticsStats.activeUsersGrowth || '+0%'), icon: 'i-heroicons-arrow-trending-up' },
       icon: 'i-heroicons-user-group'
     }
   ]
@@ -166,70 +165,79 @@ const statCards = computed(() => {
 
 /**
  * -----------------------------
+ * Dark/light chart theming
+ * -----------------------------
+ */
+const chartText = computed(() => (isDark.value ? '#cbd5e1' : '#64748b')) // slate-300 / slate-500
+const chartGrid = computed(() => (isDark.value ? 'rgba(148,163,184,.18)' : 'rgba(148,163,184,.26)'))
+const chartTooltipTheme = computed(() => (isDark.value ? 'dark' : 'light'))
+
+function baseApexOptions(extra: ApexOptions): ApexOptions {
+  return {
+    theme: { mode: isDark.value ? 'dark' : 'light' },
+    chart: {
+      background: 'transparent',
+      toolbar: { show: false },
+      zoom: { enabled: false },
+      foreColor: chartText.value,
+      fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial'
+    },
+    grid: { borderColor: chartGrid.value, strokeDashArray: 4 },
+    tooltip: { theme: chartTooltipTheme.value as any },
+    legend: {
+      position: 'top',
+      fontSize: '12px',
+      labels: { colors: chartText.value }
+    },
+    ...extra
+  }
+}
+
+/**
+ * -----------------------------
  * Chart: Requests (bar) + Bandwidth (line)
  * -----------------------------
- * Use computed so it updates with selectedRange.
- * Add :key to force Apex to re-render cleanly.
  */
-const chartKey = computed(() => `${selectedRange.value}-${udCurrent.value.length}-${lastDateLabel.value}`)
+const chartKey = computed(() => `${selectedRange.value}-${udCurrent.value.length}-${lastDateLabel.value}-${isDark.value ? 'd' : 'l'}`)
 
-const usageSeries = computed(() => ([
-  {
-    name: 'Requests',
-    type: 'column',
-    data: udCurrent.value.map((d) => d.requests)
-  },
-  {
-    name: 'Bandwidth (GB)',
-    type: 'line',
-    data: udCurrent.value.map((d) => d.bandwidthGB)
-  }
-]))
+const usageSeries = computed(() => [
+  { name: 'Requests', type: 'column', data: udCurrent.value.map((d) => d.requests) },
+  { name: 'Bandwidth (GB)', type: 'line', data: udCurrent.value.map((d) => d.bandwidthGB) }
+])
 
-const usageChartOptions = computed<ApexOptions>(() => ({
-  chart: {
-    type: 'line',
-    stacked: false,
-    toolbar: { show: false },
-    zoom: { enabled: false },
-    foreColor: '#6b7280'
-  },
-  dataLabels: { enabled: false },
-  stroke: { width: [0, 3], curve: 'smooth' },
-  plotOptions: { bar: { columnWidth: '55%', borderRadius: 8 } },
-  xaxis: {
-    categories: udCurrent.value.map((d) => new Date(d.date).toLocaleDateString()),
-    axisBorder: { show: false },
-    axisTicks: { show: false }
-  },
-  yaxis: [
-    {
-      title: { text: 'Requests' },
-      labels: { formatter: (val: number) => formatCompact(val) }
+const usageChartOptions = computed<ApexOptions>(() =>
+  baseApexOptions({
+    colors: ['#3b82f6', '#22c55e'],
+    dataLabels: { enabled: false },
+    stroke: { width: [0, 3], curve: 'smooth' },
+    plotOptions: { bar: { columnWidth: '55%', borderRadius: 8 } },
+    xaxis: {
+      categories: udCurrent.value.map((d) => new Date(d.date).toLocaleDateString()),
+      axisBorder: { show: false },
+      axisTicks: { show: false },
+      labels: { style: { colors: chartText.value } }
     },
-    {
-      opposite: true,
-      title: { text: 'Bandwidth (GB)' },
-      labels: { formatter: (val: number) => `${val} GB` }
-    }
-  ],
-  tooltip: {
-    shared: true,
-    intersect: false,
-    y: {
-      formatter: (val: number, opts: any) => {
-        return opts.seriesIndex === 0
-          ? `${formatNumber(val)} req`
-          : `${val} GB`
+    yaxis: [
+      {
+        title: { text: 'Requests', style: { color: chartText.value } },
+        labels: { style: { colors: chartText.value }, formatter: (val: number) => formatCompact(val) }
+      },
+      {
+        opposite: true,
+        title: { text: 'Bandwidth (GB)', style: { color: chartText.value } },
+        labels: { style: { colors: chartText.value }, formatter: (val: number) => `${val} GB` }
       }
-    }
-  },
-  grid: {
-    borderColor: 'rgba(148, 163, 184, 0.22)',
-    strokeDashArray: 4
-  },
-  legend: { position: 'top', fontSize: '12px' }
-}))
+    ],
+    tooltip: {
+      shared: true,
+      intersect: false,
+      y: {
+        formatter: (val: number, opts: any) => (opts.seriesIndex === 0 ? `${formatNumber(val)} req` : `${val} GB`)
+      }
+    },
+    markers: { size: 0, hover: { size: 4 } }
+  })
+)
 
 /**
  * -----------------------------
@@ -248,18 +256,11 @@ const bandwidthRows = computed<UsageRow[]>(() => {
 })
 
 const topBandwidthRows = computed(() => {
-  // show top 10 days by bandwidth
-  return [...bandwidthRows.value]
-    .sort((a, b) => (b.bandwidthGB || 0) - (a.bandwidthGB || 0))
-    .slice(0, 10)
+  return [...bandwidthRows.value].sort((a, b) => (b.bandwidthGB || 0) - (a.bandwidthGB || 0)).slice(0, 10)
 })
 
 const columns: TableColumn<UsageRow>[] = [
-  {
-    accessorKey: 'dateLabel',
-    header: 'Date',
-    meta: { class: { th: 'w-40', td: 'align-middle' } }
-  },
+  { accessorKey: 'dateLabel', header: 'Date', meta: { class: { th: 'w-40', td: 'align-middle' } } },
   {
     accessorKey: 'requests',
     header: 'Requests',
@@ -292,8 +293,8 @@ const columns: TableColumn<UsageRow>[] = [
     id: 'actions',
     header: '',
     meta: { class: { th: 'w-16 text-right', td: 'text-right' } },
-    cell: ({ row }) => {
-      return h(
+    cell: ({ row }) =>
+      h(
         UDropdownMenu as any,
         {
           items: [
@@ -303,6 +304,7 @@ const columns: TableColumn<UsageRow>[] = [
               icon: 'i-lucide-copy',
               onSelect: async () => {
                 await navigator.clipboard.writeText(row.original.dateLabel)
+                toast.add({ title: 'Copied', description: row.original.dateLabel, color: 'success', icon: 'i-lucide-copy' })
               }
             },
             { type: 'separator' },
@@ -319,81 +321,90 @@ const columns: TableColumn<UsageRow>[] = [
             'aria-label': 'Actions'
           })
       )
-    }
   }
 ]
 
-/**
- * optional: keep layout consistent when range changes
- */
-watch(selectedRange, () => {
-  // no-op (placeholder) – but useful hook if later you fetch API data per range
-})
+const hasData = computed(() => udCurrent.value.length > 0)
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors">
+  <div class="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-950 transition-colors">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-      <!-- Header -->
-      <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-            Usage analytics
-          </h1>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-            Track API requests and bandwidth consumption over time.
-          </p>
+      <!-- Header (glass) -->
+      <UCard
+        class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60 bg-white/70 dark:bg-gray-950/40 backdrop-blur"
+        :ui="{ body: 'p-5' }"
+      >
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div class="min-w-0">
+            <h1 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white">
+              Usage analytics
+            </h1>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              Track API requests and bandwidth consumption over time.
+            </p>
 
-          <div class="mt-3 flex flex-wrap items-center gap-2">
-            <UBadge color="neutral" variant="soft" size="xs">
-              Range: {{ rangeItems.find(i => i.value === selectedRange)?.label }}
-            </UBadge>
-            <UBadge color="neutral" variant="soft" size="xs">
-              Data: {{ pointsLabel }}
-            </UBadge>
-            <UBadge color="neutral" variant="soft" size="xs">
-              Last: {{ lastDateLabel }}
-            </UBadge>
+            <div class="mt-3 flex flex-wrap items-center gap-2">
+              <UBadge color="neutral" variant="soft" size="xs">
+                Range: {{ rangeItems.find(i => i.value === selectedRange)?.label }}
+              </UBadge>
+              <UBadge color="neutral" variant="soft" size="xs">
+                Data: {{ pointsLabel }}
+              </UBadge>
+              <UBadge color="neutral" variant="soft" size="xs">
+                Last: {{ lastDateLabel }}
+              </UBadge>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-2 sm:items-center">
+            <USelectMenu
+              v-model="selectedRange"
+              :items="rangeItems"
+              value-key="value"
+              label-key="label"
+              size="sm"
+              color="neutral"
+              variant="outline"
+              class="w-full sm:w-48"
+            />
+
+            <UButton
+              size="sm"
+              color="neutral"
+              variant="soft"
+              icon="i-lucide-download"
+              class="w-full sm:w-auto justify-center"
+              @click="console.log('export')"
+            >
+              Export
+            </UButton>
+
+            <UButton
+              size="sm"
+              color="primary"
+              variant="solid"
+              icon="i-lucide-refresh-cw"
+              class="w-full sm:w-auto justify-center"
+              @click="console.log('refresh')"
+            >
+              Refresh
+            </UButton>
           </div>
         </div>
-
-        <div class="flex flex-col sm:flex-row gap-2 sm:items-center">
-          <!-- IMPORTANT: Nuxt UI v3 uses :items -->
-          <USelectMenu
-            v-model="selectedRange"
-            :items="rangeItems"
-            value-key="value"
-            label-key="label"
-            size="sm"
-            color="neutral"
-            variant="outline"
-            class="w-full sm:w-44"
-          />
-
-          <UButton
-            size="sm"
-            color="neutral"
-            variant="soft"
-            icon="i-lucide-download"
-            class="w-full sm:w-auto justify-center"
-            @click="console.log('export')"
-          >
-            Export
-          </UButton>
-        </div>
-      </div>
+      </UCard>
 
       <!-- KPI Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         <UCard
           v-for="(s, idx) in statCards"
           :key="idx"
-          class="hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+          class="rounded-3xl hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
           :ui="{ body: 'p-5' }"
         >
           <div class="flex items-start justify-between gap-3">
             <div class="flex items-center gap-3 min-w-0">
-              <div class="p-2 rounded-xl bg-gray-50 dark:bg-gray-900/50 ring-1 ring-gray-200/70 dark:ring-gray-800/60">
+              <div class="p-2 rounded-2xl bg-gray-50 dark:bg-gray-900/50 ring-1 ring-gray-200/70 dark:ring-gray-800/60">
                 <UIcon :name="s.icon" class="w-5 h-5 text-primary-500" />
               </div>
               <div class="min-w-0">
@@ -411,11 +422,7 @@ watch(selectedRange, () => {
 
             <UBadge :color="s.badge.color" variant="soft" size="xs" class="whitespace-nowrap">
               <span class="flex items-center gap-1">
-                <UIcon
-                  v-if="s.badge.label !== '—'"
-                  :name="(s.badge.color === 'success') ? 'i-heroicons-arrow-trending-up' : (s.badge.color === 'error' ? 'i-heroicons-arrow-trending-down' : 'i-heroicons-minus')"
-                  class="w-3 h-3"
-                />
+                <UIcon :name="s.badge.icon" class="w-3 h-3" />
                 <span>{{ s.badge.label }}</span>
               </span>
             </UBadge>
@@ -426,15 +433,13 @@ watch(selectedRange, () => {
       <!-- Main row -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Chart -->
-        <UCard class="lg:col-span-2 hover:shadow-md transition-shadow" :ui="{ body: 'p-4' }">
+        <UCard class="rounded-3xl lg:col-span-2 hover:shadow-md transition-shadow" :ui="{ body: 'p-4' }">
           <template #header>
             <div class="flex items-start justify-between gap-3">
               <div>
-                <h3 class="text-base font-semibold text-gray-900 dark:text-white">
-                  Requests & bandwidth
-                </h3>
+                <h3 class="text-base font-semibold text-gray-900 dark:text-white">Requests & bandwidth</h3>
                 <p class="text-xs text-gray-500 dark:text-gray-400">
-                  Bar = requests, Line = bandwidth (GB) — updates with selected range.
+                  Bar = requests, Line = bandwidth (GB). Theme follows dark/light mode.
                 </p>
               </div>
               <UBadge color="neutral" variant="soft" size="xs">
@@ -443,7 +448,11 @@ watch(selectedRange, () => {
             </div>
           </template>
 
-          <div class="px-1 pb-3">
+          <div v-if="!hasData" class="py-16 text-center text-sm text-gray-600 dark:text-gray-400">
+            No data available for this range.
+          </div>
+
+          <div v-else class="px-1 pb-3">
             <ApexChart
               :key="chartKey"
               type="line"
@@ -455,15 +464,11 @@ watch(selectedRange, () => {
         </UCard>
 
         <!-- Insights -->
-        <UCard class="hover:shadow-md transition-shadow" :ui="{ body: 'p-5' }">
+        <UCard class="rounded-3xl hover:shadow-md transition-shadow" :ui="{ body: 'p-5' }">
           <template #header>
             <div>
-              <h3 class="text-base font-semibold text-gray-900 dark:text-white">
-                Insights
-              </h3>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
-                Quick interpretation for the selected window.
-              </p>
+              <h3 class="text-base font-semibold text-gray-900 dark:text-white">Insights</h3>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Quick interpretation for the selected window.</p>
             </div>
           </template>
 
@@ -486,42 +491,25 @@ watch(selectedRange, () => {
               </div>
             </div>
 
-            <div class="rounded-2xl p-4 ring-1 ring-gray-200/60 dark:ring-gray-800/60">
+            <div class="rounded-2xl p-4 ring-1 ring-gray-200/60 dark:ring-gray-800/60 bg-white/60 dark:bg-gray-950/30">
               <div class="flex items-start justify-between gap-3">
                 <div>
                   <div class="text-xs text-gray-600 dark:text-gray-400">Peak bandwidth day</div>
-                  <div class="mt-1 text-xl font-semibold text-gray-900 dark:text-white">
-                    {{ formatGB(peakBandwidth) }}
-                  </div>
+                  <div class="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{{ formatGB(peakBandwidth) }}</div>
                 </div>
                 <UIcon name="i-heroicons-signal" class="w-6 h-6 text-primary-500" />
               </div>
-
               <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">
-                Tip: if peak keeps rising, consider caching and gzip/brotli on your edge.
+                Tip: if peak keeps rising, consider caching + compression at the edge.
               </div>
             </div>
 
-            <div class="flex gap-2">
-              <UButton
-                size="sm"
-                color="primary"
-                variant="soft"
-                icon="i-lucide-refresh-cw"
-                class="flex-1 justify-center"
-                @click="console.log('refresh')"
-              >
-                Refresh
-              </UButton>
-              <UButton
-                size="sm"
-                color="neutral"
-                variant="outline"
-                icon="i-lucide-settings"
-                class="flex-1 justify-center"
-                @click="console.log('settings')"
-              >
+            <div class="grid grid-cols-2 gap-2">
+              <UButton size="sm" color="primary" variant="soft" icon="i-lucide-settings" class="justify-center" @click="console.log('settings')">
                 Settings
+              </UButton>
+              <UButton size="sm" color="neutral" variant="outline" icon="i-lucide-life-buoy" class="justify-center" @click="console.log('help')">
+                Help
               </UButton>
             </div>
           </div>
@@ -530,52 +518,40 @@ watch(selectedRange, () => {
 
       <!-- Details row -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Bandwidth by day (top list) -->
-        <UCard class="hover:shadow-md transition-shadow" :ui="{ body: 'p-5' }">
+        <!-- Top bandwidth list -->
+        <UCard class="rounded-3xl hover:shadow-md transition-shadow" :ui="{ body: 'p-5' }">
           <template #header>
             <div class="flex items-center justify-between">
               <div>
                 <h3 class="text-base font-semibold text-gray-900 dark:text-white">Top bandwidth days</h3>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Highest bandwidth days in this range</p>
               </div>
-              <UBadge color="neutral" variant="soft" size="xs">
-                Max: {{ formatGB(maxBandwidth) }}
-              </UBadge>
+              <UBadge color="neutral" variant="soft" size="xs">Max: {{ formatGB(maxBandwidth) }}</UBadge>
             </div>
           </template>
 
-          <div class="space-y-3">
-            <div
-              v-for="row in topBandwidthRows"
-              :key="row.date"
-              class="flex items-center gap-3"
-            >
-              <div class="w-28 text-xs text-gray-500 dark:text-gray-400">
-                {{ row.dateLabel }}
-              </div>
+          <div v-if="!hasData" class="py-10 text-center text-sm text-gray-600 dark:text-gray-400">
+            No bandwidth records for this range.
+          </div>
 
+          <div v-else class="space-y-3">
+            <div v-for="row in topBandwidthRows" :key="row.date" class="flex items-center gap-3">
+              <div class="w-28 text-xs text-gray-500 dark:text-gray-400">{{ row.dateLabel }}</div>
               <UProgress class="flex-1" :model-value="row.percent" />
-
-              <div class="w-24 text-right">
-                <div class="text-xs font-medium text-gray-900 dark:text-white">
-                  {{ formatGB(row.bandwidthGB) }}
-                </div>
-                <div class="text-[11px] text-gray-500 dark:text-gray-400">
-                  {{ formatCompact(row.requests) }} req
-                </div>
+              <div class="w-28 text-right">
+                <div class="text-xs font-medium text-gray-900 dark:text-white">{{ formatGB(row.bandwidthGB) }}</div>
+                <div class="text-[11px] text-gray-500 dark:text-gray-400">{{ formatCompact(row.requests) }} req</div>
               </div>
             </div>
           </div>
         </UCard>
 
         <!-- Daily table -->
-        <UCard class="hover:shadow-md transition-shadow" :ui="{ body: 'p-0' }">
+        <UCard class="rounded-3xl hover:shadow-md transition-shadow" :ui="{ body: 'p-0' }">
           <template #header>
             <div class="p-5">
               <h3 class="text-base font-semibold text-gray-900 dark:text-white">Daily usage</h3>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
-                Full breakdown for the selected range.
-              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Full breakdown for the selected range.</p>
             </div>
           </template>
 
