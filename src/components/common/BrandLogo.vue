@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { appConfig } from '@/config/app.config';
 
 type BrandSize = 'sm' | 'md' | 'lg'
 type BrandTone = 'primary' | 'indigo' | 'emerald' | 'amber' | 'rose' | 'slate'
@@ -23,8 +24,8 @@ const props = withDefaults(defineProps<{
   iconClass?: string
 }>(), {
   collapsed: false,
-  title: 'Lumo Dashboard',
-  subtitle: 'Insights at a Glance',
+  title: appConfig.name,
+  subtitle: appConfig.subtitle,
   size: 'md',
   tone: 'primary',
   badgeClass: '',
@@ -135,7 +136,7 @@ const iconClasses = computed(() => {
   >
     <!-- Icon badge -->
     <span :class="badgeClasses">
-      <UIcon name="duo-icons:dashboard" :class="iconClasses" />
+      <UIcon :name="appConfig.icon" :class="iconClasses" />
     </span>
 
     <!-- Text (collapsible) -->

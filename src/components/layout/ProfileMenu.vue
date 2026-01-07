@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { profileSettings } from '@/mock/settings'
-import LogoutModal from '@/components/global/modal/LogoutModal.vue'
+import LogoutModal from '@/components/common/LogoutModal.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 

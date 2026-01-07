@@ -1,9 +1,22 @@
-<script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
-import BrandLogo from '@/components/global/logo/BrandLogo.vue';
 
-const links: NavigationMenuItem[] = [
-  { label: 'Dashboard', icon: 'heroicons:squares-2x2', to: '/dashboard' }, // atau '/dashboard/home' kalau kamu pakai home
+export const appConfig = {
+  name: 'Vue Starter',
+  subtitle: 'Insights at a Glance',
+  icon: 'duo-icons:dashboard',
+  logo: {
+    alt: 'Vue Starter Logo',
+    light: '/logo-light.svg',
+    dark: '/logo-dark.svg'
+  },
+  theme: {
+    customizable: true,
+    defaultColor: 'green'
+  }
+}
+
+export const navigationMenu: NavigationMenuItem[] = [
+  { label: 'Dashboard', icon: 'heroicons:squares-2x2', to: '/dashboard' },
 
   {
     label: 'Analytics',
@@ -56,43 +69,3 @@ const links: NavigationMenuItem[] = [
     ]
   }
 ]
-
-
-</script>
-
-<template>
-  <UDashboardSidebar
-    collapsible
-    resizable
-    :min-size="12"
-    class="bg-gray-50 dark:bg-gray-950 backdrop-blur-xl transition-colors duration-200"
-    :ui="{
-      footer: 'border-t border-gray-200 dark:border-gray-800/50',
-      border: 'border-r border-gray-200 dark:border-gray-800/50'
-    }"
-  >
-    <!-- ================= HEADER ================= -->
-    <template #header="{ collapsed }">
-      <div class="py-4" :class="collapsed ? 'px-0' : 'px-0'">
-        <BrandLogo :collapsed="collapsed" />
-      </div>
-    </template>
-
-    <template #default="{ collapsed }">
-      <!-- Navigation -->
-      <UNavigationMenu
-        :collapsed="collapsed"
-        :items="links"
-        orientation="vertical"
-      />
-    </template>
-
-    <template #footer="{ collapsed }">
-      <div class="px-2 py-3">
-        <div class="flex" :class="collapsed ? 'justify-center' : 'justify-end'">
-            <UDashboardSidebarCollapse :label="collapsed ? '' : 'Collapse'" class="w-full" />
-        </div>
-      </div>
-    </template>
-  </UDashboardSidebar>
-</template>

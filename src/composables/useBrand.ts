@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue'
-import { colors } from '../utils/colors'
+import { colors } from '@/utils/colors'
 
 export type Brand =
   | 'default' | 'black' | 'red' | 'orange' | 'amber' | 'yellow' | 'lime'

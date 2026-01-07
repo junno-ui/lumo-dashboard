@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
-import ThemePickerColor from '@/components/ThemePickerColor.vue'
+import ThemePickerColor from '@/components/common/ThemePickerColor.vue'
 import NotificationMenu from '@/components/layout/NotificationMenu.vue'
 import MailMenu from '@/components/layout/MailMenu.vue'
 import ProfileMenu from '@/components/layout/ProfileMenu.vue'
@@ -9,30 +9,7 @@ import type { BreadcrumbItem } from '@nuxt/ui'
 
 const route = useRoute()
 
-const SEGMENT_ICON: Record<string, string> = {
-  dashboard: 'i-lucide-layout-dashboard',
-  analytics: 'i-lucide-bar-chart-3',
-  subscriptions: 'i-lucide-credit-card',
-  billing: 'i-lucide-receipt',
-  users: 'i-lucide-users',
-  settings: 'i-lucide-settings',
-  revenue: 'i-lucide-banknote',
-  usage: 'i-lucide-line-chart',
-  'active-users': 'i-lucide-user-check',
-  plans: 'i-lucide-layers',
-  'user-subscriptions': 'i-lucide-users',
-  'usage-limits': 'i-lucide-pie-chart',
-  overview: 'i-lucide-layout-dashboard',
-  invoices: 'i-lucide-file-text',
-  'payment-methods': 'i-lucide-credit-card',
-  all: 'i-lucide-users',
-  roles: 'i-lucide-shield-check',
-  'activity-log': 'i-lucide-clock',
-  profile: 'i-lucide-user',
-  organization: 'i-lucide-building-2',
-  preferences: 'i-lucide-sliders-horizontal',
-  security: 'i-lucide-lock'
-}
+import { SEGMENT_ICON } from '@/config/icons'
 
 const toTitle = (seg: string) =>
   seg

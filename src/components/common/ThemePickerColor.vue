@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 
-import { useBrand, type Brand } from '../composable/useBrand'
-import { useNeutral, type Neutral } from '../composable/useNeutral'
-import { useRadius } from '../composable/useRadius'
+import { useBrand, type Brand } from '@/composables/useBrand'
+import { useNeutral, type Neutral } from '@/composables/useNeutral'
+import { useRadius } from '@/composables/useRadius'
 import { Icon } from '@iconify/vue'
 import { useDark, useToggle } from '@vueuse/core'
 

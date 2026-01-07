@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useBrand } from './composable/useBrand'
-import { useNeutral } from './composable/useNeutral'
-import { useRadius } from './composable/useRadius'
+import { useBrand } from '@/composables/useBrand'
+import { useNeutral } from '@/composables/useNeutral'
+import { useRadius } from '@/composables/useRadius'
 
 useBrand()
 useNeutral()
