@@ -144,7 +144,7 @@ function goToLogin() {
 
       <div
         class="relative flex items-center justify-center h-full rounded-2xl overflow-hidden
-               bg-white dark:bg-gray-900"
+              bg-white dark:bg-gray-900"
       >
         <div class="w-full max-w-md p-6 sm:p-10 overflow-y-auto">
           <div class="mb-10">

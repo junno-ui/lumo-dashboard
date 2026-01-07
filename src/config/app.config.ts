@@ -3,7 +3,7 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 export const appConfig = {
   name: 'Lumo',
   subtitle: 'Insights at a Glance',
-  icon: 'duo-icons:dashboard',
+  icon: 'heroicons:squares-2x2',
   logo: {
     alt: 'Lumo',
     light: '/logo-light.svg',
@@ -15,9 +15,12 @@ export const appConfig = {
   }
 }
 
-export const navigationMenu: NavigationMenuItem[] = [
-  { label: 'Dashboard', icon: 'heroicons:squares-2x2', to: '/dashboard/home' },
-
+export const navigationMenu: NavigationMenuItem[][] = [[
+  { 
+    label: 'Dashboard', 
+    icon: 'heroicons:squares-2x2', 
+    to: '/dashboard/home'
+  },
   {
     label: 'Analytics',
     icon: 'heroicons:chart-bar',
@@ -27,7 +30,6 @@ export const navigationMenu: NavigationMenuItem[] = [
       { label: 'Active Users', to: '/dashboard/analytics/active-users', icon: 'heroicons:user-group' }
     ]
   },
-
   {
     label: 'Subscriptions',
     icon: 'heroicons:credit-card',
@@ -37,7 +39,6 @@ export const navigationMenu: NavigationMenuItem[] = [
       { label: 'Usage Limits', to: '/dashboard/subscriptions/usage-limits', icon: 'heroicons:chart-pie' }
     ]
   },
-
   {
     label: 'Billing',
     icon: 'heroicons:banknotes',
@@ -47,7 +48,6 @@ export const navigationMenu: NavigationMenuItem[] = [
       { label: 'Payment Methods', to: '/dashboard/billing/payment-methods', icon: 'heroicons:credit-card' }
     ]
   },
-
   {
     label: 'Users',
     icon: 'heroicons:users',
@@ -57,7 +57,6 @@ export const navigationMenu: NavigationMenuItem[] = [
       { label: 'Activity Log', to: '/dashboard/users/activity-log', icon: 'heroicons:clock' }
     ]
   },
-
   {
     label: 'Settings',
     icon: 'heroicons:cog-6-tooth',
@@ -68,4 +67,17 @@ export const navigationMenu: NavigationMenuItem[] = [
       { label: 'Security', to: '/dashboard/settings/security', icon: 'heroicons:lock-closed' }
     ]
   }
-]
+], [
+  {
+    label: 'Feedback',
+    icon: 'i-lucide-message-circle',
+    to: 'https://github.com/nuxt-ui-templates/dashboard',
+    target: '_blank'
+  },
+  {
+    label: 'Help & Support',
+    icon: 'i-lucide-info',
+    to: 'https://github.com/nuxt/ui',
+    target: '_blank'
+  }
+]]
