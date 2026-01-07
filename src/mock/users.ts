@@ -15,12 +15,44 @@ export const roles = [
 ];
 
 export const activityLog = [
-    { id: 1, user: 'Alice Johnson', action: 'Created new project', time: '2 hours ago', icon: 'i-heroicons-plus-circle' },
-    { id: 2, user: 'Bob Smith', action: 'Edited homepage', time: '3 hours ago', icon: 'i-heroicons-pencil-square' },
-    { id: 3, user: 'Charlie Brown', action: 'Log in', time: '5 hours ago', icon: 'i-heroicons-arrow-right-on-rectangle' },
-    { id: 4, user: 'David Lee', action: 'Deleted post', time: '1 day ago', icon: 'i-heroicons-trash' },
-    { id: 5, user: 'Alice Johnson', action: 'Updated settings', time: '2 days ago', icon: 'i-heroicons-cog-6-tooth' }
-];
+  {
+    id: 1,
+    user: 'John Doe',
+    action: 'Updated role permissions: Editor',
+    time: '2026-01-07 10:12',
+    icon: 'i-lucide-shield',
+    type: 'access',
+    status: 'success',
+    ip: '103.10.10.21',
+    target: 'Role: Editor',
+    meta: { added: ['Edit Users'], removed: ['Delete Users'] }
+  },
+  {
+    id: 2,
+    user: 'Jane Smith',
+    action: 'Failed login attempt',
+    time: '2026-01-07 09:50',
+    icon: 'i-lucide-lock',
+    type: 'security',
+    status: 'error',
+    ip: '36.77.12.90',
+    target: 'Auth',
+    meta: { reason: 'Invalid password' }
+  },
+  {
+    id: 3,
+    user: 'Robert Johnson',
+    action: 'Created new user: emily@example.com',
+    time: '2026-01-06 18:20',
+    icon: 'i-lucide-user-plus',
+    type: 'users',
+    status: 'success',
+    ip: '180.250.1.3',
+    target: 'User: emily@example.com',
+    meta: { role: 'viewer' }
+  }
+]
+
 
 export const growthData = [
     { month: 'Jun', newUsers: 320, totalUsers: 1280 },
