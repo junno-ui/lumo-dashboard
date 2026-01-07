@@ -4,8 +4,7 @@ import type { ApexOptions } from 'apexcharts'
 import VueApexCharts from 'vue3-apexcharts'
 import type { TableColumn } from '@nuxt/ui'
 import type { Row } from '@tanstack/vue-table'
-import { useClipboard } from '@vueuse/core'
-
+import { useClipboard, useColorMode } from '@vueuse/core'
 import { CalendarDate, DateFormatter, getLocalTimeZone, today } from '@internationalized/date'
 
 /**
@@ -22,6 +21,45 @@ const ApexChart = VueApexCharts
 
 const toast = useToast()
 const { copy } = useClipboard()
+
+/**
+ * ======================================================
+ * Dark mode aware chart styles (Apex)
+ * ======================================================
+ */
+const colorMode = useColorMode()
+const isDark = computed(() => colorMode.value === 'dark')
+
+// Readable in both themes
+const chartText = computed(() => (isDark.value ? '#cbd5e1' : '#64748b')) // slate-300 / slate-500
+const chartGrid = computed(() => (isDark.value ? 'rgba(148,163,184,.18)' : 'rgba(148,163,184,.28)'))
+const chartStrokeBg = computed(() => (isDark.value ? '#0b1220' : '#ffffff')) // donut stroke
+const chartTooltipTheme = computed(() => (isDark.value ? 'dark' : 'light'))
+
+function baseApexOptions(extra: ApexOptions): ApexOptions {
+  return {
+    chart: {
+      toolbar: { show: false },
+      zoom: { enabled: false },
+      foreColor: chartText.value,
+      fontFamily: 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial'
+    },
+    grid: { borderColor: chartGrid.value, strokeDashArray: 4 },
+    legend: {
+      position: 'top',
+      fontSize: '12px',
+      labels: { colors: chartText.value },
+    },
+    tooltip: { theme: chartTooltipTheme.value as any },
+    xaxis: {
+      axisBorder: { show: false },
+      axisTicks: { show: false },
+      labels: { style: { colors: chartText.value } }
+    },
+    yaxis: { labels: { style: { colors: chartText.value } } },
+    ...extra
+  }
+}
 
 /**
  * ======================================================
@@ -72,8 +110,7 @@ const payments = ref<Payment[]>([
 
 /**
  * ======================================================
- * Date range: FIXED so table always shows
- * Default preset = "all" (no date filtering)
+ * Date range (All time default)
  * ======================================================
  */
 const tz = getLocalTimeZone()
@@ -87,12 +124,10 @@ const presetItems = [
   { label: 'Last 90 days', value: '90d' },
   { label: 'Year to date', value: 'ytd' },
   { label: 'Custom', value: 'custom' }
-] 
-
+]
 type PresetValue = (typeof presetItems)[number]['value']
 const selectedPreset = ref<PresetValue>('all')
 
-// start/end null => all time
 const rangeModel = shallowRef<{ start: CalendarDate | null | any; end: CalendarDate | null | any }>({
   start: null,
   end: null
@@ -119,18 +154,10 @@ function applyPreset(p: PresetValue) {
   let start = end
 
   switch (p) {
-    case '7d':
-      start = end.subtract({ days: 6 })
-      break
-    case '30d':
-      start = end.subtract({ days: 29 })
-      break
-    case '90d':
-      start = end.subtract({ days: 89 })
-      break
-    case 'ytd':
-      start = new CalendarDate(end.year, 1, 1)
-      break
+    case '7d': start = end.subtract({ days: 6 }); break
+    case '30d': start = end.subtract({ days: 29 }); break
+    case '90d': start = end.subtract({ days: 89 }); break
+    case 'ytd': start = new CalendarDate(end.year, 1, 1); break
   }
 
   rangeModel.value = { start, end }
@@ -151,13 +178,16 @@ function setRangeToData() {
 
   if (!dates.length) return
 
-  const min = dates[0]
-  const max = dates[dates.length - 1]
+  const min = dates.length ? dates[0] : undefined;
+const max = dates.length ? dates[dates.length - 1] : undefined;
+
+  if (min !== undefined && max !== undefined) {
   rangeModel.value = {
-    start: min ? new CalendarDate(min.getFullYear(), min.getMonth() + 1, min.getDate()) : new CalendarDate(today(tz).year, today(tz).month, today(tz).day),
-    end: max ? new CalendarDate(max.getFullYear(), max.getMonth() + 1, max.getDate()) : new CalendarDate(today(tz).year, today(tz).month, today(tz).day)
-  }
-  selectedPreset.value = 'custom'
+    start: new CalendarDate(min.getFullYear(), min.getMonth() + 1, min.getDate()),
+    end: new CalendarDate(max.getFullYear(), max.getMonth() + 1, max.getDate())
+  };
+  selectedPreset.value = 'custom';
+}
 }
 
 /**
@@ -211,17 +241,17 @@ const refundsEstimate = computed(() => Math.round(revenueTotal.value * 0.025))
 const netRevenue = computed(() => Math.max(revenueTotal.value - refundsEstimate.value, 0))
 
 const stats = computed(() => ([
-  { label: 'Total Revenue', value: `$${formatCurrency(revenueTotal.value)}`, sub: 'Gross', change: analyticsStats.value.revenueGrowth, icon: 'i-heroicons-currency-dollar', trend: 'up' as const },
-  { label: 'Net Revenue', value: `$${formatCurrency(netRevenue.value)}`, sub: `Refunds est. $${formatCurrency(refundsEstimate.value)}`, change: '+2.1%', icon: 'i-heroicons-receipt-percent', trend: 'up' as const },
-  { label: 'Profit', value: `$${formatCurrency(profitTotal.value)}`, sub: `Expenses $${formatCurrency(expensesTotal.value)}`, change: '+5.1%', icon: 'i-heroicons-banknotes', trend: 'up' as const },
-  { label: 'Gross Margin', value: `${grossMarginPct.value}%`, sub: 'Margin health', change: '+0.8%', icon: 'i-heroicons-chart-pie', trend: 'up' as const },
-  { label: 'Total Requests', value: formatCurrency(analyticsStats.value.totalRequests), sub: 'API usage', change: analyticsStats.value.requestsGrowth, icon: 'i-heroicons-chart-bar', trend: 'up' as const },
-  { label: 'Active Users (Now)', value: formatCurrency(analyticsStats.value.activeUsersNow), sub: 'Realtime', change: analyticsStats.value.activeUsersGrowth, icon: 'i-heroicons-user-group', trend: 'up' as const }
+  { label: 'Total Revenue', value: `$${formatCurrency(revenueTotal.value)}`, sub: 'Gross', change: analyticsStats.value.revenueGrowth, icon: 'i-heroicons-currency-dollar' },
+  { label: 'Net Revenue', value: `$${formatCurrency(netRevenue.value)}`, sub: `Refunds est. $${formatCurrency(refundsEstimate.value)}`, change: '+2.1%', icon: 'i-heroicons-receipt-percent' },
+  { label: 'Profit', value: `$${formatCurrency(profitTotal.value)}`, sub: `Expenses $${formatCurrency(expensesTotal.value)}`, change: '+5.1%', icon: 'i-heroicons-banknotes' },
+  { label: 'Gross Margin', value: `${grossMarginPct.value}%`, sub: 'Margin health', change: '+0.8%', icon: 'i-heroicons-chart-pie' },
+  { label: 'Total Requests', value: formatCurrency(analyticsStats.value.totalRequests), sub: 'API usage', change: analyticsStats.value.requestsGrowth, icon: 'i-heroicons-chart-bar' },
+  { label: 'Active Users (Now)', value: formatCurrency(analyticsStats.value.activeUsersNow), sub: 'Realtime', change: analyticsStats.value.activeUsersGrowth, icon: 'i-heroicons-user-group' }
 ]))
 
 /**
  * ======================================================
- * Charts
+ * Charts (dark-mode ready)
  * ======================================================
  */
 const revenueTrendSeries = computed(() => ([
@@ -230,24 +260,38 @@ const revenueTrendSeries = computed(() => ([
   { name: 'Expenses', data: revenueData.value.map(d => Math.max((d.revenue || 0) - (d.profit || 0), 0)) }
 ]))
 
-const revenueTrendOptions = computed<ApexOptions>(() => ({
-  chart: { type: 'area', toolbar: { show: false }, zoom: { enabled: false }, foreColor: '#6b7280' },
-  dataLabels: { enabled: false },
-  stroke: { curve: 'smooth', width: 3 },
-  fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.25, opacityTo: 0.05, stops: [0, 100] } },
-  xaxis: { categories: revenueData.value.map(d => d.month), axisBorder: { show: false }, axisTicks: { show: false } },
-  yaxis: { labels: { formatter: (val: number) => `$${(val / 1000).toFixed(0)}k` } },
-  tooltip: { y: { formatter: (val: number) => `$${val.toLocaleString()}` } },
-  grid: { borderColor: 'rgba(148, 163, 184, 0.25)', strokeDashArray: 4 }
-}))
+const revenueTrendOptions = computed<ApexOptions>(() =>
+  baseApexOptions({
+    chart: { type: 'area' },
+    dataLabels: { enabled: false },
+    stroke: { curve: 'smooth', width: 3 },
+    fill: {
+      type: 'gradient',
+      gradient: { shadeIntensity: 1, opacityFrom: 0.28, opacityTo: 0.06, stops: [0, 100] }
+    },
+    colors: ['#3b82f6', '#22c55e', '#ef4444'],
+    xaxis: { categories: revenueData.value.map(d => d.month) },
+    yaxis: {
+      labels: {
+        style: { colors: chartText.value },
+        formatter: (val: number) => `$${(val / 1000).toFixed(0)}k`
+      }
+    },
+    tooltip: { theme: chartTooltipTheme.value as any, y: { formatter: (val: number) => `$${val.toLocaleString()}` } }
+  })
+)
 
 const sourceSeries = computed(() => revenueSources.value.map(s => s.revenue))
-const sourceOptions = computed<ApexOptions>(() => ({
-  chart: { type: 'donut', foreColor: '#6b7280' },
-  labels: revenueSources.value.map(s => s.source),
-  dataLabels: { enabled: false },
-  legend: { position: 'bottom', fontSize: '12px' }
-}))
+const sourceOptions = computed<ApexOptions>(() =>
+  baseApexOptions({
+    chart: { type: 'donut' },
+    labels: revenueSources.value.map(s => s.source),
+    dataLabels: { enabled: false },
+    legend: { position: 'bottom', fontSize: '12px', labels: { colors: chartText.value } },
+    stroke: { colors: [chartStrokeBg.value] },
+    plotOptions: { pie: { donut: { size: '72%' } } }
+  })
+)
 
 /**
  * ======================================================
@@ -270,7 +314,7 @@ const filteredPayments = computed(() => {
   let rows = payments.value.filter((p) => {
     if (statusFilter.value !== 'all' && p.status !== statusFilter.value) return false
 
-    // IMPORTANT FIX: date filter only active if BOTH start & end exist
+    // date filter active only if BOTH start & end exist
     if (s && e) {
       const d = new Date(p.date)
       if (d < s) return false
@@ -278,11 +322,7 @@ const filteredPayments = computed(() => {
     }
 
     if (!q) return true
-    return (
-      p.id.toLowerCase().includes(q) ||
-      p.email.toLowerCase().includes(q) ||
-      p.status.toLowerCase().includes(q)
-    )
+    return p.id.toLowerCase().includes(q) || p.email.toLowerCase().includes(q) || p.status.toLowerCase().includes(q)
   })
 
   rows = rows.sort((a, b) => {
@@ -312,7 +352,7 @@ const paymentCounts = computed(() => {
 })
 
 /**
- * Dropdown items like your preferred example (onSelect)
+ * Dropdown items (onSelect)
  */
 function getRowItems(row: Row<Payment>) {
   const p = row.original
@@ -323,11 +363,7 @@ function getRowItems(row: Row<Payment>) {
       icon: 'i-lucide-copy',
       onSelect() {
         copy(p.id)
-        toast.add({
-          title: 'Payment ID copied!',
-          color: 'success',
-          icon: 'i-lucide-circle-check'
-        })
+        toast.add({ title: 'Payment ID copied!', color: 'success', icon: 'i-lucide-circle-check' })
       }
     },
     { type: 'separator' },
@@ -337,7 +373,7 @@ function getRowItems(row: Row<Payment>) {
 }
 
 /**
- * Table columns (better widths + UX)
+ * Table columns
  */
 const columns: TableColumn<Payment>[] = [
   {
@@ -381,10 +417,7 @@ const columns: TableColumn<Payment>[] = [
       return h(
         UBadge,
         { class: 'capitalize gap-1', variant: 'subtle', color: meta.color },
-        () => [
-          h(UIcon as any, { name: meta.icon, class: 'w-3.5 h-3.5' }),
-          meta.label
-        ]
+        () => [h(UIcon as any, { name: meta.icon, class: 'w-3.5 h-3.5' }), meta.label]
       )
     }
   },
@@ -407,7 +440,7 @@ const columns: TableColumn<Payment>[] = [
   {
     accessorKey: 'amount',
     header: () => h('div', { class: 'text-right' }, 'Amount'),
-    meta: { class: { th: 'w-40 text-right', td: 'align-middle text-right' } },
+    meta: { class: { th: 'w-44 text-right', td: 'align-middle text-right' } },
     cell: ({ row }) => {
       const p = row.original as Payment
       return h('div', { class: 'text-right' }, [
@@ -444,72 +477,76 @@ const columns: TableColumn<Payment>[] = [
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors">
+  <div class="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-950 transition-colors">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       <!-- Header / Toolbar -->
-      <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-            Revenue analytics
-          </h1>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-            Revenue performance, margin health, source mix, and payment activity.
-          </p>
-        </div>
+      <div class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60 bg-white/70 dark:bg-gray-950/40 backdrop-blur p-4 sm:p-5">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div class="min-w-0">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+              Revenue analytics
+            </h1>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              Revenue performance, margin health, source mix, and payment activity.
+            </p>
+          </div>
 
-        <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-          <USelectMenu
-            v-model="selectedPreset"
-            :items="presetItems"
-            value-key="value"
-            label-key="label"
-            size="sm"
-            color="neutral"
-            variant="outline"
-            class="w-full sm:w-44"
-          />
-
-          <UPopover v-model:open="datePopoverOpen">
-            <UButton
+          <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+            <USelectMenu
+              v-model="selectedPreset"
+              :items="presetItems"
+              value-key="value"
+              label-key="label"
               size="sm"
-              color="primary"
-              variant="soft"
-              icon="i-lucide-calendar"
-              class="w-full sm:w-auto justify-center"
-              @click="selectedPreset = 'custom'"
-            >
-              {{ rangeLabel }}
+              color="neutral"
+              variant="outline"
+              class="w-full sm:w-44"
+            />
+
+            <UPopover v-model:open="datePopoverOpen">
+              <UButton
+                size="sm"
+                color="primary"
+                variant="soft"
+                icon="i-lucide-calendar"
+                class="w-full sm:w-auto justify-center"
+                @click="selectedPreset = 'custom'"
+              >
+                {{ rangeLabel }}
+              </UButton>
+
+              <template #content>
+                <div class="p-3 w-[min(720px,92vw)]">
+                  <div class="flex items-center justify-between gap-2 mb-2">
+                    <div class="text-sm font-semibold text-gray-900 dark:text-white">Custom date range</div>
+                    <UButton size="xs" color="neutral" variant="ghost" icon="i-lucide-x" @click="datePopoverOpen = false" />
+                  </div>
+
+                  <div class="rounded-2xl ring-1 ring-gray-200/60 dark:ring-gray-800/60 bg-white/70 dark:bg-gray-950/30 p-2">
+                    <UCalendar v-model="rangeModel" range :number-of-months="2" class="p-2" />
+                  </div>
+
+                  <div class="mt-3 flex items-center justify-between gap-2">
+                    <div class="text-xs text-gray-600 dark:text-gray-400 truncate">
+                      Selected: <span class="font-medium text-gray-900 dark:text-white">{{ rangeLabel }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <UButton size="sm" color="neutral" variant="outline" @click="setAllTime()">
+                        All time
+                      </UButton>
+                      <UButton size="sm" color="primary" variant="solid" @click="datePopoverOpen = false">
+                        Apply
+                      </UButton>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </UPopover>
+
+            <UButton size="sm" color="neutral" variant="soft" icon="i-lucide-download" class="w-full sm:w-auto justify-center">
+              Export
             </UButton>
-
-            <template #content>
-              <div class="p-3 w-[min(720px,92vw)]">
-                <div class="flex items-center justify-between gap-2 mb-2">
-                  <div class="text-sm font-semibold text-gray-900 dark:text-white">Custom date range</div>
-                  <UButton size="xs" color="neutral" variant="ghost" icon="i-lucide-x" @click="datePopoverOpen = false" />
-                </div>
-
-                <UCalendar v-model="rangeModel" range :number-of-months="2" class="p-2" />
-
-                <div class="mt-2 flex items-center justify-between gap-2">
-                  <div class="text-xs text-gray-600 dark:text-gray-400 truncate">
-                    Selected: <span class="font-medium text-gray-900 dark:text-white">{{ rangeLabel }}</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <UButton size="sm" color="neutral" variant="outline" @click="setAllTime()">
-                      All time
-                    </UButton>
-                    <UButton size="sm" color="primary" variant="solid" @click="datePopoverOpen = false">
-                      Apply
-                    </UButton>
-                  </div>
-                </div>
-              </div>
-            </template>
-          </UPopover>
-
-          <UButton size="sm" color="neutral" variant="soft" icon="i-lucide-download" class="w-full sm:w-auto justify-center">
-            Export
-          </UButton>
+          </div>
         </div>
       </div>
 
@@ -518,12 +555,12 @@ const columns: TableColumn<Payment>[] = [
         <UCard
           v-for="(stat, idx) in stats"
           :key="idx"
-          class="hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+          class="rounded-3xl hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
           :ui="{ body: 'p-5' }"
         >
           <div class="flex items-start justify-between gap-3">
             <div class="flex items-center gap-3 min-w-0">
-              <div class="p-2 rounded-xl bg-gray-50 dark:bg-gray-900/50 ring-1 ring-gray-200/70 dark:ring-gray-800/60">
+              <div class="p-2 rounded-2xl bg-gray-50 dark:bg-gray-900/50 ring-1 ring-gray-200/70 dark:ring-gray-800/60">
                 <UIcon :name="stat.icon" class="w-5 h-5 text-primary-500" />
               </div>
               <div class="min-w-0">
@@ -559,35 +596,41 @@ const columns: TableColumn<Payment>[] = [
 
       <!-- Charts -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <UCard class="lg:col-span-2 hover:shadow-md transition-shadow">
+        <UCard class="rounded-3xl lg:col-span-2 hover:shadow-md transition-shadow" :ui="{ body: 'p-0' }">
           <template #header>
-            <div>
+            <div class="p-5">
               <h3 class="text-base font-semibold text-gray-900 dark:text-white">Revenue, Profit & Expenses</h3>
               <p class="text-xs text-gray-500 dark:text-gray-400">Trend over time</p>
             </div>
           </template>
-          <div class="px-2 pb-4">
-            <ApexChart type="area" height="330" :options="revenueTrendOptions" :series="revenueTrendSeries" />
+
+          <div class="px-5 pb-5">
+            <div class="rounded-2xl ring-1 ring-gray-200/60 dark:ring-gray-800/60 bg-white/70 dark:bg-gray-950/30 p-2">
+              <ApexChart type="area" height="330" :options="revenueTrendOptions" :series="revenueTrendSeries" />
+            </div>
           </div>
         </UCard>
 
-        <UCard class="hover:shadow-md transition-shadow">
+        <UCard class="rounded-3xl hover:shadow-md transition-shadow" :ui="{ body: 'p-0' }">
           <template #header>
-            <div>
+            <div class="p-5">
               <h3 class="text-base font-semibold text-gray-900 dark:text-white">Revenue Sources</h3>
               <p class="text-xs text-gray-500 dark:text-gray-400">Channel mix</p>
             </div>
           </template>
-          <div class="px-2 pb-4">
-            <ApexChart type="donut" height="330" :options="sourceOptions" :series="sourceSeries" />
+
+          <div class="px-5 pb-5">
+            <div class="rounded-2xl ring-1 ring-gray-200/60 dark:ring-gray-800/60 bg-white/70 dark:bg-gray-950/30 p-2">
+              <ApexChart type="donut" height="330" :options="sourceOptions" :series="sourceSeries" />
+            </div>
           </div>
         </UCard>
       </div>
 
       <!-- Transactions -->
-      <UCard class="hover:shadow-md transition-shadow">
+      <UCard class="rounded-3xl hover:shadow-md transition-shadow" :ui="{ body: 'p-5' }">
         <template #header>
-          <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between p-5 pb-0">
             <div>
               <h3 class="text-base font-semibold text-gray-900 dark:text-white">Transactions</h3>
               <p class="text-xs text-gray-500 dark:text-gray-400">
@@ -603,7 +646,6 @@ const columns: TableColumn<Payment>[] = [
                 size="sm"
                 class="w-full sm:w-72"
               />
-
               <UButton size="sm" color="primary" variant="soft" icon="i-lucide-plus" class="w-full sm:w-auto justify-center">
                 New invoice
               </UButton>
@@ -613,7 +655,7 @@ const columns: TableColumn<Payment>[] = [
 
         <!-- Filter Bar -->
         <div
-          class="mb-4 flex flex-wrap items-center gap-2 rounded-2xl bg-gray-50 dark:bg-gray-900/40 p-2
+          class="mt-4 flex flex-wrap items-center gap-2 rounded-2xl bg-gray-50 dark:bg-gray-900/35 p-2
                  ring-1 ring-gray-200/60 dark:ring-gray-800/60"
         >
           <UButton size="xs" :variant="statusFilter === 'all' ? 'solid' : 'soft'" :color="statusFilter === 'all' ? 'primary' : 'neutral'" @click="statusFilter = 'all'">
@@ -629,7 +671,7 @@ const columns: TableColumn<Payment>[] = [
             Refunded ({{ paymentCounts.refunded }})
           </UButton>
 
-          <div class="ml-auto flex items-center gap-2">
+          <div class="ml-auto flex flex-wrap items-center gap-2">
             <USelectMenu
               v-model="sortKey"
               :items="[
@@ -664,10 +706,10 @@ const columns: TableColumn<Payment>[] = [
           </div>
         </div>
 
-        <!-- If empty: quick fixes -->
+        <!-- Empty helper -->
         <div
           v-if="filteredPayments.length === 0"
-          class="mb-4 rounded-2xl p-4 bg-white dark:bg-gray-950 ring-1 ring-gray-200/60 dark:ring-gray-800/60"
+          class="mt-4 rounded-2xl p-4 bg-white/70 dark:bg-gray-950/40 backdrop-blur ring-1 ring-gray-200/60 dark:ring-gray-800/60"
         >
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
@@ -688,7 +730,7 @@ const columns: TableColumn<Payment>[] = [
         </div>
 
         <!-- Table -->
-        <div class="rounded-2xl overflow-hidden ring-1 ring-gray-200/60 dark:ring-gray-800/60">
+        <div class="mt-4 rounded-2xl overflow-hidden ring-1 ring-gray-200/60 dark:ring-gray-800/60">
           <UTable
             :data="paginatedPayments"
             :columns="columns"
