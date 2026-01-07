@@ -433,7 +433,7 @@ const workspaceChartOptions = computed<ApexOptions>(() =>
           const card = workspaceCards.value[idx]
           if (!card) return `${Math.round(Number(val))}%`
           const used = card.format === 'gb' ? formatGB(card.used as number) : formatInt(card.used as number)
-          const limit = card.format === 'gb' ? formatGB(card.limit as number) : formatInt(card.limit as number)
+        const limit = card.format === 'gb' ? formatGB(card.limit as number) : formatInt(card.limit as number)
           return `${Math.round(Number(val))}% — ${used} / ${limit}`
         }
       }
