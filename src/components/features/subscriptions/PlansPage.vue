@@ -35,7 +35,7 @@ type Plan = {
   description: string
   archived: boolean
 
-  // extra admin metrics (mock-friendly)
+  // admin metrics (mock-friendly)
   customers: number
   updatedAt: string // ISO date
 }
@@ -126,8 +126,6 @@ const plans = ref<Plan[]>(
     color: normalizeColor(p.color),
     description: p.description || '',
     archived: false,
-
-    // extra metrics (mock)
     customers: 50 + idx * 23,
     updatedAt: nowIso()
   }))
@@ -189,24 +187,19 @@ function viewPrice(plan: Plan) {
 }
 
 function estimateMrr(plan: Plan) {
-  // monthly equivalent * customers
   const monthlyEq = plan.interval === 'year' ? plan.price / 12 : plan.price
   return monthlyEq * (plan.customers || 0)
 }
 
 const filteredPlans = computed<Plan[]>(() => {
   const q = query.value.trim().toLowerCase()
-
   let rows = [...plans.value]
 
-  // status filter
   if (statusFilter.value === 'active') rows = rows.filter(p => !p.archived)
   if (statusFilter.value === 'archived') rows = rows.filter(p => p.archived)
 
-  // interval filter
   if (intervalFilter.value !== 'all') rows = rows.filter(p => p.interval === intervalFilter.value)
 
-  // search
   if (q) {
     rows = rows.filter(p => {
       const hay = `${p.name} ${p.description} ${p.features.join(' ')}`.toLowerCase()
@@ -214,7 +207,6 @@ const filteredPlans = computed<Plan[]>(() => {
     })
   }
 
-  // sorting
   const dir = sortDir.value === 'asc' ? 1 : -1
   if (sortKey.value === 'recommended') {
     rows.sort((a, b) => {
@@ -226,7 +218,7 @@ const filteredPlans = computed<Plan[]>(() => {
         (b.id === defaultPlanId.value ? 100 : 0) +
         (b.popular ? 10 : 0) +
         (!b.archived ? 5 : -1000)
-      return (bScore - aScore) // fixed: recommended always "best first"
+      return bScore - aScore
     })
   } else if (sortKey.value === 'name') {
     rows.sort((a, b) => dir * a.name.localeCompare(b.name))
@@ -264,9 +256,7 @@ const tableRowsAll = computed<PlanRow[]>(() => {
   }))
 })
 
-const totalPages = computed(() => {
-  return Math.max(1, Math.ceil(tableRowsAll.value.length / pageSize.value))
-})
+const totalPages = computed(() => Math.max(1, Math.ceil(tableRowsAll.value.length / pageSize.value)))
 
 const paginatedRows = computed(() => {
   const p = clamp(page.value, 1, totalPages.value)
@@ -320,7 +310,6 @@ function selectPlan(id: number) {
 function setDefault(planId: number) {
   const p = plans.value.find(x => x.id === planId)
   if (!p || p.archived) return
-
   defaultPlanId.value = planId
   toast.add({ title: 'Default plan updated', color: 'success', icon: 'i-lucide-circle-check' })
 }
@@ -337,7 +326,12 @@ function duplicatePlan(planId: number) {
     updatedAt: nowIso()
   })
 
-  toast.add({ title: 'Plan duplicated', description: `Created “${p.name} (Copy)”.`, color: 'success', icon: 'i-lucide-copy' })
+  toast.add({
+    title: 'Plan duplicated',
+    description: `Created “${p.name} (Copy)”.`,
+    color: 'success',
+    icon: 'i-lucide-copy'
+  })
 }
 
 function toggleArchive(planId: number) {
@@ -347,7 +341,6 @@ function toggleArchive(planId: number) {
   plans.value[idx].archived = !plans.value[idx].archived
   plans.value[idx].updatedAt = nowIso()
 
-  // if archived plan was default, move default to the first active plan
   if (plans.value[idx].archived && defaultPlanId.value === planId) {
     const next = plans.value.find(p => !p.archived && p.id !== planId)
     if (next) defaultPlanId.value = next.id
@@ -427,16 +420,15 @@ function planMenuItems(planId: number): DropdownMenuItem[][] {
 const columns: TableColumn<PlanRow>[] = [
   {
     id: 'select',
-    header: () => {
-      return h('div', { class: 'flex justify-center' }, [
+    header: () =>
+      h('div', { class: 'flex justify-center' }, [
         h(UCheckbox as any, {
           modelValue: isAllChecked.value,
           indeterminate: isSomeChecked.value,
           'onUpdate:modelValue': (v: boolean) => toggleSelectAll(v),
           'aria-label': 'Select all'
         })
-      ])
-    },
+      ]),
     cell: ({ row }) => {
       const id = row.original.id
       return h('div', { class: 'flex justify-center' }, [
@@ -459,14 +451,14 @@ const columns: TableColumn<PlanRow>[] = [
         r.popular && r.status === 'active'
           ? h(UBadge as any, { color: 'success', variant: 'soft', size: 'xs' }, () => 'Popular')
           : null,
-        r.status === 'archived' ? h(UBadge as any, { color: 'neutral', variant: 'soft', size: 'xs' }, () => 'Archived') : null
+        r.status === 'archived'
+          ? h(UBadge as any, { color: 'neutral', variant: 'soft', size: 'xs' }, () => 'Archived')
+          : null
       ].filter(Boolean)
 
       const rowStyle =
         'w-full text-left rounded-xl px-2 py-1 -mx-2 transition-colors ' +
-        (r.isSelected
-          ? 'bg-primary-50 dark:bg-primary-950/30'
-          : 'hover:bg-gray-50 dark:hover:bg-gray-900/40')
+        (r.isSelected ? 'bg-primary-50 dark:bg-primary-950/30' : 'hover:bg-gray-50 dark:hover:bg-gray-900/40')
 
       return h(
         'button',
@@ -484,7 +476,7 @@ const columns: TableColumn<PlanRow>[] = [
   {
     accessorKey: 'priceView',
     header: 'Price',
-    meta: { class: { th: 'w-44', td: 'align-middle' } },
+    meta: { class: { th: 'w-52', td: 'align-middle' } },
     cell: ({ row }) =>
       h('div', { class: 'space-y-0.5' }, [
         h('div', { class: 'font-semibold text-gray-900 dark:text-white' }, `${row.original.priceView} ${viewCycleLabel()}`),
@@ -501,9 +493,8 @@ const columns: TableColumn<PlanRow>[] = [
   {
     accessorKey: 'mrr',
     header: () => h('div', { class: 'text-right' }, 'Est. MRR'),
-    meta: { class: { th: 'w-28 text-right', td: 'text-right align-middle' } },
-    cell: ({ row }) =>
-      h('div', { class: 'font-semibold text-gray-900 dark:text-white' }, row.original.mrr)
+    meta: { class: { th: 'w-36 text-right', td: 'text-right align-middle' } },
+    cell: ({ row }) => h('div', { class: 'font-semibold text-gray-900 dark:text-white' }, row.original.mrr)
   },
   {
     accessorKey: 'updatedAt',
@@ -633,7 +624,7 @@ function openEdit(planId: number) {
     popular: p.popular,
     archived: p.archived,
     customers: p.customers || 0,
-    features: [...(p.features || [])] // ✅ fixed
+    features: [...(p.features || [])]
   })
 
   isModalOpen.value = true
@@ -648,7 +639,7 @@ async function onSubmit(e: FormSubmitEvent<FormShape>) {
       const idx = plans.value.findIndex(p => p.id === editingId.value)
       if (idx !== -1) {
         plans.value[idx] = {
-          ...plans.value[idx], // ✅ fixed
+          ...plans.value[idx],
           name: payload.name,
           description: payload.description ?? '',
           price: Number(payload.price) || 0,
@@ -657,7 +648,7 @@ async function onSubmit(e: FormSubmitEvent<FormShape>) {
           popular: payload.popular,
           archived: payload.archived,
           customers: Number(payload.customers) || 0,
-          features: payload.features ?? [],
+          features: payload.features as any,
           updatedAt: nowIso()
         }
       }
@@ -674,7 +665,7 @@ async function onSubmit(e: FormSubmitEvent<FormShape>) {
         popular: payload.popular,
         archived: payload.archived,
         customers: Number(payload.customers) || 0,
-        features: payload.features ?? [],
+        features: payload.features as any,
         updatedAt: nowIso()
       })
       toast.add({ title: 'Plan created', color: 'success', icon: 'i-lucide-plus' })
@@ -687,14 +678,59 @@ async function onSubmit(e: FormSubmitEvent<FormShape>) {
   }
 }
 
+/** ===== Modal UX helpers ===== */
+const isEdit = computed(() => editingId.value != null)
+const modalTitle = computed(() => (isEdit.value ? 'Edit plan' : 'Create new plan'))
+const modalSubtitle = computed(() =>
+  isEdit.value
+    ? 'Update plan details and pricing. Changes apply immediately.'
+    : 'Create a new tier for your customers.'
+)
+const modalSubmitLabel = computed(() => (isEdit.value ? 'Save changes' : 'Create plan'))
+
+const priceHelp = computed(() => (form.interval === 'year' ? 'Stored as yearly billing.' : 'Stored as monthly billing.'))
+const descriptionCount = computed(() => (form.description?.length || 0))
+
+const featurePresets = [
+  'Unlimited projects',
+  'Priority support',
+  'Team members',
+  'Custom roles & permissions',
+  'SSO / SAML',
+  'Audit logs',
+  'API access',
+  'Advanced analytics',
+  'Export data (CSV/Excel)',
+  'Custom branding'
+]
+function addFeaturePreset(text: string) {
+  const t = text.trim()
+  if (!t) return
+  if (!form.features) form.features = []
+  if (form.features.includes(t)) return
+  form.features = [...form.features, t]
+}
+function clearFormFeatures() {
+  form.features = []
+}
+const intervalLabel = computed(() => (form.interval === 'year' ? 'Yearly' : 'Monthly'))
+const colorLabel = computed(() => {
+  const map: Record<UiColor, string> = {
+    neutral: 'Neutral',
+    primary: 'Primary',
+    secondary: 'Secondary',
+    success: 'Success',
+    info: 'Info',
+    warning: 'Warning',
+    error: 'Error'
+  }
+  return map[form.color] || 'Neutral'
+})
+
 /** =========================
  * Customer preview (pricing calc)
  * ========================= */
-const previewCandidates = computed(() => {
-  // preview should not include archived, unless user explicitly filters archived on list;
-  // in preview we hide archived but show badge if selected is archived
-  return plans.value.filter(p => !p.archived)
-})
+const previewCandidates = computed(() => plans.value.filter(p => !p.archived))
 
 const previewSelectedPlanId = ref<number | null>(selectedPlanId.value)
 watch(selectedPlanId, (id) => {
@@ -708,7 +744,6 @@ const previewSelectedPlan = computed<Plan | null>(() => {
 })
 
 const perSeatMultiplier = computed(() => {
-  // simple complexity: seat pricing curve (volume discount)
   const s = seatCount.value
   if (s <= 10) return 1
   if (s <= 25) return 0.92
@@ -731,16 +766,12 @@ const previewTotal = computed(() => previewSubtotal.value - previewDiscount.valu
  * Bulk dropdown items
  * ========================= */
 const bulkItems = computed<DropdownMenuItem[][]>(() => [
-  [
-    { label: `Selected: ${selectedIds.value.size}`, type: 'label' }
-  ],
+  [{ label: `Selected: ${selectedIds.value.size}`, type: 'label' }],
   [
     { label: 'Archive selected', icon: 'i-lucide-archive', onSelect: bulkArchive, disabled: selectedIds.value.size === 0 },
     { label: 'Restore selected', icon: 'i-lucide-rotate-ccw', onSelect: bulkRestore, disabled: selectedIds.value.size === 0 }
   ],
-  [
-    { label: 'Clear selection', icon: 'i-lucide-x', onSelect: clearSelection, disabled: selectedIds.value.size === 0 }
-  ]
+  [{ label: 'Clear selection', icon: 'i-lucide-x', onSelect: clearSelection, disabled: selectedIds.value.size === 0 }]
 ])
 
 /** =========================
@@ -778,7 +809,7 @@ const currencyItems = [
         <div class="space-y-1">
           <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Subscription plans</h1>
           <p class="text-sm text-gray-600 dark:text-gray-400">
-            Manage your tiers and preview customer pricing with real-world simulation.
+            Manage tiers and preview customer pricing with real-world simulation.
           </p>
 
           <div class="flex flex-wrap items-center gap-2 pt-2">
@@ -789,80 +820,40 @@ const currencyItems = [
           </div>
         </div>
 
-        <!-- Global controls -->
-        <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
-          <UInput v-model="query" icon="i-lucide-search" placeholder="Search plans…" size="sm" class="w-full sm:w-64" />
+      </div>
+      
+      <!-- Global controls -->
+      <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+        <UInput v-model="query" icon="i-lucide-search" placeholder="Search plans…" size="sm" class="w-full sm:w-64" />
 
-          <USelectMenu
-            v-model="statusFilter"
-            :items="statusItems"
-            value-key="value"
-            label-key="label"
-            size="sm"
-            color="neutral"
-            variant="outline"
-            class="w-full sm:w-32"
-          />
+        <USelectMenu v-model="statusFilter" :items="statusItems" value-key="value" label-key="label" size="sm" color="neutral" variant="outline" class="w-full sm:w-32" />
+        <USelectMenu v-model="intervalFilter" :items="intervalItems" value-key="value" label-key="label" size="sm" color="neutral" variant="outline" class="w-full sm:w-28" />
+        <USelectMenu v-model="sortKey" :items="sortItems" value-key="value" label-key="label" size="sm" color="neutral" variant="outline" class="w-full sm:w-44" />
 
-          <USelectMenu
-            v-model="intervalFilter"
-            :items="intervalItems"
-            value-key="value"
-            label-key="label"
-            size="sm"
-            color="neutral"
-            variant="outline"
-            class="w-full sm:w-28"
-          />
+        <UButton
+          size="sm"
+          color="neutral"
+          variant="outline"
+          :icon="sortDir === 'desc' ? 'i-lucide-arrow-down' : 'i-lucide-arrow-up'"
+          @click="sortDir = sortDir === 'desc' ? 'asc' : 'desc'"
+          aria-label="Toggle sort direction"
+        />
 
-          <USelectMenu
-            v-model="sortKey"
-            :items="sortItems"
-            value-key="value"
-            label-key="label"
-            size="sm"
-            color="neutral"
-            variant="outline"
-            class="w-full sm:w-44"
-          />
+        <USelectMenu v-model="currency" :items="currencyItems" value-key="value" label-key="label" size="sm" color="neutral" variant="outline" class="w-full sm:w-24" />
 
-          <UButton
-            size="sm"
-            color="neutral"
-            variant="outline"
-            :icon="sortDir === 'desc' ? 'i-lucide-arrow-down' : 'i-lucide-arrow-up'"
-            @click="sortDir = sortDir === 'desc' ? 'asc' : 'desc'"
-            aria-label="Toggle sort direction"
-          />
-
-          <USelectMenu
-            v-model="currency"
-            :items="currencyItems"
-            value-key="value"
-            label-key="label"
-            size="sm"
-            color="neutral"
-            variant="outline"
-            class="w-full sm:w-24"
-          />
-
-          <div class="flex items-center rounded-full border border-gray-200 dark:border-gray-800 p-1 bg-white/70 dark:bg-gray-900/40">
-            <UButton size="xs" :variant="billingPeriod === 'monthly' ? 'solid' : 'ghost'" color="neutral" class="px-3 rounded-full" @click="billingPeriod = 'monthly'">
-              Monthly
-            </UButton>
-            <UButton size="xs" :variant="billingPeriod === 'yearly' ? 'solid' : 'ghost'" color="neutral" class="px-3 rounded-full" @click="billingPeriod = 'yearly'">
-              Yearly
-            </UButton>
-          </div>
-
-          <UButton icon="i-lucide-plus" color="primary" size="sm" class="justify-center" @click="openCreate">
-            New plan
+        <div class="flex items-center rounded-full border border-gray-200 dark:border-gray-800 p-1 bg-white/70 dark:bg-gray-900/40">
+          <UButton size="xs" :variant="billingPeriod === 'monthly' ? 'solid' : 'ghost'" color="neutral" class="px-3 rounded-full" @click="billingPeriod = 'monthly'">
+            Monthly
+          </UButton>
+          <UButton size="xs" :variant="billingPeriod === 'yearly' ? 'solid' : 'ghost'" color="neutral" class="px-3 rounded-full" @click="billingPeriod = 'yearly'">
+            Yearly
           </UButton>
         </div>
-      </div>
 
-      <!-- Tabs: List + Customer preview only -->
-      <UTabs v-model="activeTab" :items="tabs" class="w-full">
+        <UButton icon="i-lucide-plus" color="primary" size="sm" class="justify-center" @click="openCreate" label="New Plan"/>
+      </div>
+      <!-- Tabs -->
+      <UTabs v-model="activeTab" :items="tabs" class="w-full" variant="link">
         <template #content="{ item }">
           <!-- LIST -->
           <div v-if="item.value === 'list'" class="space-y-4">
@@ -881,13 +872,7 @@ const currencyItems = [
 
               <div class="flex items-center gap-2">
                 <UDropdownMenu :items="bulkItems" :content="{ align: 'end' }">
-                  <UButton
-                    size="sm"
-                    color="neutral"
-                    variant="outline"
-                    icon="i-lucide-layers"
-                    :disabled="selectedIds.size === 0"
-                  >
+                  <UButton size="sm" color="neutral" variant="outline" icon="i-lucide-layers" :disabled="selectedIds.size === 0">
                     Bulk actions
                   </UButton>
                 </UDropdownMenu>
@@ -905,14 +890,14 @@ const currencyItems = [
               </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class=" gap-6">
               <!-- Table -->
               <UCard class="lg:col-span-2" :ui="{ body: 'p-0' }">
                 <template #header>
                   <div class="p-5 flex items-start justify-between gap-3">
                     <div>
                       <h3 class="text-base font-semibold text-gray-900 dark:text-white">Plan list</h3>
-                      <p class="text-xs text-gray-500 dark:text-gray-400">Select a plan to see details and manage quickly.</p>
+                      <p class="text-xs text-gray-500 dark:text-gray-400">Select a plan to manage quickly.</p>
                     </div>
                     <UBadge color="neutral" variant="soft" size="xs">{{ tableRowsAll.length }} results</UBadge>
                   </div>
@@ -933,27 +918,9 @@ const currencyItems = [
                     />
                   </div>
 
-                  <div v-if="tableRowsAll.length === 0" class="py-14 text-center">
-                    <div class="mx-auto w-12 h-12 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                      <UIcon name="i-lucide-layers" class="w-6 h-6 text-gray-500" />
-                    </div>
-                    <div class="mt-3 font-semibold text-gray-900 dark:text-white">No plans found</div>
-                    <div class="mt-1 text-sm text-gray-500 dark:text-gray-400">Try another search or create a new plan.</div>
-                    <div class="mt-5">
-                      <UButton color="primary" @click="openCreate">Create plan</UButton>
-                    </div>
-                  </div>
-
                   <!-- Pagination -->
                   <div v-if="tableRowsAll.length > 0" class="mt-4 flex items-center justify-between gap-3">
-                    <UButton
-                      size="sm"
-                      color="neutral"
-                      variant="outline"
-                      icon="i-lucide-chevron-left"
-                      :disabled="page <= 1"
-                      @click="page = Math.max(1, page - 1)"
-                    >
+                    <UButton size="sm" color="neutral" variant="outline" icon="i-lucide-chevron-left" :disabled="page <= 1" @click="page = Math.max(1, page - 1)">
                       Prev
                     </UButton>
 
@@ -962,116 +929,10 @@ const currencyItems = [
                       <span class="font-semibold text-gray-900 dark:text-white">{{ totalPages }}</span>
                     </div>
 
-                    <UButton
-                      size="sm"
-                      color="neutral"
-                      variant="outline"
-                      trailing-icon="i-lucide-chevron-right"
-                      :disabled="page >= totalPages"
-                      @click="page = Math.min(totalPages, page + 1)"
-                    >
+                    <UButton size="sm" color="neutral" variant="outline" trailing-icon="i-lucide-chevron-right" :disabled="page >= totalPages" @click="page = Math.min(totalPages, page + 1)">
                       Next
                     </UButton>
                   </div>
-                </div>
-              </UCard>
-
-              <!-- Details panel -->
-              <UCard>
-                <template #header>
-                  <div>
-                    <h3 class="text-base font-semibold text-gray-900 dark:text-white">Quick details</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">For the currently selected plan</p>
-                  </div>
-                </template>
-
-                <div v-if="selectedPlan" class="space-y-4">
-                  <div class="rounded-2xl ring-1 ring-gray-200/70 dark:ring-gray-800/60 p-4 bg-white/60 dark:bg-gray-900/30">
-                    <div class="flex items-start justify-between gap-3">
-                      <div class="min-w-0">
-                        <div class="flex items-center gap-2 min-w-0">
-                          <div class="text-base font-semibold text-gray-900 dark:text-white truncate">{{ selectedPlan.name }}</div>
-                          <UBadge v-if="selectedPlan.id === defaultPlanId" color="primary" variant="soft" size="xs">Default</UBadge>
-                          <UBadge v-if="selectedPlan.popular && !selectedPlan.archived" color="success" variant="soft" size="xs">Popular</UBadge>
-                          <UBadge v-if="selectedPlan.archived" color="neutral" variant="soft" size="xs">Archived</UBadge>
-                        </div>
-                        <div class="mt-1 text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
-                          {{ selectedPlan.description || '—' }}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="mt-3 grid grid-cols-2 gap-3">
-                      <div class="rounded-xl p-3 bg-gray-50 dark:bg-gray-900/40">
-                        <div class="text-xs text-gray-500 dark:text-gray-400">Price</div>
-                        <div class="mt-1 text-sm font-semibold text-gray-900 dark:text-white">
-                          {{ formatMoney(viewPrice(selectedPlan), currency) }} {{ viewCycleLabel() }}
-                        </div>
-                      </div>
-                      <div class="rounded-xl p-3 bg-gray-50 dark:bg-gray-900/40">
-                        <div class="text-xs text-gray-500 dark:text-gray-400">Customers</div>
-                        <div class="mt-1 text-sm font-semibold text-gray-900 dark:text-white">
-                          {{ selectedPlan.customers.toLocaleString() }}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="mt-4 flex flex-wrap gap-2">
-                      <UButton size="sm" color="primary" variant="soft" icon="i-lucide-pencil" @click="openEdit(selectedPlan.id)">Edit</UButton>
-                      <UButton size="sm" color="neutral" variant="outline" icon="i-lucide-copy" @click="duplicatePlan(selectedPlan.id)">Duplicate</UButton>
-                      <UButton
-                        size="sm"
-                        color="neutral"
-                        variant="outline"
-                        icon="i-lucide-star"
-                        :disabled="selectedPlan.archived || selectedPlan.id === defaultPlanId"
-                        @click="setDefault(selectedPlan.id)"
-                      >
-                        Set default
-                      </UButton>
-                      <UButton
-                        size="sm"
-                        color="neutral"
-                        variant="ghost"
-                        :icon="selectedPlan.archived ? 'i-lucide-rotate-ccw' : 'i-lucide-archive'"
-                        @click="toggleArchive(selectedPlan.id)"
-                      >
-                        {{ selectedPlan.archived ? 'Restore' : 'Archive' }}
-                      </UButton>
-                    </div>
-                  </div>
-
-                  <div class="rounded-2xl p-4 ring-1 ring-gray-200/70 dark:ring-gray-800/60">
-                    <div class="flex items-center justify-between">
-                      <div class="text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide">Features</div>
-                      <UBadge color="neutral" variant="soft" size="xs">{{ selectedPlan.features.length }}</UBadge>
-                    </div>
-
-                    <ul class="mt-3 space-y-2">
-                      <li v-for="(f, i) in selectedPlan.features.slice(0, 7)" :key="i" class="flex items-start gap-2">
-                        <UIcon name="i-lucide-check" class="w-4 h-4 text-primary-500 mt-0.5" />
-                        <span class="text-sm text-gray-700 dark:text-gray-200">{{ f }}</span>
-                      </li>
-                    </ul>
-
-                    <div v-if="selectedPlan.features.length > 7" class="mt-3 text-xs text-gray-500 dark:text-gray-400">
-                      +{{ selectedPlan.features.length - 7 }} more…
-                    </div>
-                  </div>
-
-                  <UButton
-                    color="primary"
-                    variant="solid"
-                    class="w-full rounded-xl"
-                    icon="i-lucide-eye"
-                    @click="activeTab = 'preview'"
-                  >
-                    Open customer preview
-                  </UButton>
-                </div>
-
-                <div v-else class="text-sm text-gray-600 dark:text-gray-400">
-                  Select a plan in the table.
                 </div>
               </UCard>
             </div>
@@ -1087,15 +948,12 @@ const currencyItems = [
                     <p class="text-xs text-gray-500 dark:text-gray-400">Simulate checkout with seats, coupons, and tax.</p>
                   </div>
 
-                  <div class="flex items-center gap-2">
-                    <UButton size="sm" color="neutral" variant="outline" icon="i-lucide-arrow-left" @click="activeTab = 'list'">
-                      Back to list
-                    </UButton>
-                  </div>
+                  <UButton size="sm" color="neutral" variant="outline" icon="i-lucide-arrow-left" @click="activeTab = 'list'">
+                    Back to list
+                  </UButton>
                 </div>
               </template>
 
-              <!-- Preview controls -->
               <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 <div class="lg:col-span-2 space-y-4">
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -1114,7 +972,8 @@ const currencyItems = [
                       <div class="flex items-center gap-3">
                         <UInputNumber v-model="seatCount" :min="1" :max="500" />
                         <div class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                          multiplier: <span class="font-semibold text-gray-900 dark:text-white">{{ perSeatMultiplier.toFixed(2) }}x</span>
+                          multiplier:
+                          <span class="font-semibold text-gray-900 dark:text-white">{{ perSeatMultiplier.toFixed(2) }}x</span>
                         </div>
                       </div>
                     </UFormField>
@@ -1128,9 +987,7 @@ const currencyItems = [
                     <UFormField label="Tax">
                       <div class="flex items-center gap-3 h-10">
                         <USwitch v-model="includeTax" />
-                        <div class="text-xs text-gray-500 dark:text-gray-400">
-                          {{ includeTax ? `${taxRate}%` : 'Off' }}
-                        </div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ includeTax ? `${taxRate}%` : 'Off' }}</div>
                       </div>
                     </UFormField>
 
@@ -1139,19 +996,11 @@ const currencyItems = [
                     </UFormField>
                   </div>
 
-                  <!-- Plans grid preview (simple compare feel) -->
                   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                    <UCard
-                      v-for="p in previewCandidates"
-                      :key="p.id"
-                      class="rounded-2xl"
-                      :ui="{ body: 'space-y-4' }"
-                    >
+                    <UCard v-for="p in previewCandidates" :key="p.id" class="rounded-2xl" :ui="{ body: 'space-y-4' }">
                       <div class="flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                          <div class="text-base font-semibold text-gray-900 dark:text-white truncate">
-                            {{ p.name }}
-                          </div>
+                          <div class="text-base font-semibold text-gray-900 dark:text-white truncate">{{ p.name }}</div>
                           <div class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
                             {{ p.description || (p.popular ? 'Great for growing teams.' : 'A solid starting point.') }}
                           </div>
@@ -1164,9 +1013,7 @@ const currencyItems = [
                       </div>
 
                       <div class="flex items-baseline gap-2">
-                        <div class="text-2xl font-bold text-gray-900 dark:text-white">
-                          {{ formatMoney(viewPrice(p), currency) }}
-                        </div>
+                        <div class="text-2xl font-bold text-gray-900 dark:text-white">{{ formatMoney(viewPrice(p), currency) }}</div>
                         <div class="text-sm text-gray-500 dark:text-gray-400">{{ viewCycleLabel() }}</div>
                       </div>
 
@@ -1190,7 +1037,6 @@ const currencyItems = [
                   </div>
                 </div>
 
-                <!-- Checkout summary -->
                 <UCard class="rounded-2xl">
                   <template #header>
                     <div>
@@ -1202,9 +1048,7 @@ const currencyItems = [
                   <div class="space-y-4">
                     <div class="rounded-2xl p-4 ring-1 ring-gray-200/70 dark:ring-gray-800/60 bg-white/60 dark:bg-gray-900/30">
                       <div class="text-xs text-gray-500 dark:text-gray-400">Plan</div>
-                      <div class="mt-1 font-semibold text-gray-900 dark:text-white">
-                        {{ previewSelectedPlan?.name || '—' }}
-                      </div>
+                      <div class="mt-1 font-semibold text-gray-900 dark:text-white">{{ previewSelectedPlan?.name || '—' }}</div>
                       <div class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                         {{ seatCount }} seats • {{ billingPeriod }} • {{ currency }}
                       </div>
@@ -1237,7 +1081,8 @@ const currencyItems = [
                     </UButton>
 
                     <div class="text-xs text-gray-500 dark:text-gray-400">
-                      Tip: volume discount applies automatically (seat multiplier: <span class="font-semibold text-gray-900 dark:text-white">{{ perSeatMultiplier.toFixed(2) }}x</span>)
+                      Tip: volume discount applies automatically (seat multiplier:
+                      <span class="font-semibold text-gray-900 dark:text-white">{{ perSeatMultiplier.toFixed(2) }}x</span>)
                     </div>
                   </div>
                 </UCard>
@@ -1247,92 +1092,252 @@ const currencyItems = [
         </template>
       </UTabs>
 
-      <!-- Create/Edit Modal -->
-      <UModal v-model:open="isModalOpen" :ui="{ content: 'sm:max-w-2xl' }">
+      <!-- Create/Edit Modal (REFINED) -->
+      <UModal v-model:open="isModalOpen" :ui="{ content: 'sm:max-w-5xl' }">
         <template #header>
           <div class="space-y-1">
-            <div class="text-lg font-semibold text-gray-900 dark:text-white">
-              {{ editingId ? 'Edit plan' : 'Create new plan' }}
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-lg font-semibold text-gray-900 dark:text-white">{{ modalTitle }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">{{ modalSubtitle }}</div>
+              </div>
+              <UBadge color="neutral" variant="soft" size="xs" class="whitespace-nowrap">
+                {{ isEdit ? 'Editing' : 'New' }}
+              </UBadge>
             </div>
-            <div class="text-sm text-gray-600 dark:text-gray-400">Update pricing, interval, features, and metrics.</div>
           </div>
         </template>
 
         <template #body>
-          <UForm id="plan-form" :schema="schema" :state="form" class="space-y-4" @submit="onSubmit">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <UFormField label="Plan name" name="name" required>
-                <UInput v-model="form.name" placeholder="e.g. Starter, Pro, Enterprise" icon="i-lucide-tag" />
-              </UFormField>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <!-- LEFT: FORM -->
+            <div class="lg:col-span-2">
+              <UForm id="plan-form" :schema="schema" :state="form" class="space-y-5" @submit="onSubmit">
+                <!-- Basics -->
+                <UCard class="rounded-2xl" :ui="{ body: 'p-4' }">
+                  <div class="flex items-center justify-between mb-3">
+                    <div>
+                      <div class="text-sm font-semibold text-gray-900 dark:text-white">Basics</div>
+                      <div class="text-xs text-gray-500 dark:text-gray-400">Name and description shown to users.</div>
+                    </div>
+                    <UIcon name="i-lucide-text-cursor-input" class="w-4 h-4 text-gray-400" />
+                  </div>
 
-              <UFormField label="Price (stored by interval below)" name="price" required>
-                <UInputNumber v-model="form.price" :min="0" :step="1" />
-              </UFormField>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <UFormField label="Plan name" name="name" required>
+                      <UInput v-model="form.name" placeholder="e.g. Starter, Pro, Enterprise" icon="i-lucide-tag" />
+                    </UFormField>
+
+                    <UFormField label="Customers (metric)" name="customers" required>
+                      <UInputNumber v-model="form.customers" :min="0" :step="1" />
+                    </UFormField>
+                  </div>
+
+                  <div class="mt-4">
+                    <UFormField label="Description" name="description" help="Max 160 characters. Keep it short and clear.">
+                      <UTextarea v-model="form.description" :rows="3" placeholder="Short description under the plan title." />
+                    </UFormField>
+
+                    <div class="mt-2 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
+                      <span>Tip: highlight who this plan is for.</span>
+                      <span :class="descriptionCount > 160 ? 'text-red-500' : ''">{{ descriptionCount }}/160</span>
+                    </div>
+                  </div>
+                </UCard>
+
+                <!-- Pricing -->
+                <UCard class="rounded-2xl" :ui="{ body: 'p-4' }">
+                  <div class="flex items-center justify-between mb-3">
+                    <div>
+                      <div class="text-sm font-semibold text-gray-900 dark:text-white">Pricing</div>
+                      <div class="text-xs text-gray-500 dark:text-gray-400">Stored by billing interval.</div>
+                    </div>
+                    <UIcon name="i-lucide-badge-dollar-sign" class="w-4 h-4 text-gray-400" />
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <UFormField label="Price" name="price" required :help="priceHelp">
+                      <UInputNumber v-model="form.price" :min="0" :step="1" />
+                    </UFormField>
+
+                    <UFormField label="Billing interval" name="interval" required>
+                      <USelectMenu
+                        v-model="form.interval"
+                        :items="[
+                          { label: 'Monthly', value: 'month' },
+                          { label: 'Yearly', value: 'year' }
+                        ]"
+                        value-key="value"
+                        label-key="label"
+                      />
+                    </UFormField>
+
+                    <UFormField label="Accent color" name="color" required>
+                      <USelectMenu
+                        v-model="form.color"
+                        :items="[
+                          { label: 'Neutral', value: 'neutral' },
+                          { label: 'Primary', value: 'primary' },
+                          { label: 'Success', value: 'success' },
+                          { label: 'Info', value: 'info' },
+                          { label: 'Warning', value: 'warning' },
+                          { label: 'Error', value: 'error' },
+                          { label: 'Secondary', value: 'secondary' }
+                        ]"
+                        value-key="value"
+                        label-key="label"
+                      />
+                    </UFormField>
+                  </div>
+
+                  <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <UFormField label="Popular" name="popular" help="Marks this as a best value plan.">
+                      <div class="h-10 flex items-center justify-between rounded-xl border border-gray-200 dark:border-gray-800 px-3 bg-white/60 dark:bg-gray-900/30">
+                        <div class="text-sm text-gray-700 dark:text-gray-200">Best value badge</div>
+                        <USwitch v-model="form.popular" />
+                      </div>
+                    </UFormField>
+
+                    <UFormField label="Archived" name="archived" help="Archived plans won't show in customer selection.">
+                      <div class="h-10 flex items-center justify-between rounded-xl border border-gray-200 dark:border-gray-800 px-3 bg-white/60 dark:bg-gray-900/30">
+                        <div class="text-sm text-gray-700 dark:text-gray-200">Hide from storefront</div>
+                        <USwitch v-model="form.archived" />
+                      </div>
+                    </UFormField>
+                  </div>
+                </UCard>
+
+                <!-- Features -->
+                <UCard class="rounded-2xl" :ui="{ body: 'p-4' }">
+                  <div class="flex items-center justify-between mb-3">
+                    <div>
+                      <div class="text-sm font-semibold text-gray-900 dark:text-white">Features</div>
+                      <div class="text-xs text-gray-500 dark:text-gray-400">Shown as bullet list in plan card.</div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                      <UBadge color="neutral" variant="soft" size="xs">{{ form.features?.length || 0 }} items</UBadge>
+                      <UButton size="xs" color="neutral" variant="ghost" icon="i-lucide-trash-2" @click="clearFormFeatures">
+                        Clear
+                      </UButton>
+                    </div>
+                  </div>
+
+                  <UFormField label="Feature tags" name="features" required help="Type and press Enter to add.">
+                    <UInputTags v-model="form.features" placeholder="e.g. Unlimited projects" />
+                  </UFormField>
+
+                  <div class="mt-3">
+                    <div class="text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-2">
+                      Quick add
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                      <UButton
+                        v-for="p in featurePresets"
+                        :key="p"
+                        size="xs"
+                        color="neutral"
+                        variant="outline"
+                        icon="i-lucide-plus"
+                        @click="addFeaturePreset(p)"
+                      >
+                        {{ p }}
+                      </UButton>
+                    </div>
+                  </div>
+                </UCard>
+              </UForm>
             </div>
 
-            <UFormField label="Description" name="description">
-              <UTextarea v-model="form.description" :rows="2" placeholder="Short description shown under the plan title." />
-            </UFormField>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <UFormField label="Billing interval" name="interval" required>
-                <USelectMenu
-                  v-model="form.interval"
-                  :items="[
-                    { label: 'Monthly', value: 'month' },
-                    { label: 'Yearly', value: 'year' }
-                  ]"
-                  value-key="value"
-                  label-key="label"
-                />
-              </UFormField>
-
-              <UFormField label="Accent color" name="color" required>
-                <USelectMenu
-                  v-model="form.color"
-                  :items="[
-                    { label: 'Neutral', value: 'neutral' },
-                    { label: 'Primary', value: 'primary' },
-                    { label: 'Success', value: 'success' },
-                    { label: 'Info', value: 'info' },
-                    { label: 'Warning', value: 'warning' },
-                    { label: 'Error', value: 'error' },
-                    { label: 'Secondary', value: 'secondary' }
-                  ]"
-                  value-key="value"
-                  label-key="label"
-                />
-              </UFormField>
-
-              <UFormField label="Customers (metric)" name="customers" required>
-                <UInputNumber v-model="form.customers" :min="0" :step="1" />
-              </UFormField>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-              <UFormField label="Popular" name="popular">
-                <div class="h-10 flex items-center">
-                  <USwitch v-model="form.popular" />
+            <!-- RIGHT: LIVE PREVIEW -->
+            <div class="lg:col-span-1">
+              <UCard class="rounded-2xl lg:sticky lg:top-6" :ui="{ body: 'p-4' }">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-sm font-semibold text-gray-900 dark:text-white">Live preview</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">How it may look to customers.</div>
+                  </div>
+                  <UIcon name="i-lucide-eye" class="w-4 h-4 text-gray-400" />
                 </div>
-              </UFormField>
 
-              <UFormField label="Archived" name="archived">
-                <div class="h-10 flex items-center">
-                  <USwitch v-model="form.archived" />
+                <div class="mt-4 rounded-2xl border border-gray-200/70 dark:border-gray-800/60 bg-white/60 dark:bg-gray-900/30 p-4">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                      <div class="text-base font-semibold text-gray-900 dark:text-white truncate">
+                        {{ form.name || 'Plan name' }}
+                      </div>
+                      <div class="mt-1 text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                        {{ form.description || 'Short description will appear here.' }}
+                      </div>
+                    </div>
+
+                    <div class="flex flex-col items-end gap-1">
+                      <UBadge :color="form.color" variant="soft" size="xs">{{ colorLabel }}</UBadge>
+                      <UBadge v-if="form.popular && !form.archived" color="success" variant="soft" size="xs">Best value</UBadge>
+                      <UBadge v-if="form.archived" color="neutral" variant="soft" size="xs">Archived</UBadge>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 flex items-baseline gap-2">
+                    <div class="text-2xl font-bold text-gray-900 dark:text-white">
+                      {{ formatMoney(Number(form.price || 0), currency) }}
+                    </div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">/{{ intervalLabel.toLowerCase() }}</div>
+                  </div>
+
+                  <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">
+                    Customers metric:
+                    <span class="font-semibold text-gray-900 dark:text-white">{{ Number(form.customers || 0).toLocaleString() }}</span>
+                  </div>
+
+                  <div class="mt-4">
+                    <div class="text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-2">
+                      Included
+                    </div>
+                    <ul class="space-y-2">
+                      <li v-for="(f, i) in (form.features || []).slice(0, 5)" :key="i" class="flex items-start gap-2">
+                        <UIcon name="i-lucide-check" class="w-4 h-4 text-primary-500 mt-0.5" />
+                        <span class="text-sm text-gray-700 dark:text-gray-200">{{ f }}</span>
+                      </li>
+
+                      <li v-if="!(form.features || []).length" class="text-sm text-gray-500 dark:text-gray-400">
+                        Add features to see them here.
+                      </li>
+
+                      <li v-if="(form.features || []).length > 5" class="text-xs text-gray-500 dark:text-gray-400">
+                        +{{ (form.features || []).length - 5 }} more…
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </UFormField>
-            </div>
 
-            <UFormField label="Features" name="features" required>
-              <UInputTags v-model="form.features" placeholder="Type and press Enter…" />
-            </UFormField>
-          </UForm>
+                <div class="mt-4 text-xs text-gray-500 dark:text-gray-400">
+                  Tip: Keep features short, benefit-focused, and consistent across plans.
+                </div>
+              </UCard>
+            </div>
+          </div>
         </template>
 
         <template #footer>
-          <div class="flex items-center justify-end gap-2">
-            <UButton color="neutral" variant="ghost" @click="isModalOpen = false">Cancel</UButton>
-            <UButton color="primary" :loading="isSaving" type="submit" form="plan-form">Save</UButton>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 w-full">
+            <div class="text-xs text-gray-500 dark:text-gray-400">
+              {{ isEdit ? 'Editing existing plan' : 'Creating new plan' }} • Interval:
+              <span class="font-semibold text-gray-900 dark:text-white">{{ intervalLabel }}</span>
+            </div>
+
+            <div class="flex items-center justify-end gap-2">
+              <UButton color="neutral" variant="ghost" @click="isModalOpen = false">Cancel</UButton>
+              <UButton
+                color="primary"
+                :loading="isSaving"
+                type="submit"
+                form="plan-form"
+                :icon="isEdit ? 'i-lucide-save' : 'i-lucide-plus'"
+              >
+                {{ modalSubmitLabel }}
+              </UButton>
+            </div>
           </div>
         </template>
       </UModal>
