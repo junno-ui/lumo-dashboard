@@ -16,7 +16,7 @@ export const appConfig = {
 }
 
 export const navigationMenu: NavigationMenuItem[] = [
-  { label: 'Dashboard', icon: 'heroicons:squares-2x2', to: '/dashboard' },
+  { label: 'Dashboard', icon: 'heroicons:squares-2x2', to: '/dashboard/home' },
 
   {
     label: 'Analytics',

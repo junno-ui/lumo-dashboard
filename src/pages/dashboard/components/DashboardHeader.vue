@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { type CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date'
+import { ref } from 'vue'
+import { type CalendarDate } from '@internationalized/date'
 
 // Props definitions
 const props = defineProps<{
@@ -47,19 +47,13 @@ const handleClear = () => {
 
     <div class="flex flex-col sm:flex-row sm:items-center gap-2">
       <!-- Preset quick filter -->
-      <USelectMenu
-        :model-value="preset"
-        @update:model-value="handlePresetChange"
-        :items="presets as any"
-        size="sm"
-        color="neutral"
-        variant="outline"
-        class="w-full sm:w-44"
-      />
+      <USelectMenu :model-value="preset" @update:model-value="handlePresetChange" :items="presets as any" size="sm"
+        color="neutral" variant="outline" class="w-full sm:w-44" />
 
       <!-- Calendar range -->
       <UPopover v-model:open="dateOpen">
-        <UButton color="primary" variant="soft" size="sm" icon="i-lucide-calendar" class="w-full sm:w-auto justify-center">
+        <UButton color="primary" variant="soft" size="sm" icon="i-lucide-calendar"
+          class="w-full sm:w-auto justify-center">
           {{ dateLabel }}
         </UButton>
 
@@ -67,44 +61,23 @@ const handleClear = () => {
           <div class="p-3 w-[min(720px,92vw)]">
             <div class="flex items-center justify-between gap-2 mb-2">
               <div class="text-sm font-semibold text-gray-900 dark:text-white">Custom range</div>
-              <UButton
-                size="xs"
-                color="neutral"
-                variant="ghost"
-                icon="i-lucide-x"
-                @click="dateOpen = false"
-              />
+              <UButton size="xs" color="neutral" variant="ghost" icon="i-lucide-x" @click="dateOpen = false" />
             </div>
 
             <!-- We use modelValue directly but we need to emit update -->
             <!-- Because UCalendar emits update:modelValue, we can proxy it -->
-            <UCalendar 
-              :model-value="modelValue" 
-              @update:model-value="(v) => emit('update:modelValue', v)"
-              class="p-2" 
-              :number-of-months="2" 
-              range 
-            />
+            <UCalendar :model-value="modelValue" @update:model-value="(v) => emit('update:modelValue', v)" class="p-2"
+              :number-of-months="2" range />
 
             <div class="mt-2 flex items-center justify-between">
               <div class="text-xs text-gray-600 dark:text-gray-400 truncate">
                 Selected: <span class="font-medium text-gray-900 dark:text-white">{{ dateLabel }}</span>
               </div>
               <div class="flex items-center gap-2">
-                <UButton
-                  size="sm"
-                  color="neutral"
-                  variant="outline"
-                  @click="handleClear"
-                >
+                <UButton size="sm" color="neutral" variant="outline" @click="handleClear">
                   Clear
                 </UButton>
-                <UButton
-                  size="sm"
-                  color="primary"
-                  variant="solid"
-                  @click="handleApply"
-                >
+                <UButton size="sm" color="primary" variant="solid" @click="handleApply">
                   Apply
                 </UButton>
               </div>
@@ -113,7 +86,8 @@ const handleClear = () => {
         </template>
       </UPopover>
 
-      <UButton @click="emit('export')" color="primary" variant="soft" size="sm" icon="i-lucide-download" class="w-full sm:w-auto justify-center">
+      <UButton @click="emit('export')" color="primary" variant="soft" size="sm" icon="i-lucide-download"
+        class="w-full sm:w-auto justify-center">
         Export
       </UButton>
     </div>
