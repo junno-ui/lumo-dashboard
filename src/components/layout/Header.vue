@@ -6,11 +6,11 @@ import NotificationMenu from '@/components/layout/NotificationMenu.vue'
 import MailMenu from '@/components/layout/MailMenu.vue'
 import ProfileMenu from '@/components/layout/ProfileMenu.vue'
 import type { BreadcrumbItem } from '@nuxt/ui'
+import { SEGMENT_ICON } from '@/config/icons'
 
 const route = useRoute()
 
-import { SEGMENT_ICON } from '@/config/icons'
-
+// Simple breadcrumb generation for static template
 const toTitle = (seg: string) =>
   seg
     .split('-')
@@ -39,7 +39,7 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
     { label: 'Dashboard', icon: SEGMENT_ICON.dashboard, to: '/dashboard' }
   ]
 
-  const cleaned = segments.slice(1).filter(seg => seg !== 'home') // remove base + default
+  const cleaned = segments.slice(1).filter(seg => seg !== 'home')
 
   cleaned.forEach((seg, idx) => {
     const path = '/dashboard/' + cleaned.slice(0, idx + 1).join('/')
@@ -52,8 +52,6 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
 
   return items
 })
-
-
 </script>
 
 <template>
