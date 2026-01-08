@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 import { inboxMessages } from '@/mock/inbox'
 
 type Mail = {
@@ -12,33 +11,12 @@ type Mail = {
   unread?: boolean
 }
 
-const router = useRouter()
+// Static template - use mock data directly
+const mails = inboxMessages as Mail[]
+const unreadCount = mails.filter(m => m.unread).length
+const visibleMails = mails.slice(0, 8)
+
 const open = ref(false)
-
-// if you want to be able to "mark all read", keep mails in a ref
-const mails = ref<Mail[]>(inboxMessages as Mail[])
-
-const unreadCount = computed(() => mails.value.filter(m => m.unread).length)
-const visibleMails = computed(() => mails.value.slice(0, 8)) // show top 8 in popover
-
-function closePopover() {
-  open.value = false
-}
-
-function openInbox() {
-  closePopover()
-  router.push('/inbox')
-}
-
-function openMail(id: Mail['id']) {
-  closePopover()
-  router.push(`/inbox/${id}`)
-}
-
-// optional action
-function markAllRead() {
-  mails.value = mails.value.map(m => ({ ...m, unread: false }))
-}
 </script>
 
 <template>
@@ -85,25 +63,11 @@ function markAllRead() {
 
           <div class="flex items-center gap-1">
             <UButton
-              v-if="unreadCount"
               color="neutral"
               variant="ghost"
               size="xs"
               class="rounded-lg"
-              @click="markAllRead"
-            >
-              <span class="inline-flex items-center gap-1">
-                <UIcon name="i-heroicons-check" class="w-4 h-4" />
-                Mark all read
-              </span>
-            </UButton>
-
-            <UButton
-              color="neutral"
-              variant="ghost"
-              size="xs"
-              class="rounded-lg"
-              @click="closePopover"
+              @click="open = false"
               aria-label="Close"
             >
               <UIcon name="i-heroicons-x-mark" class="w-4 h-4" />
@@ -127,14 +91,12 @@ function markAllRead() {
             <div class="text-xs text-gray-500 dark:text-gray-400">You're all caught up.</div>
           </div>
 
-          <button
+          <div
             v-for="m in visibleMails"
             :key="m.id"
-            type="button"
             class="w-full text-left px-2 py-3 rounded-xl
                    hover:bg-gray-50 dark:hover:bg-gray-800/60
-                   transition"
-            @click="openMail(m.id)"
+                   transition cursor-pointer"
           >
             <div class="flex items-start gap-2">
               <!-- Unread dot -->
@@ -165,7 +127,7 @@ function markAllRead() {
                 </div>
               </div>
             </div>
-          </button>
+          </div>
         </div>
 
         <!-- Footer -->
@@ -179,7 +141,7 @@ function markAllRead() {
             variant="soft"
             size="sm"
             class="rounded-xl"
-            @click="openInbox"
+            to="/dashboard/inbox"
           >
             <span class="inline-flex items-center gap-2">
               Open Inbox

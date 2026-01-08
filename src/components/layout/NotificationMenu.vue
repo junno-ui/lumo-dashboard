@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 import { notifications as seed } from '@/mock/notifications'
 
 type Notif = {
@@ -10,38 +9,15 @@ type Notif = {
   time: string
   icon?: string
   unread?: boolean
-  to?: string // optional route per notification
+  to?: string
 }
 
-const router = useRouter()
+// Static template - use mock data directly
+const notifs = seed as Notif[]
+const items = notifs.slice(0, 6)
+const unreadCount = items.filter(n => n.unread).length
+
 const open = ref(false)
-
-// keep notifications reactive so "mark all read" updates UI
-const notifs = ref<Notif[]>(seed as Notif[])
-
-const items = computed(() => notifs.value.slice(0, 6))
-const unreadCount = computed(() => items.value.filter(n => n.unread).length)
-
-function closePopover() {
-  open.value = false
-}
-
-function markAllRead() {
-  notifs.value = notifs.value.map(n => ({ ...n, unread: false }))
-}
-
-function openNotifications() {
-  closePopover()
-  router.push('/notifications')
-}
-
-function openNotif(n: Notif) {
-  // mark as read when opened (optional)
-  notifs.value = notifs.value.map(x => (x.id === n.id ? { ...x, unread: false } : x))
-
-  closePopover()
-  router.push(n.to || '/notifications')
-}
 </script>
 
 <template>
@@ -77,25 +53,11 @@ function openNotif(n: Notif) {
 
           <div class="flex items-center gap-1">
             <UButton
-              v-if="unreadCount"
               color="neutral"
               variant="ghost"
               size="xs"
               class="rounded-lg"
-              @click="markAllRead"
-            >
-              <span class="inline-flex items-center gap-1">
-                <UIcon name="i-heroicons-check" class="w-4 h-4" />
-                Mark all
-              </span>
-            </UButton>
-
-            <UButton
-              color="neutral"
-              variant="ghost"
-              size="xs"
-              class="rounded-lg"
-              @click="closePopover"
+              @click="open = false"
               aria-label="Close"
             >
               <UIcon name="i-heroicons-x-mark" class="w-4 h-4" />
@@ -115,14 +77,12 @@ function openNotif(n: Notif) {
           </div>
 
           <!-- Items -->
-          <button
+          <div
             v-for="n in items"
             :key="n.id"
-            type="button"
             class="w-full text-left p-3 rounded-xl
                    hover:bg-gray-50 dark:hover:bg-gray-800/60
-                   transition"
-            @click="openNotif(n)"
+                   transition cursor-pointer"
           >
             <div class="flex items-start gap-3">
               <div
@@ -158,7 +118,7 @@ function openNotif(n: Notif) {
                 </div>
               </div>
             </div>
-          </button>
+          </div>
         </div>
 
         <!-- Footer -->
@@ -167,7 +127,7 @@ function openNotif(n: Notif) {
             Showing {{ items.length }} of {{ notifs.length }}
           </div>
 
-          <UButton color="primary" variant="soft" size="sm" class="rounded-xl" @click="openNotifications">
+          <UButton color="primary" variant="soft" size="sm" class="rounded-xl" to="/dashboard/notifications">
             <span class="inline-flex items-center gap-2">
               View all
               <UIcon name="i-heroicons-arrow-right" class="w-4 h-4" />
