@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { type CalendarDate } from '@internationalized/date'
 
-// Props definitions
 const props = defineProps<{
   user: string
   greeting: string
@@ -30,7 +29,6 @@ const handleApply = () => {
 
 const handleClear = () => {
   emit('update:modelValue', { start: null, end: null })
-  // dateOpen.value = false // Optional: close or keep open?
 }
 </script>
 
@@ -64,8 +62,6 @@ const handleClear = () => {
               <UButton size="xs" color="neutral" variant="ghost" icon="i-lucide-x" @click="dateOpen = false" />
             </div>
 
-            <!-- We use modelValue directly but we need to emit update -->
-            <!-- Because UCalendar emits update:modelValue, we can proxy it -->
             <UCalendar :model-value="modelValue" @update:model-value="(v) => emit('update:modelValue', v)" class="p-2"
               :number-of-months="2" range />
 

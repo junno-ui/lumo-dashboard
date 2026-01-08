@@ -4,16 +4,15 @@ import VueApexCharts from 'vue3-apexcharts'
 import type { ApexOptions } from 'apexcharts'
 import type { TabsItem } from '@nuxt/ui'
 import { CalendarDate, DateFormatter, getLocalTimeZone, today } from '@internationalized/date'
-import DashboardHeader from './components/DashboardHeader.vue'
-import DashboardStats from './components/DashboardStats.vue'
+import DashboardHeader from './DashboardHeader.vue'
+import DashboardStats from './DashboardStats.vue'
 import { useColorMode } from '@vueuse/core'
 
 const colorMode = useColorMode()
 const isDark = computed(() => colorMode.value === 'dark')
 
-const chartTextColor = computed(() => (isDark.value ? '#cbd5e1' : '#64748b')) // slate-300 / slate-500
+const chartTextColor = computed(() => (isDark.value ? '#cbd5e1' : '#64748b')) 
 const chartGridColor = computed(() => (isDark.value ? 'rgba(148, 163, 184, 0.18)' : 'rgba(148, 163, 184, 0.28)'))
-
 const chartTooltipTheme = computed(() => (isDark.value ? 'dark' : 'light'))
 
 function withBaseChartOptions(extra: ApexOptions): ApexOptions {
