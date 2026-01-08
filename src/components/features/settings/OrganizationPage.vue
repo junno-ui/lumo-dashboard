@@ -226,7 +226,7 @@ const memberTier = computed(() => {
             </div>
             <div class="flex items-center justify-between text-sm mt-1">
               <span class="text-gray-600 dark:text-gray-400">Billing contact</span>
-              <span class="font-semibold text-gray-900 dark:text-white truncate max-w-[160px] text-right">
+              <span class="font-semibold text-gray-900 dark:text-white truncate max-w-40 text-right">
                 {{ org.billingEmail }}
               </span>
             </div>

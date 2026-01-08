@@ -314,9 +314,9 @@ const columnsMenuItems = computed(() => {
             />
 
             <div class="flex items-center gap-2">
-              <UInput v-model="dateFrom" type="date" class="w-[150px]" />
+              <UInput v-model="dateFrom" type="date" class="w-full" />
               <span class="text-sm text-muted">to</span>
-              <UInput v-model="dateTo" type="date" class="w-[150px]" />
+              <UInput v-model="dateTo" type="date" class="w-full" />
             </div>
           </div>
         </div>
