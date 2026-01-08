@@ -75,14 +75,9 @@ const items = computed(() => {
 
     <!-- Footer -->
     <template #footer="{ collapsed }">
-      <UButton
-        :avatar="{ src: 'https://github.com/benjamincanac.png' }"
-        :label="collapsed ? undefined : 'John Doe'"
-        color="gray"
-        variant="ghost"
-        class="w-full"
-        :square="collapsed"
-      />
+        <div class="flex" :class="collapsed ? 'justify-center' : 'justify-end'">
+          <UDashboardSidebarCollapse variant="link" :label="collapsed ? '' : 'Collapse'" class="w-full" />
+        </div>
     </template>
   </UDashboardSidebar>
 </template>
