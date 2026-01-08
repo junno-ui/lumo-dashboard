@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BrandLogo from '@/components/ui/BrandLogo.vue'
-import { navigationMenu } from '@/config/app.config'
+import { navigationMenu } from '@/mock/sidebar';
 
 // Static sidebar - navigation items from config
 // No dynamic state management for static template
