@@ -1,33 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
 import BrandLogo from '@/components/ui/BrandLogo.vue'
 import { navigationMenu } from '@/config/app.config'
 
-const route = useRoute()
-
-// Process navigation items to add active state and defaultOpen based on current route
-const items = computed(() => {
-  return navigationMenu.map((group) => {
-    return group.map((item) => {
-      const isChildActive = item.children?.some((child) => {
-        if (typeof child.to === 'string') {
-          return route.path === child.to || route.path.startsWith(child.to + '/')
-        }
-        return false
-      })
-
-      const isItemActive = typeof item.to === 'string' && (route.path === item.to || route.path.startsWith(item.to + '/'))
-      const isActive = isChildActive || (isItemActive && !isChildActive)
-
-      return {
-        ...item,
-        active: isActive || item.active,
-        defaultOpen: isChildActive || item.defaultOpen
-      }
-    })
-  })
-})
+// Static sidebar - navigation items from config
+// No dynamic state management for static template
 </script>
 
 <template>
@@ -60,14 +36,14 @@ const items = computed(() => {
       <!-- Main navigation -->
       <UNavigationMenu
         :collapsed="collapsed"
-        :items="items[0]"
+        :items="navigationMenu[0]"
         orientation="vertical"
       />
 
       <!-- Footer navigation -->
       <UNavigationMenu
         :collapsed="collapsed"
-        :items="items[1]"
+        :items="navigationMenu[1]"
         orientation="vertical"
         class="mt-auto"
       />
