@@ -150,10 +150,14 @@ const editingId = ref<number | null>(null)
 const deletingId = ref<number | null>(null)
 
 const isEditing = computed(() => editingId.value != null)
-const roleForm = reactive({
+const roleForm = reactive<{
+  name: string
+  description: string
+  permissions: string[] 
+}>({
   name: '',
   description: '',
-  permissions: [] as string[]
+  permissions: [] as const as string[]
 })
 const permissionQuery = ref('')
 
@@ -219,7 +223,6 @@ function toggleGroup(groupId: string) {
   if (!group) return
   const allSel = group.items.every((p) => roleForm.permissions.includes(p))
   if (allSel) {
-    roleForm.permissions = roleForm.permissions.filter((p) => !group.items.includes(p))
   } else {
     const next = new Set(roleForm.permissions)
     group.items.forEach((p) => next.add(p))

@@ -20,7 +20,7 @@ export const preferences = {
         email: true,
         push: false,
         desktop: true
-    }
+    },
 };
 
 export const securitySettings = {

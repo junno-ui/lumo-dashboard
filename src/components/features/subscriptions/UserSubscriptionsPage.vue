@@ -83,7 +83,7 @@ function randomize() {
   const arr = [...payments.value]
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+    ;[arr[i], arr[j]] = [arr[j]!, arr[i]!]
   }
   payments.value = arr
   pagination.value.pageIndex = 0

@@ -7,7 +7,7 @@ type Language = 'English' | 'Indonesian' | 'Japanese' | 'French'
 
 type Prefs = {
   theme: Theme
-  language: Language 
+  language: Language | any
   notifications: {
     email: boolean
     push: boolean
@@ -21,24 +21,24 @@ type Prefs = {
 }
 
 const toast = useToast()
+const mp = mockPreferences as any
 
-// local editable state (don’t mutate mock directly)
 const state = reactive<Prefs>({
-  theme: mockPreferences.theme as Theme ?? 'System',
-  language: mockPreferences.language ?? 'English',
+  theme: (mp.theme as Theme) ?? 'System',
+  language: mp.language ?? 'English',
   notifications: {
-    email: !!mockPreferences.notifications?.email,
-    push: !!mockPreferences.notifications?.push,
-    desktop: !!mockPreferences.notifications?.desktop
+    email: !!mp.notifications?.email,
+    push: !!mp.notifications?.push,
+    desktop: !!mp.notifications?.desktop
   },
   quietHours: {
-    enabled: !!mockPreferences.quietHours?.enabled,
-    start: mockPreferences.quietHours?.start ?? '22:00',
-    end: mockPreferences.quietHours?.end ?? '07:00'
+    enabled: !!mp.quietHours?.enabled,
+    start: mp.quietHours?.start ?? '22:00',
+    end: mp.quietHours?.end ?? '07:00'
   }
 });
-const initial = ref(JSON.stringify(state))
 
+const initial = ref(JSON.stringify(state))
 const isDirty = computed(() => JSON.stringify(state) !== initial.value)
 
 const themeItems = [
