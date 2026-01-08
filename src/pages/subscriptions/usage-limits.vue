@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import UsageLimitsPage from '@/components/features/subscriptions/UsageLimitsPage.vue'
+import UsageLimitsPage from '@/components/views/subscriptions/UsageLimitsPage.vue'
 </script>
 
 <template>

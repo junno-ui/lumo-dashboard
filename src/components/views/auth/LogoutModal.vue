@@ -46,7 +46,7 @@ const initials = computed(() => {
 <template>
   <UModal
     :open="props.open"
-    @update:open="(v) => emit('update:open', v)"
+    @update:open="(v:any) => emit('update:open', v)"
     :ui="{
       content: 'rounded-2xl',
       header: 'pb-3',

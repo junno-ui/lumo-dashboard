@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PreferencesPage from '@/components/features/settings/PreferencesPage.vue'
+import PreferencesPage from '@/components/views/settings/PreferencesPage.vue'
 </script>
 
 <template>

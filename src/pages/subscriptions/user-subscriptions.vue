@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import UserSubscriptionsPage from '@/components/features/subscriptions/UserSubscriptionsPage.vue'
+import UserSubscriptionsPage from '@/components/views/subscriptions/UserSubscriptionsPage.vue'
 </script>
 
 <template>

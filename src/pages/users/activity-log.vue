@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ActivityLogPage from '@/components/features/users/ActivityLogPage.vue'
+import ActivityLogPage from '@/components/views/users/ActivityLogPage.vue'
 </script>
 
 <template>

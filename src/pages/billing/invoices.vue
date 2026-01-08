@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import InvoicesPage from '@/components/features/billing/InvoicesPage.vue'
+import InvoicesPage from '@/components/views/billing/InvoicesPage.vue'
 </script>
 
 <template>

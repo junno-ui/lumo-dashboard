@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import OrganizationPage from '@/components/features/settings/OrganizationPage.vue'
+import OrganizationPage from '@/components/views/settings/OrganizationPage.vue'
 </script>
 
 <template>

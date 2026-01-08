@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NotificationsPage from '@/components/features/communication/NotificationsPage.vue'
+import NotificationsPage from '@/components/views/communication/NotificationsPage.vue'
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ProfilePage from '@/components/features/settings/ProfilePage.vue'
+import ProfilePage from '@/components/views/settings/ProfilePage.vue'
 </script>
 
 <template>

@@ -62,7 +62,7 @@ const handleClear = () => {
               <UButton size="xs" color="neutral" variant="ghost" icon="i-lucide-x" @click="dateOpen = false" />
             </div>
 
-            <UCalendar :model-value="modelValue" @update:model-value="(v) => emit('update:modelValue', v)" class="p-2"
+            <UCalendar :model-value="modelValue" @update:model-value="(v:any) => emit('update:modelValue', v)" class="p-2"
               :number-of-months="2" range />
 
             <div class="mt-2 flex items-center justify-between">
