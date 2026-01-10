@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BrandLogo from '@/components/ui/BrandLogo.vue'
+import BrandLogo from '../logo/BrandLogo.vue';
 import { navigationMenu } from '@/mock/sidebar';
 
 // Static sidebar - navigation items from config

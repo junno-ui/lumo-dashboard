@@ -4,6 +4,7 @@ import type { ButtonProps, AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 import * as yup from 'yup'
 import { useRouter } from 'vue-router'
 import RegisterDashboard from './RegisterDashboard.vue'
+import BrandLogo from '@/components/global/logo/BrandLogo.vue'
 
 const toast = useToast()
 const router = useRouter()
