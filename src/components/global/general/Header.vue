@@ -2,9 +2,9 @@
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import ThemePickerColor from '@/components/views/theme/ThemePickerColor.vue'
-import NotificationMenu from '@/components/layout/NotificationMenu.vue'
-import MailMenu from '@/components/layout/MailMenu.vue'
-import ProfileMenu from '@/components/layout/ProfileMenu.vue'
+import NotificationMenu from './NotificationMenu.vue'
+import MailMenu from './MailMenu.vue'
+import ProfileMenu from './ProfileMenu.vue'
 import type { BreadcrumbItem } from '@nuxt/ui'
 import { SEGMENT_ICON } from '@/mock/icons'
 
