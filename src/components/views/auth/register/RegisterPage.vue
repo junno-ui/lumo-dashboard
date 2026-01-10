@@ -105,11 +105,12 @@ function goToLogin() {
 <template>
   <div class="h-screen w-full p-5 bg-gray-50 dark:bg-gray-900 overflow-hidden">
     <div class="grid h-full grid-cols-1 lg:grid-cols-2 gap-5">
+      <!-- Preview panel: show on all sizes and stack above the form on small screens -->
       <div
-        class="hidden lg:flex relative flex-col h-full rounded-2xl overflow-hidden
+        class="flex relative flex-col h-full rounded-2xl overflow-hidden
                bg-linear-to-br dark:from-primary-700 dark:via-primary-800 dark:to-primary-950 text-white from-primary-800 via-primary-700 to-primary-800"
       >
-        <div class="relative flex flex-col h-full p-12">
+        <div class="relative flex flex-col h-full p-8 sm:p-12">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
               <BrandLogo :collapsed="true" size="lg" />

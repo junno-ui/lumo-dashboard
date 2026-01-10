@@ -1,13 +1,14 @@
 <template>
   <!-- Dashboard Preview (compact SaaS style) -->
-  <div class="mt-auto pt-10">
-    <div class="relative max-w-3xl">
+  <!-- Make preview responsive: full-width on small screens, constrained on larger screens -->
+  <div class="mt-auto pt-6 sm:pt-10">
+    <div class="relative w-full max-w-3xl">
       <!-- Base card (interactive) -->
-       <UCard class=" dark:bg-gray-900 group rounded-2xl overflow-hidden
+  <UCard class="w-full dark:bg-gray-900 group rounded-2xl overflow-hidden
                border border-black/5 bg-white/90 text-neutral-900 shadow-2xl shadow-black/20
                transition-all duration-300 ease-out
                hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/30
-               dark:border-white/10 dark:bg-gray-950/60 dark:text-white dark:shadow-black/50"
+               dark:border-white/10 dark:text-white dark:shadow-black/50"
         :ui="{ body: 'p-0', header: 'p-0', footer: 'p-0' }">
         <!-- top strip (FIX: linear class) -->
         <div class="h-10 bg-linear-to-r from-primary-600/20 to-primary-700/10
@@ -207,13 +208,13 @@
         </div>
       </UCard>
 
-      <!-- Floating small KPI -->
-       <UCard class=" dark:bg-gray-900 absolute -top-8 left-5 w-44 rounded-2xl
-               border border-black/5 bg-white/95 text-neutral-900 shadow-xl
-               transition-all duration-300 ease-out
-               hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
-               dark:border-white/10 dark:bg-gray-950/75 dark:text-white dark:hover:shadow-black/50"
-        :ui="{ body: 'p-3' }">
+      <!-- Floating small KPI: on small screens behave as stacked card (relative full width), on md+ keep absolute */ -->
+       <UCard class=" dark:bg-gray-900 relative md:absolute md:-top-8 md:left-5 w-full md:w-44 rounded-2xl
+         border border-black/5 bg-white/95 text-neutral-900 shadow-xl
+         transition-all duration-300 ease-out
+         hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
+               dark:border-white/10 dark:text-white dark:hover:shadow-black/50 mt-4 md:mt-0"
+  :ui="{ body: 'p-3' }">
         <div class="flex items-center justify-between">
           <p class="text-[10px] text-neutral-500 dark:text-white/60">NPS</p>
           <UBadge size="xs" color="success" variant="soft">+3</UBadge>
@@ -222,13 +223,13 @@
         <p class="text-[10px] text-neutral-500 dark:text-white/60">Last 7 days</p>
       </UCard>
 
-      <!-- Floating chart -->
-       <UCard class=" dark:bg-gray-900 absolute top-10 -right-10 w-56 rounded-2xl
-               border border-black/5 bg-white/95 text-neutral-900 shadow-xl
-               transition-all duration-300 ease-out
-               hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
-               dark:border-white/10 dark:bg-gray-950/75 dark:text-white dark:hover:shadow-black/50"
-        :ui="{ body: 'p-3' }">
+      <!-- Floating chart: switch to stacked/relative on small screens -->
+       <UCard class=" dark:bg-gray-900 relative md:absolute md:top-10 md:-right-10 w-full md:w-56 rounded-2xl
+         border border-black/5 bg-white/95 text-neutral-900 shadow-xl
+         transition-all duration-300 ease-out
+         hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
+               dark:border-white/10 dark:text-white dark:hover:shadow-black/50 mt-4 md:mt-0"
+  :ui="{ body: 'p-3' }">
         <div class="flex items-center justify-between">
           <p class="text-[10px] font-medium text-neutral-700 dark:text-white/80">Revenue</p>
           <UBadge size="xs" color="primary" variant="soft">30d</UBadge>
