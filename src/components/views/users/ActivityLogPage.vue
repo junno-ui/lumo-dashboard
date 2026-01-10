@@ -255,7 +255,7 @@ watch([q, typeFilter, statusFilter], () => {
 
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    <div class=" px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       <!-- Header -->
       <div class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60 bg-white/70 dark:bg-gray-950/50 backdrop-blur p-5 sm:p-6">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
