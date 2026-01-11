@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { appConfig } from '@/mock/sidebar';
+import { appConfig } from '@/data/sidebar';
 
 type BrandSize = 'sm' | 'md' | 'lg'
 type BrandTone = 'primary' | 'indigo' | 'emerald' | 'amber' | 'rose' | 'slate'

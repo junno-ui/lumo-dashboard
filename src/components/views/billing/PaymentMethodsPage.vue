@@ -2,7 +2,7 @@
 import { computed, reactive, ref } from 'vue'
 import type { DropdownMenuItem, FormSubmitEvent } from '@nuxt/ui'
 import * as yup from 'yup'
-import { paymentMethods as mockMethods } from '@/mock/billing'
+import { paymentMethods as mockMethods } from '@/data/billing'
 
 type MethodType = 'Visa' | 'Mastercard' | 'PayPal'
 type Method = {

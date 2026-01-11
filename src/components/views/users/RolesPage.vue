@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h, reactive, ref, resolveComponent, watch } from 'vue'
 import type { DropdownMenuItem, TableColumn, TabsItem } from '@nuxt/ui'
-import { roles as initialRoles } from '@/mock/users'
+import { roles as initialRoles } from '@/data/users'
 
 type Role = {
   id: number

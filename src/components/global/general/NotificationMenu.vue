@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { notifications as seed } from '@/mock/notifications'
+import { notifications as seed } from '@/data/notifications'
 
 type Notif = {
   id: string | number

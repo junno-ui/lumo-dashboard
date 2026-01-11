@@ -3,7 +3,7 @@ import { computed, h, ref, resolveComponent } from 'vue'
 import type { ApexOptions } from 'apexcharts'
 import VueApexCharts from 'vue3-apexcharts'
 import type { TableColumn } from '@nuxt/ui'
-import { analyticsStats, usageDataNumeric } from '@/mock/analytics'
+import { analyticsStats, usageDataNumeric } from '@/data/analytics'
 import { useColorMode } from '@vueuse/core'
 
 /**

@@ -4,7 +4,7 @@ import type { TableColumn } from '@nuxt/ui'
 import type { Row } from '@tanstack/vue-table'
 import { getPaginationRowModel } from '@tanstack/vue-table'
 import { useClipboard } from '@vueuse/core'
-import { subscriptionPayments } from '@/mock/subscriptions'
+import { subscriptionPayments } from '@/data/subscriptions'
 
 const UButton = resolveComponent('UButton')
 const UBadge = resolveComponent('UBadge')

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { inboxMessages } from '@/mock/inbox'
+import { inboxMessages } from '@/data/inbox'
 
 type Mail = {
   id: string | number

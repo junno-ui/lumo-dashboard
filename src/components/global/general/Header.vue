@@ -6,7 +6,7 @@ import NotificationMenu from './NotificationMenu.vue'
 import MailMenu from './MailMenu.vue'
 import ProfileMenu from './ProfileMenu.vue'
 import type { BreadcrumbItem } from '@nuxt/ui'
-import { SEGMENT_ICON } from '@/mock/icons'
+import { SEGMENT_ICON } from '@/data/icons'
 
 const route = useRoute()
 

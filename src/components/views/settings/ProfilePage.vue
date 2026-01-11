@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
-import { profileSettings as mock } from '@/mock/settings'
+import { profileSettings as mock } from '@/data/settings'
 
 type Profile = {
   name: string

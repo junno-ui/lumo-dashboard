@@ -2,7 +2,7 @@
 import { computed, h, reactive, ref, resolveComponent, watch } from 'vue'
 import type { DropdownMenuItem, FormSubmitEvent, TableColumn } from '@nuxt/ui'
 import * as yup from 'yup'
-import { users as mockUsers } from '@/mock/users'
+import { users as mockUsers } from '@/data/users'
 
 /** Nuxt UI components for h() */
 const UBadge = resolveComponent('UBadge')

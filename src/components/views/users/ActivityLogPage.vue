@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h, ref, resolveComponent, watch } from 'vue'
 import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
-import { activityLog as mockActivityLog } from '@/mock/users'
+import { activityLog as mockActivityLog } from '@/data/users'
 
 type Activity = {
   id: number | string

@@ -2,7 +2,7 @@
 import { computed, h, ref, resolveComponent, watch } from 'vue'
 import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
 import { useClipboard } from '@vueuse/core'
-import { invoices as initialInvoices } from '@/mock/billing'
+import { invoices as initialInvoices } from '@/data/billing'
 
 /** Nuxt UI resolved components for h() */
 const UBadge = resolveComponent('UBadge')

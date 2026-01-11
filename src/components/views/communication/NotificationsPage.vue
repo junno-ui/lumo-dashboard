@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { notifications } from '@/mock/notifications'
+import { notifications } from '@/data/notifications'
 </script>
 
 <template>

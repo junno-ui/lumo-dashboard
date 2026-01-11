@@ -4,7 +4,7 @@ import type { TableColumn, TabsItem } from '@nuxt/ui'
 import type { Row } from '@tanstack/vue-table'
 import { useClipboard, useColorMode } from '@vueuse/core'
 import { CalendarDate, DateFormatter, getLocalTimeZone, today } from '@internationalized/date'
-import { workspace as mockWorkspace, workspaceLimits as mockLimits, usageMembers as mockMembers } from '@/mock/subscriptions'
+import { workspace as mockWorkspace, workspaceLimits as mockLimits, usageMembers as mockMembers } from '@/data/subscriptions'
 
 import VueApexCharts from 'vue3-apexcharts'
 import type { ApexOptions } from 'apexcharts'

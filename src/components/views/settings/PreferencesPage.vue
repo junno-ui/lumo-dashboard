@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
-import { preferences as mockPreferences } from '@/mock/settings'
+import { preferences as mockPreferences } from '@/data/settings'
 
 type Theme = 'System' | 'Light' | 'Dark'
 type Language = 'English' | 'Indonesian' | 'Japanese' | 'French'

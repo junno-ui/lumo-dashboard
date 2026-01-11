@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, h, ref, resolveComponent } from 'vue'
-import { securitySettings, loginAttempts, auditEvents } from '@/mock/settings'
+import { securitySettings, loginAttempts, auditEvents } from '@/data/settings'
 
 type EventSeverity = 'low' | 'medium' | 'high'
 

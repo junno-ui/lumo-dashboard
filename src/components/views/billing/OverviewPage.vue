@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { billingStats, monthlySpend, spendBreakdown } from '@/mock/billing'
+import { billingStats, monthlySpend, spendBreakdown } from '@/data/billing'
 
 /** ---------- Helpers ---------- */
 

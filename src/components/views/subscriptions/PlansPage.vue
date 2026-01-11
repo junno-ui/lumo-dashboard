@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref, h, resolveComponent, watch } from 'vue'
 import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
-import { plans as initialPlans } from '@/mock/subscriptions'
+import { plans as initialPlans } from '@/data/subscriptions'
 
 type Interval = 'month' | 'year'
 type Currency = 'USD' | 'IDR' | 'EUR'

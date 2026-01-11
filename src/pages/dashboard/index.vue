@@ -17,7 +17,7 @@ import {
   topCustomers,
   recentTransactions,
   recentActivities
-} from '@/mock/dashboard'
+} from '@/data/dashboard'
 
 const colorMode = useColorMode()
 const isDark = computed(() => colorMode.value === 'dark')

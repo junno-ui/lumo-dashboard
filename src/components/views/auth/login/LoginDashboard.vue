@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { loginDashboardStats as stats, recentActivity, transactions } from '@/mock/auth'
+import { loginDashboardStats as stats, recentActivity, transactions } from '@/data/auth'
 </script>
 
 <template>

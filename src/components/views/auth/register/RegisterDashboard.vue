@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { registerDashboardStats as stats, features, recentSignups } from '@/mock/auth'
+import { registerDashboardStats as stats, features, recentSignups } from '@/data/auth'
 </script>
 
 <template>

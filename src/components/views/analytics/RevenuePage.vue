@@ -12,7 +12,7 @@ import {
   analyticsStats, 
   revenueSources as mockRevenueSources, 
   payments as mockPayments 
-} from '@/mock/analytics'
+} from '@/data/analytics'
 
 /**
  * ======================================================
