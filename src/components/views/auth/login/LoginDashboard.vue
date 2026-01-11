@@ -5,8 +5,8 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
 <template>
   <!-- Dashboard Preview (compact SaaS style) -->
   <!-- Make preview responsive: full-width on small screens, constrained on larger screens -->
-  <div class="mt-auto pt-6 sm:pt-10">
-    <div class="relative w-full max-w-3xl">
+  <div class="mt-auto pt-6 sm:pt-10 w-full">
+    <div class="relative w-full max-w-3xl xl:max-w-5xl 2xl:max-w-6xl mx-auto">
       <!-- Base card (interactive) -->
       <UCard class="w-full dark:bg-gray-900 group rounded-2xl overflow-hidden
                border border-black/5 bg-white/90 text-neutral-900 shadow-2xl shadow-black/20
@@ -18,9 +18,9 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
         <div class="h-10 bg-linear-to-r from-primary-600/20 to-primary-700/10
                  dark:from-primary-500/15 dark:to-primary-700/5" />
 
-        <div class="p-5">
+        <div class="p-5 xl:p-8 2xl:p-10">
           <!-- KPI row -->
-          <div class="grid grid-cols-3 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 xl:gap-5">
             <!-- KPI Card -->
             <div class="group/kpi rounded-xl border border-neutral-200/80 bg-white p-3
                      transition-all duration-300 ease-out
@@ -33,7 +33,7 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
 
               <p class="mt-1 text-sm font-semibold text-neutral-900 dark:text-white">{{ stats.mrr.value }}</p>
 
-              <div class="mt-2 h-6 rounded-lg bg-gray-100 dark:bg-white/10 overflow-hidden">
+              <div class="mt-2 h-6 xl:h-10 2xl:h-12 rounded-lg bg-gray-100 dark:bg-white/10 overflow-hidden">
                 <div class="h-full w-[68%] bg-primary-600/40 dark:bg-primary-400/35
                          transition-all duration-500 group-hover/kpi:w-[76%]" />
               </div>
@@ -51,7 +51,7 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
 
               <p class="mt-1 text-sm font-semibold text-neutral-900 dark:text-white">{{ stats.activeUsers.value }}</p>
 
-              <div class="mt-2 flex items-end gap-1 h-6">
+              <div class="mt-2 flex items-end gap-1 h-6 xl:h-10 2xl:h-12">
                 <div
                   class="w-1.5 h-2 bg-gray-200 dark:bg-white/15 rounded transition-all duration-300 group-hover/kpi:h-3" />
                 <div
@@ -84,9 +84,9 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
           </div>
 
           <!-- Mid widgets -->
-          <div class="mt-4 grid grid-cols-5 gap-3">
+          <div class="mt-4 xl:mt-6 grid grid-cols-1 sm:grid-cols-5 gap-3 xl:gap-5">
             <!-- Conversion -->
-            <div class="group/widget col-span-2 rounded-xl border border-neutral-200/80 bg-white p-3
+            <div class="group/widget sm:col-span-2 rounded-xl border border-neutral-200/80 bg-white p-3
                      transition-all duration-300 ease-out
                      hover:-translate-y-0.5 hover:border-primary-300/60 hover:shadow-lg hover:shadow-black/10
                      dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:shadow-black/40">
@@ -100,7 +100,7 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
                 <p class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">{{ stats.conversion.rate }}</p>
 
                 <!-- FIX: linear class + hover animation -->
-                <div class="mt-3 h-16 rounded-lg
+                <div class="mt-3 h-16 xl:h-24 2xl:h-28 rounded-lg
                          bg-linear-to-br from-primary-600/25 to-primary-700/10
                          dark:from-primary-400/20 dark:to-primary-700/5
                          transition-all duration-300
@@ -109,7 +109,7 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
             </div>
 
             <!-- Recent activity -->
-            <div class="group/widget col-span-3 rounded-xl border border-neutral-200/80 bg-white p-3
+            <div class="group/widget sm:col-span-3 rounded-xl border border-neutral-200/80 bg-white p-3
                      transition-all duration-300 ease-out
                      hover:-translate-y-0.5 hover:border-primary-300/60 hover:shadow-lg hover:shadow-black/10
                      dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:shadow-black/40">
@@ -145,7 +145,7 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
           </div>
 
           <!-- Table -->
-          <div class="mt-4 rounded-xl border border-neutral-200/80 overflow-hidden
+          <div class="mt-4 xl:mt-6 rounded-xl border border-neutral-200/80 overflow-hidden
                    transition-all duration-300
                    hover:border-primary-300/60
                    dark:border-white/10 dark:hover:border-white/20">
@@ -177,11 +177,11 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
       </UCard>
 
       <!-- Floating small KPI: on small screens behave as stacked card (relative full width), on md+ keep absolute */ -->
-       <UCard class=" dark:bg-gray-900 relative md:absolute md:-top-8 md:left-5 w-full md:w-44 rounded-2xl
+       <UCard class=" dark:bg-gray-900 relative mt-4 md:mt-0 md:absolute md:-top-8 md:left-5 w-full md:w-44 rounded-2xl
          border border-black/5 bg-white/95 text-neutral-900 shadow-xl
          transition-all duration-300 ease-out
          hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
-               dark:border-white/10 dark:text-white dark:hover:shadow-black/50 mt-4 md:mt-0"
+               dark:border-white/10 dark:text-white dark:hover:shadow-black/50"
   :ui="{ body: 'p-3' }">
         <div class="flex items-center justify-between">
           <p class="text-[10px] text-neutral-500 dark:text-white/60">NPS</p>
@@ -192,11 +192,11 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
       </UCard>
 
       <!-- Floating chart: switch to stacked/relative on small screens -->
-       <UCard class=" dark:bg-gray-900 relative md:absolute md:top-10 md:-right-10 w-full md:w-56 rounded-2xl
+       <UCard class=" dark:bg-gray-900 relative mt-4 md:mt-0 md:absolute md:top-10 md:-right-10 w-full md:w-56 rounded-2xl
          border border-black/5 bg-white/95 text-neutral-900 shadow-xl
          transition-all duration-300 ease-out
          hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
-               dark:border-white/10 dark:text-white dark:hover:shadow-black/50 mt-4 md:mt-0"
+               dark:border-white/10 dark:text-white dark:hover:shadow-black/50"
   :ui="{ body: 'p-3' }">
         <div class="flex items-center justify-between">
           <p class="text-[10px] font-medium text-neutral-700 dark:text-white/80">Revenue</p>

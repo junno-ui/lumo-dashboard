@@ -103,12 +103,12 @@ function goToLogin() {
 </script>
 
 <template>
-  <div class="h-screen w-full p-5 bg-gray-50 dark:bg-gray-900 overflow-hidden">
-    <div class="grid h-full grid-cols-1 lg:grid-cols-2 gap-5">
+  <div class="min-h-screen lg:h-screen w-full p-2 sm:p-5 bg-gray-50 dark:bg-gray-900 overflow-y-auto lg:overflow-hidden">
+    <div class="grid h-full grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-5">
       <!-- Preview panel: show on all sizes and stack above the form on small screens -->
       <div
-        class="flex relative flex-col h-full rounded-2xl overflow-hidden
-               bg-linear-to-br dark:from-primary-700 dark:via-primary-800 dark:to-primary-950 text-white from-primary-800 via-primary-700 to-primary-800"
+        class="flex relative flex-col h-auto lg:h-full rounded-2xl overflow-hidden
+               bg-linear-to-br dark:from-primary-700 dark:via-primary-800 dark:to-primary-950 text-white from-primary-800 via-primary-700 to-primary-800 order-last lg:order-first"
       >
         <div class="relative flex flex-col h-full p-8 sm:p-12">
           <div class="flex items-center gap-3">
@@ -148,7 +148,7 @@ function goToLogin() {
         class="relative flex items-center justify-center h-full rounded-2xl overflow-hidden
               bg-white dark:bg-gray-900"
       >
-        <div class="w-full max-w-md p-6 sm:p-10 overflow-y-auto">
+        <div class="w-full max-w-md p-6 sm:p-10">
           <div class="mb-10">
             <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight">
               Create account

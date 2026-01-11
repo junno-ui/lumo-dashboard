@@ -69,16 +69,16 @@ function onError() {
 </script>
 
 <template>
-  <div class="h-screen w-full p-5 bg-white dark:bg-gray-900 overflow-hidden">
-    <div class="grid h-full grid-cols-1 lg:grid-cols-2 gap-5">
+  <div class="min-h-screen lg:h-screen w-full p-2 sm:p-5 bg-white dark:bg-gray-900 overflow-y-auto lg:overflow-hidden">
+    <div class="grid h-full grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-5">
   <!-- Dashboard preview: show on all sizes and let it stack above form on smaller screens -->
-  <div class="flex relative flex-col h-full rounded-2xl overflow-hidden bg-linear-to-br dark:from-primary-700 dark:via-primary-800 dark:to-primary-950 text-white from-primary-800 via-primary-700 to-primary-800">
+  <div class="flex relative flex-col h-auto lg:h-full rounded-2xl overflow-hidden bg-linear-to-br dark:from-primary-700 dark:via-primary-800 dark:to-primary-950 text-white from-primary-800 via-primary-700 to-primary-800 order-last lg:order-first">
           <div class="relative flex flex-col h-full p-8 sm:p-12">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
+            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
               <BrandLogo :collapsed="true" size="lg" />
             </div>
-            <span class="text-xl font-semibold">Lumo Dashboard</span>
+            <span class="text-lg sm:text-xl font-semibold">Lumo Dashboard</span>
           </div>
 
           <div class="mt-14 max-w-xl">
@@ -95,7 +95,7 @@ function onError() {
             </h1>
 
 
-            <p class="mt-5 text-white/75 text-sm leading-relaxed max-w-md">
+            <p class="mt-3 sm:mt-5 text-white/75 text-sm leading-relaxed max-w-md">
               Log in to access your CRM dashboard and manage your team.
             </p>
           </div>
@@ -103,9 +103,9 @@ function onError() {
         </div>
       </div>
 
-      <div class="relative flex items-center justify-center h-full rounded-2xl overflow-hidden
+       <div class="relative flex items-center justify-center h-full rounded-2xl overflow-hidden
                bg-white dark:bg-gray-900">
-        <div class="w-full max-w-md p-6 sm:p-10 overflow-y-auto">
+        <div class="w-full max-w-md p-6 sm:p-10">
           <div class="mb-10">
             <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight">
               Sign in

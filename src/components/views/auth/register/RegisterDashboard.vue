@@ -4,8 +4,8 @@ import { registerDashboardStats as stats, features, recentSignups } from '@/data
 
 <template>
   <!-- Register Preview (Onboarding Dashboard) -->
-  <div class="mt-auto pt-10">
-    <div class="relative max-w-3xl">
+  <div class="mt-auto pt-10 w-full">
+    <div class="relative max-w-3xl xl:max-w-5xl 2xl:max-w-6xl mx-auto">
 
       <!-- Base card -->
       <UCard class="group rounded-2xl overflow-hidden
@@ -18,9 +18,9 @@ import { registerDashboardStats as stats, features, recentSignups } from '@/data
         <div class="h-10 bg-linear-to-r from-primary-600/20 to-primary-700/10
                dark:from-primary-500/15 dark:to-primary-700/5" />
 
-        <div class="p-5 space-y-4">
+        <div class="p-5 xl:p-8 2xl:p-10 space-y-4 xl:space-y-6">
           <!-- Top row: Onboarding progress -->
-          <div class="rounded-xl border border-neutral-200/80 bg-white p-4
+          <div class="rounded-xl border border-neutral-200/80 bg-white p-4 xl:p-6
                  transition-all duration-300 hover:border-primary-300/60 hover:shadow-lg hover:shadow-black/10
                  dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:shadow-black/40">
             <div class="flex items-center justify-between">
@@ -33,11 +33,11 @@ import { registerDashboardStats as stats, features, recentSignups } from '@/data
 
             <UProgress class="mt-3" size="xs" :model-value="stats.progress" />
 
-            <div class="mt-3 grid grid-cols-4 gap-2">
-              <div class="h-2 rounded-full bg-primary-600/40 dark:bg-primary-400/35"></div>
-              <div class="h-2 rounded-full bg-primary-600/25 dark:bg-primary-400/20"></div>
-              <div class="h-2 rounded-full bg-gray-200 dark:bg-white/10"></div>
-              <div class="h-2 rounded-full bg-gray-200 dark:bg-white/10"></div>
+            <div class="mt-3 grid grid-cols-4 gap-2 h-2 xl:h-3">
+              <div class="h-full rounded-full bg-primary-600/40 dark:bg-primary-400/35"></div>
+              <div class="h-full rounded-full bg-primary-600/25 dark:bg-primary-400/20"></div>
+              <div class="h-full rounded-full bg-gray-200 dark:bg-white/10"></div>
+              <div class="h-full rounded-full bg-gray-200 dark:bg-white/10"></div>
             </div>
 
             <div class="mt-3 flex items-center justify-between text-[11px] text-neutral-500 dark:text-white/60">
@@ -49,9 +49,9 @@ import { registerDashboardStats as stats, features, recentSignups } from '@/data
           </div>
 
           <!-- Middle row: Plan + Features -->
-          <div class="grid grid-cols-5 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 xl:gap-5">
             <!-- Plan card -->
-            <div class="col-span-2 rounded-xl border border-neutral-200/80 bg-white p-4
+            <div class="sm:col-span-2 rounded-xl border border-neutral-200/80 bg-white p-4 xl:p-6
                    transition-all duration-300 hover:-translate-y-0.5 hover:border-primary-300/60 hover:shadow-lg hover:shadow-black/10
                    dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:shadow-black/40">
               <div class="flex items-center justify-between">
@@ -74,7 +74,7 @@ import { registerDashboardStats as stats, features, recentSignups } from '@/data
             </div>
 
             <!-- Feature list -->
-            <div class="col-span-3 rounded-xl border border-neutral-200/80 bg-white p-4
+            <div class="sm:col-span-3 rounded-xl border border-neutral-200/80 bg-white p-4 xl:p-6
                    transition-all duration-300 hover:-translate-y-0.5 hover:border-primary-300/60 hover:shadow-lg hover:shadow-black/10
                    dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:shadow-black/40">
               <div class="flex items-center justify-between">
@@ -126,7 +126,7 @@ import { registerDashboardStats as stats, features, recentSignups } from '@/data
       </UCard>
 
       <!-- Floating mini card (top-left) -->
-      <UCard class="absolute -top-8 left-5 w-44 rounded-2xl
+      <UCard class="relative mt-4 md:mt-0 md:absolute md:-top-8 md:left-5 w-full md:w-44 rounded-2xl
              border border-black/5 bg-white/95 text-neutral-900 shadow-xl
              transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
              dark:border-white/10 dark:bg-gray-950/75 dark:text-white dark:hover:shadow-black/50"
@@ -139,7 +139,7 @@ import { registerDashboardStats as stats, features, recentSignups } from '@/data
         <p class="text-[10px] text-neutral-500 dark:text-white/60">Great progress</p>
       </UCard>
 
-      <UCard class="absolute -top-20 right-6 z-20 w-60 rounded-2xl
+      <UCard class="relative mt-4 md:mt-0 md:absolute md:-top-20 md:right-6 z-20 w-full md:w-60 rounded-2xl
          border border-black/5 bg-white/95 text-neutral-900 shadow-xl
          transition-all duration-300 ease-out
          hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/25
