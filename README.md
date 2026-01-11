@@ -1,15 +1,23 @@
 # Lumo Dashboard
-### Premium Admin Template built with **Junno UI**
+### Premium Admin Template
 
 <p align="center">
   <img src="public/images/logo-black.png" alt="Lumo Dashboard Logo" width="120">
+</p>
+
+<p align="center">
+  <a href="https://lumo-dashboard-eight.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/LIVE_PREVIEW-Visit_Demo-blue?style=for-the-badge&logo=vercel" alt="Live Preview" />
+  </a>
 </p>
 
 ---
 
 ## ✨ Overview
 
-**Lumo Dashboard** is a next-generation admin template designed for speed, flexibility, and aesthetics. Built on the robust **Junno UI** system, it utilizes **Vue 3**, **Nuxt 3**, and **Tailwind CSS** to deliver a developer experience that is as premium as the user interface.
+**Lumo Dashboard** is a next-generation admin template designed for speed, flexibility, and aesthetics. 
+
+Created by **Junno UI**, this project is built on top of the powerful **Nuxt UI** library. It delivers a developer experience that is as premium as the user interface.
 
 Whether you are building a complex SaaS platform or a simple internal tool, Lumo provides the architectural elegance you need.
 
@@ -50,13 +58,13 @@ Built with the best modern web technologies:
 
 - **⚡ Blazing Fast**: Powered by Vite and Nuxt 3 for instant HMR and builds.
 - **📱 Fully Responsive**: Fluid layouts that adapt perfectly to Mobile, Tablet, and Desktop.
-- **🧩 Modular Architecture**: 50+ Reusable components built with the Junno UI philosophy.
+- **🧩 Modular Architecture**: 50+ Reusable components built using **Nuxt UI**.
 - **💎 Glassmorphism**: Subtle glass effects and modern blurs for a "Lumo" glow.
 - **📊 Interactive Data**: Pre-configured charts (ApexCharts / Chart.js ready) and data tables.
 
 ---
 
-## 📸 visual Tour
+## 📸 Visual Tour
 
 ### Dashboard Overview
 ![Main Dashboard](public/images/dashboard.png)
@@ -100,28 +108,10 @@ npm run build
 
 ---
 
-## 📂 Project Structure
+## ⚖️ Credits & License
 
-Organized for scalability:
-
-```bash
-├── src/
-│   ├── components/       # Junno UI Components (Global & Views)
-│   ├── composables/      # Theme logic (useBrand, useRadius)
-│   ├── data/             # Static Data Sources (Mock API)
-│   ├── layouts/          # App Layouts (Sidebar, Auth)
-│   ├── pages/            # File-based Routing
-│   └── app.vue           # Root Component
-├── public/               # Assets & Images
-└── nuxt.config.ts        # Configuration
-```
-
----
-
-## ⚖️ License
-
-**Lumo Dashboard** © 2026.
-Designed and Developed with **Junno UI**.
+**Lumo Dashboard**
+Designed and Developed by **Junno UI**.
 
 Licensed for personal and commercial use. 
 *Redistribution of this project as a competing template/product is strictly prohibited.*
