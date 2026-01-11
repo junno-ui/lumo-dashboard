@@ -13,10 +13,6 @@ declare module "vue-router" {
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/dashboard'
-  },
-  {
-    path: '/login',
     redirect: '/auth/login'
   },
   {
@@ -68,23 +64,23 @@ const routes: Array<RouteRecordRaw> = [
         path: 'analytics',
         redirect: '/dashboard/analytics/revenue',
         children: [
-          { 
-            path: 'revenue', 
+          {
+            path: 'revenue',
             name: 'RevenueAnalytics',
-            component: () => import('@/pages/analytics/revenue.vue'), 
-            meta: { title: 'Revenue Analytics' } 
+            component: () => import('@/pages/analytics/revenue.vue'),
+            meta: { title: 'Revenue Analytics' }
           },
-          { 
-            path: 'usage', 
+          {
+            path: 'usage',
             name: 'UsageAnalytics',
-            component: () => import('@/pages/analytics/usage.vue'), 
-            meta: { title: 'Usage Analytics' } 
+            component: () => import('@/pages/analytics/usage.vue'),
+            meta: { title: 'Usage Analytics' }
           },
-          { 
-            path: 'active-users', 
+          {
+            path: 'active-users',
             name: 'ActiveUsers',
-            component: () => import('@/pages/analytics/active-users.vue'), 
-            meta: { title: 'Active Users' } 
+            component: () => import('@/pages/analytics/active-users.vue'),
+            meta: { title: 'Active Users' }
           }
         ]
       },
@@ -94,23 +90,23 @@ const routes: Array<RouteRecordRaw> = [
         path: 'subscriptions',
         redirect: '/dashboard/subscriptions/plans',
         children: [
-          { 
-            path: 'plans', 
+          {
+            path: 'plans',
             name: 'Plans',
-            component: () => import('@/pages/subscriptions/plans.vue'), 
-            meta: { title: 'Plans' } 
+            component: () => import('@/pages/subscriptions/plans.vue'),
+            meta: { title: 'Plans' }
           },
-          { 
-            path: 'user-subscriptions', 
+          {
+            path: 'user-subscriptions',
             name: 'UserSubscriptions',
-            component: () => import('@/pages/subscriptions/user-subscriptions.vue'), 
-            meta: { title: 'User Subscriptions' } 
+            component: () => import('@/pages/subscriptions/user-subscriptions.vue'),
+            meta: { title: 'User Subscriptions' }
           },
-          { 
-            path: 'usage-limits', 
+          {
+            path: 'usage-limits',
             name: 'UsageLimits',
-            component: () => import('@/pages/subscriptions/usage-limits.vue'), 
-            meta: { title: 'Usage Limits' } 
+            component: () => import('@/pages/subscriptions/usage-limits.vue'),
+            meta: { title: 'Usage Limits' }
           }
         ]
       },
@@ -120,23 +116,23 @@ const routes: Array<RouteRecordRaw> = [
         path: 'billing',
         redirect: '/dashboard/billing/overview',
         children: [
-          { 
-            path: 'overview', 
+          {
+            path: 'overview',
             name: 'BillingOverview',
-            component: () => import('@/pages/billing/overview.vue'), 
-            meta: { title: 'Billing Overview' } 
+            component: () => import('@/pages/billing/overview.vue'),
+            meta: { title: 'Billing Overview' }
           },
-          { 
-            path: 'invoices', 
+          {
+            path: 'invoices',
             name: 'Invoices',
-            component: () => import('@/pages/billing/invoices.vue'), 
-            meta: { title: 'Invoices' } 
+            component: () => import('@/pages/billing/invoices.vue'),
+            meta: { title: 'Invoices' }
           },
-          { 
-            path: 'payment-methods', 
+          {
+            path: 'payment-methods',
             name: 'PaymentMethods',
-            component: () => import('@/pages/billing/payment-methods.vue'), 
-            meta: { title: 'Payment Methods' } 
+            component: () => import('@/pages/billing/payment-methods.vue'),
+            meta: { title: 'Payment Methods' }
           }
         ]
       },
@@ -146,23 +142,23 @@ const routes: Array<RouteRecordRaw> = [
         path: 'users',
         redirect: '/dashboard/users/all',
         children: [
-          { 
-            path: 'all', 
+          {
+            path: 'all',
             name: 'AllUsers',
-            component: () => import('@/pages/users/all.vue'), 
-            meta: { title: 'All Users' } 
+            component: () => import('@/pages/users/all.vue'),
+            meta: { title: 'All Users' }
           },
-          { 
-            path: 'roles', 
+          {
+            path: 'roles',
             name: 'Roles',
-            component: () => import('@/pages/users/roles.vue'), 
-            meta: { title: 'Roles' } 
+            component: () => import('@/pages/users/roles.vue'),
+            meta: { title: 'Roles' }
           },
-          { 
-            path: 'activity-log', 
+          {
+            path: 'activity-log',
             name: 'ActivityLog',
-            component: () => import('@/pages/users/activity-log.vue'), 
-            meta: { title: 'Activity Log' } 
+            component: () => import('@/pages/users/activity-log.vue'),
+            meta: { title: 'Activity Log' }
           }
         ]
       },
@@ -172,29 +168,29 @@ const routes: Array<RouteRecordRaw> = [
         path: 'settings',
         redirect: '/dashboard/settings/profile',
         children: [
-          { 
-            path: 'profile', 
+          {
+            path: 'profile',
             name: 'ProfileSettings',
-            component: () => import('@/pages/settings/profile.vue'), 
-            meta: { title: 'Profile Settings' } 
+            component: () => import('@/pages/settings/profile.vue'),
+            meta: { title: 'Profile Settings' }
           },
-          { 
-            path: 'organization', 
+          {
+            path: 'organization',
             name: 'OrganizationSettings',
-            component: () => import('@/pages/settings/organization.vue'), 
-            meta: { title: 'Organization Settings' } 
+            component: () => import('@/pages/settings/organization.vue'),
+            meta: { title: 'Organization Settings' }
           },
-          { 
-            path: 'preferences', 
+          {
+            path: 'preferences',
             name: 'Preferences',
-            component: () => import('@/pages/settings/preferences.vue'), 
-            meta: { title: 'Preferences' } 
+            component: () => import('@/pages/settings/preferences.vue'),
+            meta: { title: 'Preferences' }
           },
-          { 
-            path: 'security', 
+          {
+            path: 'security',
             name: 'SecuritySettings',
-            component: () => import('@/pages/settings/security.vue'), 
-            meta: { title: 'Security Settings' } 
+            component: () => import('@/pages/settings/security.vue'),
+            meta: { title: 'Security Settings' }
           }
         ]
       }

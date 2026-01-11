@@ -7,6 +7,12 @@ import type { Row } from '@tanstack/vue-table'
 import { useClipboard, useColorMode } from '@vueuse/core'
 import { CalendarDate, DateFormatter, getLocalTimeZone, today } from '@internationalized/date'
 import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
+import { 
+  revenueData as mockRevenueData, 
+  analyticsStats, 
+  revenueSources as mockRevenueSources, 
+  payments as mockPayments 
+} from '@/mock/analytics'
 
 /**
  * ======================================================
@@ -64,32 +70,11 @@ function baseApexOptions(extra: ApexOptions): ApexOptions {
 
 /**
  * ======================================================
- * SAMPLE DATA (replace with API data later)
+ * SAMPLE DATA
  * ======================================================
  */
-const revenueData = ref([
-  { month: 'Jan', revenue: 125000, profit: 36000 },
-  { month: 'Feb', revenue: 142000, profit: 41000 },
-  { month: 'Mar', revenue: 138000, profit: 39000 },
-  { month: 'Apr', revenue: 169000, profit: 51000 },
-  { month: 'May', revenue: 182000, profit: 56000 },
-  { month: 'Jun', revenue: 195000, profit: 61000 }
-])
-
-const analyticsStats = ref({
-  revenueGrowth: '+6.2%',
-  requestsGrowth: '+3.8%',
-  activeUsersGrowth: '+1.2%',
-  totalRequests: 182034,
-  activeUsersNow: 284
-})
-
-const revenueSources = ref([
-  { source: 'Organic', revenue: 45000 },
-  { source: 'Paid Ads', revenue: 38000 },
-  { source: 'Referrals', revenue: 28000 },
-  { source: 'Partnerships', revenue: 13500 }
-])
+const revenueData = ref(mockRevenueData)
+const revenueSources = ref(mockRevenueSources)
 
 type PaymentStatus = 'paid' | 'failed' | 'refunded'
 type Payment = {
@@ -101,13 +86,7 @@ type Payment = {
   currency?: string
 }
 
-const payments = ref<Payment[]>([
-  { id: '4600', date: '2024-03-11T15:30:00', status: 'paid', email: 'james.anderson@example.com', amount: 594, currency: 'EUR' },
-  { id: '4599', date: '2024-03-11T10:10:00', status: 'failed', email: 'mia.white@example.com', amount: 276, currency: 'EUR' },
-  { id: '4598', date: '2024-03-11T08:50:00', status: 'refunded', email: 'william.brown@example.com', amount: 315, currency: 'EUR' },
-  { id: '4597', date: '2024-03-10T19:45:00', status: 'paid', email: 'emma.davis@example.com', amount: 529, currency: 'EUR' },
-  { id: '4596', date: '2024-03-10T15:55:00', status: 'paid', email: 'ethan.harris@example.com', amount: 639, currency: 'EUR' }
-])
+const payments = ref<Payment[]>(mockPayments as Payment[])
 
 /**
  * ======================================================
@@ -242,12 +221,12 @@ const refundsEstimate = computed(() => Math.round(revenueTotal.value * 0.025))
 const netRevenue = computed(() => Math.max(revenueTotal.value - refundsEstimate.value, 0))
 
 const stats = computed(() => ([
-  { label: 'Total Revenue', value: `$${formatCurrency(revenueTotal.value)}`, sub: 'Gross', change: analyticsStats.value.revenueGrowth, icon: 'i-heroicons-currency-dollar' },
+  { label: 'Total Revenue', value: `$${formatCurrency(revenueTotal.value)}`, sub: 'Gross', change: analyticsStats.revenueGrowth, icon: 'i-heroicons-currency-dollar' },
   { label: 'Net Revenue', value: `$${formatCurrency(netRevenue.value)}`, sub: `Refunds est. $${formatCurrency(refundsEstimate.value)}`, change: '+2.1%', icon: 'i-heroicons-receipt-percent' },
   { label: 'Profit', value: `$${formatCurrency(profitTotal.value)}`, sub: `Expenses $${formatCurrency(expensesTotal.value)}`, change: '+5.1%', icon: 'i-heroicons-banknotes' },
   { label: 'Gross Margin', value: `${grossMarginPct.value}%`, sub: 'Margin health', change: '+0.8%', icon: 'i-heroicons-chart-pie' },
-  { label: 'Total Requests', value: formatCurrency(analyticsStats.value.totalRequests), sub: 'API usage', change: analyticsStats.value.requestsGrowth, icon: 'i-heroicons-chart-bar' },
-  { label: 'Active Users (Now)', value: formatCurrency(analyticsStats.value.activeUsersNow), sub: 'Realtime', change: analyticsStats.value.activeUsersGrowth, icon: 'i-heroicons-user-group' }
+  { label: 'Total Requests', value: formatCurrency(analyticsStats.totalRequests), sub: 'API usage', change: analyticsStats.requestsGrowth, icon: 'i-heroicons-chart-bar' },
+  { label: 'Active Users (Now)', value: formatCurrency(analyticsStats.activeUsersNow), sub: 'Realtime', change: analyticsStats.activeUsersGrowth, icon: 'i-heroicons-user-group' }
 ]))
 
 /**

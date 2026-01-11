@@ -36,12 +36,27 @@ export const activeUsersData = [
 
 export const analyticsStats = {
     totalRevenue: '$812,000',
-    revenueGrowth: '+12.5%',
-    totalRequests: '4.2M',
-    requestsGrowth: '+8.2%',
-    activeUsersNow: 89,
-    activeUsersGrowth: '+3.1%'
+    revenueGrowth: '+6.2%',
+    totalRequests: 182034,
+    requestsGrowth: '+3.8%',
+    activeUsersNow: 284,
+    activeUsersGrowth: '+1.2%'
 };
+
+export const revenueSources = [
+    { source: 'Organic', revenue: 45000 },
+    { source: 'Paid Ads', revenue: 38000 },
+    { source: 'Referrals', revenue: 28000 },
+    { source: 'Partnerships', revenue: 13500 }
+];
+
+export const payments = [
+    { id: '4600', date: '2024-03-11T15:30:00', status: 'paid', email: 'james.anderson@example.com', amount: 594, currency: 'EUR' },
+    { id: '4599', date: '2024-03-11T10:10:00', status: 'failed', email: 'mia.white@example.com', amount: 276, currency: 'EUR' },
+    { id: '4598', date: '2024-03-11T08:50:00', status: 'refunded', email: 'william.brown@example.com', amount: 315, currency: 'EUR' },
+    { id: '4597', date: '2024-03-10T19:45:00', status: 'paid', email: 'emma.davis@example.com', amount: 529, currency: 'EUR' },
+    { id: '4596', date: '2024-03-10T15:55:00', status: 'paid', email: 'ethan.harris@example.com', amount: 639, currency: 'EUR' }
+];
 
 export const revenueByProduct = [
     { product: 'Core', revenue: 420000 },

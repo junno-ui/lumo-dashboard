@@ -67,3 +67,41 @@ export const arpuData = [
     { month: 'Sep', arpu: 26.9 },
     { month: 'Oct', arpu: 27.2 }
 ];
+
+// For UsageLimitsPage.vue
+export const workspace = { name: 'Lumo', plan: 'Pro', seatsUsed: 12 };
+
+export const workspaceLimits = {
+    mode: 'hard',
+    allowOverage: false,
+    notifyAtPct: 85,
+    resetDayOfMonth: 1,
+    requests: 1_200_000,
+    bandwidthGB: 800,
+    storageGB: 250,
+    seats: 20
+};
+
+export const usageMembers = [
+    { id: 1, name: 'James Anderson', email: 'james.anderson@example.com', role: 'Owner', status: 'Active', lastActiveISO: new Date(Date.now() - 1000 * 60 * 10).toISOString(), daily: { requests: 12000, bandwidthGB: 2.1, storageGB: 0.2 }, override: null },
+    { id: 2, name: 'Mia White', email: 'mia.white@example.com', role: 'Admin', status: 'Active', lastActiveISO: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(), daily: { requests: 9000, bandwidthGB: 1.4, storageGB: 0.15 }, override: { enabled: true, mode: 'soft', notifyAtPct: 80, requests: 220_000, bandwidthGB: 70, storageGB: 18 } },
+    { id: 3, name: 'William Brown', email: 'william.brown@example.com', role: 'Member', status: 'Active', lastActiveISO: new Date(Date.now() - 1000 * 60 * 60 * 26).toISOString(), daily: { requests: 4500, bandwidthGB: 0.9, storageGB: 0.08 }, override: null },
+    { id: 4, name: 'Emma Davis', email: 'emma.davis@example.com', role: 'Viewer', status: 'Invited', lastActiveISO: new Date(Date.now() - 1000 * 60 * 60 * 72).toISOString(), daily: { requests: 0, bandwidthGB: 0, storageGB: 0 }, override: null },
+    { id: 5, name: 'Ethan Harris', email: 'ethan.harris@example.com', role: 'Member', status: 'Suspended', lastActiveISO: new Date(Date.now() - 1000 * 60 * 60 * 200).toISOString(), daily: { requests: 1500, bandwidthGB: 0.35, storageGB: 0.03 }, override: null }
+];
+
+// For UserSubscriptionsPage.vue (Transactions)
+export const subscriptionPayments = [
+    { id: '4600', date: '2024-03-11T15:30:00', status: 'paid', email: 'james.anderson@example.com', amount: 594 },
+    { id: '4599', date: '2024-03-11T10:10:00', status: 'failed', email: 'mia.white@example.com', amount: 276 },
+    { id: '4598', date: '2024-03-11T08:50:00', status: 'refunded', email: 'william.brown@example.com', amount: 315 },
+    { id: '4597', date: '2024-03-10T19:45:00', status: 'paid', email: 'emma.davis@example.com', amount: 529 },
+    { id: '4596', date: '2024-03-10T15:55:00', status: 'paid', email: 'ethan.harris@example.com', amount: 639 },
+    { id: '4595', date: '2024-03-10T13:40:00', status: 'refunded', email: 'ava.thomas@example.com', amount: 428 },
+    { id: '4594', date: '2024-03-10T09:15:00', status: 'paid', email: 'michael.wilson@example.com', amount: 683 },
+    { id: '4593', date: '2024-03-09T20:25:00', status: 'failed', email: 'olivia.taylor@example.com', amount: 947 },
+    { id: '4592', date: '2024-03-09T18:45:00', status: 'paid', email: 'benjamin.jackson@example.com', amount: 851 },
+    { id: '4591', date: '2024-03-09T16:05:00', status: 'paid', email: 'sophia.miller@example.com', amount: 762 },
+    { id: '4590', date: '2024-03-09T14:20:00', status: 'paid', email: 'noah.clark@example.com', amount: 573 },
+    { id: '4589', date: '2024-03-09T11:35:00', status: 'failed', email: 'isabella.lee@example.com', amount: 389 }
+];

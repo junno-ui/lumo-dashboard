@@ -4,6 +4,7 @@ import type { TableColumn } from '@nuxt/ui'
 import type { Row } from '@tanstack/vue-table'
 import { getPaginationRowModel } from '@tanstack/vue-table'
 import { useClipboard } from '@vueuse/core'
+import { subscriptionPayments } from '@/mock/subscriptions'
 
 const UButton = resolveComponent('UButton')
 const UBadge = resolveComponent('UBadge')
@@ -23,20 +24,9 @@ type Payment = {
   amount: number
 }
 
-const payments = ref<Payment[]>([
-  { id: '4600', date: '2024-03-11T15:30:00', status: 'paid', email: 'james.anderson@example.com', amount: 594 },
-  { id: '4599', date: '2024-03-11T10:10:00', status: 'failed', email: 'mia.white@example.com', amount: 276 },
-  { id: '4598', date: '2024-03-11T08:50:00', status: 'refunded', email: 'william.brown@example.com', amount: 315 },
-  { id: '4597', date: '2024-03-10T19:45:00', status: 'paid', email: 'emma.davis@example.com', amount: 529 },
-  { id: '4596', date: '2024-03-10T15:55:00', status: 'paid', email: 'ethan.harris@example.com', amount: 639 },
-  { id: '4595', date: '2024-03-10T13:40:00', status: 'refunded', email: 'ava.thomas@example.com', amount: 428 },
-  { id: '4594', date: '2024-03-10T09:15:00', status: 'paid', email: 'michael.wilson@example.com', amount: 683 },
-  { id: '4593', date: '2024-03-09T20:25:00', status: 'failed', email: 'olivia.taylor@example.com', amount: 947 },
-  { id: '4592', date: '2024-03-09T18:45:00', status: 'paid', email: 'benjamin.jackson@example.com', amount: 851 },
-  { id: '4591', date: '2024-03-09T16:05:00', status: 'paid', email: 'sophia.miller@example.com', amount: 762 },
-  { id: '4590', date: '2024-03-09T14:20:00', status: 'paid', email: 'noah.clark@example.com', amount: 573 },
-  { id: '4589', date: '2024-03-09T11:35:00', status: 'failed', email: 'isabella.lee@example.com', amount: 389 }
-])
+const payments = ref<Payment[]>(
+  (Array.isArray(subscriptionPayments) ? subscriptionPayments : []).map((p: any) => ({ ...p }))
+)
 
 // IMPORTANT: table ref for tableApi (keep it any to avoid TS friction)
 const table = ref<any>(null)

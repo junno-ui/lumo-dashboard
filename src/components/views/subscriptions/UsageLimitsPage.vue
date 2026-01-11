@@ -4,6 +4,7 @@ import type { TableColumn, TabsItem } from '@nuxt/ui'
 import type { Row } from '@tanstack/vue-table'
 import { useClipboard, useColorMode } from '@vueuse/core'
 import { CalendarDate, DateFormatter, getLocalTimeZone, today } from '@internationalized/date'
+import { workspace as mockWorkspace, workspaceLimits as mockLimits, usageMembers as mockMembers } from '@/mock/subscriptions'
 
 import VueApexCharts from 'vue3-apexcharts'
 import type { ApexOptions } from 'apexcharts'
@@ -142,26 +143,15 @@ const rangeDays = computed(() => {
 })
 
 /** ===== mock data ===== */
-const workspace = ref({ name: 'Lumo', plan: 'Pro', seatsUsed: 12 })
+const workspace = ref({ ...mockWorkspace })
 
 const workspaceLimits = ref<WorkspaceLimits>({
-  mode: 'hard',
-  allowOverage: false,
-  notifyAtPct: 85,
-  resetDayOfMonth: 1,
-  requests: 1_200_000,
-  bandwidthGB: 800,
-  storageGB: 250,
-  seats: 20
+    ...(mockLimits as WorkspaceLimits)
 })
 
-const members = ref<Member[]>([
-  { id: 1, name: 'James Anderson', email: 'james.anderson@example.com', role: 'Owner', status: 'Active', lastActiveISO: new Date(Date.now() - 1000 * 60 * 10).toISOString(), daily: { requests: 12000, bandwidthGB: 2.1, storageGB: 0.2 }, override: null },
-  { id: 2, name: 'Mia White', email: 'mia.white@example.com', role: 'Admin', status: 'Active', lastActiveISO: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(), daily: { requests: 9000, bandwidthGB: 1.4, storageGB: 0.15 }, override: { enabled: true, mode: 'soft', notifyAtPct: 80, requests: 220_000, bandwidthGB: 70, storageGB: 18 } },
-  { id: 3, name: 'William Brown', email: 'william.brown@example.com', role: 'Member', status: 'Active', lastActiveISO: new Date(Date.now() - 1000 * 60 * 60 * 26).toISOString(), daily: { requests: 4500, bandwidthGB: 0.9, storageGB: 0.08 }, override: null },
-  { id: 4, name: 'Emma Davis', email: 'emma.davis@example.com', role: 'Viewer', status: 'Invited', lastActiveISO: new Date(Date.now() - 1000 * 60 * 60 * 72).toISOString(), daily: { requests: 0, bandwidthGB: 0, storageGB: 0 }, override: null },
-  { id: 5, name: 'Ethan Harris', email: 'ethan.harris@example.com', role: 'Member', status: 'Suspended', lastActiveISO: new Date(Date.now() - 1000 * 60 * 60 * 200).toISOString(), daily: { requests: 1500, bandwidthGB: 0.35, storageGB: 0.03 }, override: null }
-])
+const members = ref<Member[]>(
+  (Array.isArray(mockMembers) ? mockMembers : []).map((m: any) => ({ ...m }))
+)
 
 /** ===== helpers ===== */
 function clampPct(v: number) {
