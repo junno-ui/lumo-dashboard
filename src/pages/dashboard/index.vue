@@ -7,6 +7,17 @@ import { CalendarDate, DateFormatter, getLocalTimeZone, today } from '@internati
 import DashboardHeader from './DashboardHeader.vue'
 import DashboardStats from './DashboardStats.vue'
 import { useColorMode } from '@vueuse/core'
+import {
+  dashboardStats,
+  mrrData,
+  revenueExpenseData,
+  customerGrowthData,
+  planDistributionData,
+  revenueSourceData,
+  topCustomers,
+  recentTransactions,
+  recentActivities
+} from '@/mock/dashboard'
 
 const colorMode = useColorMode()
 const isDark = computed(() => colorMode.value === 'dark')
@@ -124,93 +135,61 @@ const mrrChartPeriod = ref(periodItems[1])
 const revenueChartPeriod = ref(periodItems[1])
 
 /**
- * ====== Key SaaS Metrics ======
+ * ====== Key Cards ======
  */
-const mrr = ref(124500)
-const mrrGrowth = ref(5.3)
-const arr = ref(1494000)
-const arrGrowth = ref(12.5)
-const activeCustomers = ref(3420)
-const newCustomersThisMonth = ref(127)
-const churnRate = ref(2.3)
-const churnRateChange = ref(-0.5)
+const keyCards = [
+  {
+    label: 'MRR',
+    value: `$${new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(dashboardStats.mrr)}`,
+    delta: dashboardStats.mrrGrowth,
+    deltaLabel: 'vs last month',
+    icon: 'i-heroicons-currency-dollar',
+    toneBg: 'bg-blue-100 dark:bg-blue-900/30',
+    toneText: 'text-blue-600 dark:text-blue-400'
+  },
+  {
+    label: 'ARR',
+    value: `$${new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(dashboardStats.arr)}`,
+    delta: dashboardStats.arrGrowth,
+    deltaLabel: 'YoY',
+    icon: 'i-heroicons-chart-bar-square',
+    toneBg: 'bg-green-100 dark:bg-green-900/30',
+    toneText: 'text-green-600 dark:text-green-400'
+  },
+  {
+    label: 'Customers',
+    value: `${new Intl.NumberFormat('en-US').format(dashboardStats.activeCustomers)}`,
+    delta: dashboardStats.newCustomersThisMonth,
+    deltaLabel: 'this month',
+    icon: 'i-heroicons-user-group',
+    toneBg: 'bg-purple-100 dark:bg-purple-900/30',
+    toneText: 'text-purple-600 dark:text-purple-400',
+    isAbsoluteDelta: true
+  },
+  {
+    label: 'Churn Rate',
+    value: `${dashboardStats.churnRate}%`,
+    delta: dashboardStats.churnRateChange,
+    deltaLabel: 'vs last month',
+    icon: 'i-heroicons-arrow-trending-down',
+    toneBg: 'bg-red-100 dark:bg-red-900/30',
+    toneText: 'text-red-600 dark:text-red-400'
+  }
+]
 
-/**
- * ====== Secondary Metrics ======
- */
-const ltv = ref(12500)
-const cac = ref(850)
-const ltvCacRatio = computed(() => Math.round(ltv.value / cac.value))
-const nrr = ref(108)
-const arpu = ref(156.25)
-const trialConversionRate = ref(24.5)
+const secondaryCards = [
+  { label: 'LTV', value: `$${new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(dashboardStats.ltv)}` },
+  { label: 'CAC', value: `$${new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(dashboardStats.cac)}` },
+  { label: 'LTV:CAC', value: `${Math.round(dashboardStats.ltv / dashboardStats.cac)}:1` },
+  { label: 'NRR', value: `${dashboardStats.nrr}%` },
+  { label: 'ARPU', value: `$${new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(dashboardStats.arpu)}` },
+  { label: 'Trial Conv.', value: `${dashboardStats.trialConversionRate}%` }
+]
 
 /**
  * ====== Sample Data ======
  */
-const mrrData = [
-  { month: 'Jan', mrr: 82000 },
-  { month: 'Feb', mrr: 89000 },
-  { month: 'Mar', mrr: 92000 },
-  { month: 'Apr', mrr: 101000 },
-  { month: 'May', mrr: 112000 },
-  { month: 'Jun', mrr: 124500 }
-]
-
-const revenueExpenseData = [
-  { month: 'Jan', revenue: 125000, expenses: 95000 },
-  { month: 'Feb', revenue: 142000, expenses: 102000 },
-  { month: 'Mar', revenue: 138000, expenses: 98000 },
-  { month: 'Apr', revenue: 169000, expenses: 115000 },
-  { month: 'May', revenue: 182000, expenses: 125000 },
-  { month: 'Jun', revenue: 195000, expenses: 132000 }
-]
-
-const customerGrowthData = [
-  { month: 'Jan', new: 85, churned: 12 },
-  { month: 'Feb', new: 92, churned: 15 },
-  { month: 'Mar', new: 105, churned: 18 },
-  { month: 'Apr', new: 118, churned: 20 },
-  { month: 'May', new: 127, churned: 22 },
-  { month: 'Jun', new: 135, churned: 25 }
-]
-
-const planDistributionData = [
-  { plan: 'Starter', customers: 1205, revenue: 24100 },
-  { plan: 'Professional', customers: 198, revenue: 29700 },
-  { plan: 'Enterprise', customers: 342, revenue: 51300 }
-]
-
-const revenueSourceData = [
-  { source: 'Organic', revenue: 45000 },
-  { source: 'Paid Ads', revenue: 38000 },
-  { source: 'Referrals', revenue: 28000 },
-  { source: 'Partnerships', revenue: 13500 }
-]
-
-const topCustomers = ref([
-  { id: 1, name: 'Acme Corporation', plan: 'Enterprise', users: 250, mrr: 12500, status: 'Active' },
-  { id: 2, name: 'Tech Solutions Inc', plan: 'Enterprise', users: 180, mrr: 9000, status: 'Active' },
-  { id: 3, name: 'Global Industries', plan: 'Professional', users: 95, mrr: 4750, status: 'Active' },
-  { id: 4, name: 'Innovation Labs', plan: 'Enterprise', users: 120, mrr: 6000, status: 'Active' },
-  { id: 5, name: 'Digital Ventures', plan: 'Professional', users: 75, mrr: 3750, status: 'Active' }
-])
-
-const recentTransactions = ref([
-  { id: 'TXN-001', customer: 'Acme Corp', amount: 12500, status: 'Completed', date: '2 hours ago' },
-  { id: 'TXN-002', customer: 'Tech Solutions', amount: 9000, status: 'Completed', date: '5 hours ago' },
-  { id: 'TXN-003', customer: 'Global Industries', amount: 4750, status: 'Pending', date: '1 day ago' },
-  { id: 'TXN-004', customer: 'Innovation Labs', amount: 6000, status: 'Completed', date: '1 day ago' },
-  { id: 'TXN-005', customer: 'Digital Ventures', amount: 3750, status: 'Failed', date: '2 days ago' }
-])
-
-const recentActivities = ref([
-  { id: 1, user: 'John Doe', action: 'upgraded to Enterprise plan', type: 'upgrade', time: '5 minutes ago' },
-  { id: 2, user: 'Jane Smith', action: 'completed payment', type: 'payment', time: '15 minutes ago' },
-  { id: 3, user: 'Bob Johnson', action: 'started free trial', type: 'trial', time: '1 hour ago' },
-  { id: 4, user: 'Alice Williams', action: 'cancelled subscription', type: 'cancel', time: '2 hours ago' },
-  { id: 5, user: 'Charlie Brown', action: 'added 10 team members', type: 'team', time: '3 hours ago' }
-])
+// Data removed (imported from mock)
 
 const transactionColumns = [
   { accessorKey: 'id', header: 'Transaction ID' },
@@ -368,54 +347,7 @@ const getActivityIconColor = (type: string) => {
 }
 
 
-const keyCards = computed(() => [
-  {
-    label: 'MRR',
-    value: `$${formatCurrency(mrr.value)}`,
-    delta: mrrGrowth.value,
-    deltaLabel: 'vs last month',
-    icon: 'i-heroicons-currency-dollar',
-    toneBg: 'bg-blue-100 dark:bg-blue-900/30',
-    toneText: 'text-blue-600 dark:text-blue-400'
-  },
-  {
-    label: 'ARR',
-    value: `$${formatCurrency(arr.value)}`,
-    delta: arrGrowth.value,
-    deltaLabel: 'YoY',
-    icon: 'i-heroicons-chart-bar-square',
-    toneBg: 'bg-green-100 dark:bg-green-900/30',
-    toneText: 'text-green-600 dark:text-green-400'
-  },
-  {
-    label: 'Customers',
-    value: `${formatNumber(activeCustomers.value)}`,
-    delta: newCustomersThisMonth.value,
-    deltaLabel: 'this month',
-    icon: 'i-heroicons-user-group',
-    toneBg: 'bg-purple-100 dark:bg-purple-900/30',
-    toneText: 'text-purple-600 dark:text-purple-400',
-    isAbsoluteDelta: true
-  },
-  {
-    label: 'Churn Rate',
-    value: `${churnRate.value}%`,
-    delta: churnRateChange.value,
-    deltaLabel: 'vs last month',
-    icon: 'i-heroicons-arrow-trending-down',
-    toneBg: 'bg-red-100 dark:bg-red-900/30',
-    toneText: 'text-red-600 dark:text-red-400'
-  }
-])
-
-const secondaryCards = computed(() => [
-  { label: 'LTV', value: `$${formatCurrency(ltv.value)}` },
-  { label: 'CAC', value: `$${formatCurrency(cac.value)}` },
-  { label: 'LTV:CAC', value: `${ltvCacRatio.value}:1` },
-  { label: 'NRR', value: `${nrr.value}%` },
-  { label: 'ARPU', value: `$${formatCurrency(arpu.value)}` },
-  { label: 'Trial Conv.', value: `${trialConversionRate.value}%` }
-])
+// Computed cards removed (already defined above)
 </script>
 
 <template>
@@ -757,12 +689,12 @@ const secondaryCards = computed(() => [
 
                   <div class="rounded-2xl p-4 bg-gray-50 dark:bg-gray-900/35 ring-1 ring-gray-200/60 dark:ring-gray-800/60">
                     <div class="text-xs text-gray-600 dark:text-gray-400">Customers</div>
-                    <div class="mt-1 font-semibold text-gray-900 dark:text-white">{{ formatNumber(activeCustomers) }}</div>
+                    <div class="mt-1 font-semibold text-gray-900 dark:text-white">{{ formatNumber(dashboardStats.activeCustomers) }}</div>
                   </div>
 
                   <div class="rounded-2xl p-4 bg-gray-50 dark:bg-gray-900/35 ring-1 ring-gray-200/60 dark:ring-gray-800/60">
                     <div class="text-xs text-gray-600 dark:text-gray-400">Churn</div>
-                    <div class="mt-1 font-semibold text-gray-900 dark:text-white">{{ churnRate }}%</div>
+                    <div class="mt-1 font-semibold text-gray-900 dark:text-white">{{ dashboardStats.churnRate }}%</div>
                   </div>
                 </div>
 
