@@ -90,6 +90,14 @@ Built with the best modern web technologies:
 
 Launch your next project in minutes.
 
+### 📋 Prerequisites
+
+| Package | Version |
+| :--- | :--- |
+| **Node.js** | `>=18.0.0` |
+| **Vue.js** | `^3.5.26` |
+| **Version** | `1.0.0` |
+
 ### 1. Install Dependencies
 ```bash
 npm install
