@@ -74,7 +74,6 @@ watch(neutral, v => { if (!neutralItem.value || neutralItem.value.value !== v) n
 watch(radius, v => { if (!radiusItem.value || radiusItem.value.value !== v) radiusItem.value = radiusOptions.find(o => o.value === (v as RadiusKey)) })
 
 // Helper for 'Active' color preview
-const activeBrandDot = computed(() => brandItem.value?.dot || 'bg-primary-500')
 const activeNeutralBg = computed(() => neutralItem.value?.bg || 'bg-gray-500')
 
 </script>

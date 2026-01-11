@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 import { computed, reactive, ref } from 'vue'
 import { profileSettings as mock } from '@/data/settings'
 

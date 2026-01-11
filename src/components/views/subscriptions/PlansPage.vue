@@ -1,5 +1,7 @@
+```
 <script setup lang="ts">
 import { computed, reactive, ref, h, resolveComponent, watch } from 'vue'
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
 import { plans as initialPlans } from '@/data/subscriptions'
 

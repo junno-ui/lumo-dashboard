@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, h, ref, resolveComponent } from 'vue'
+import { ref, computed, resolveComponent, h } from 'vue'
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 import type { ApexOptions } from 'apexcharts'
 import VueApexCharts from 'vue3-apexcharts'
 import type { TableColumn } from '@nuxt/ui'

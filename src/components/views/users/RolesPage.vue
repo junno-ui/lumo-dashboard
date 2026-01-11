@@ -1,5 +1,7 @@
+```vue
 <script setup lang="ts">
 import { computed, h, reactive, ref, resolveComponent, watch } from 'vue'
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 import type { DropdownMenuItem, TableColumn, TabsItem } from '@nuxt/ui'
 import { roles as initialRoles } from '@/data/users'
 

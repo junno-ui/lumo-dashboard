@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 import { organizationSettings as mock } from '@/data/settings'
 
 type Org = {

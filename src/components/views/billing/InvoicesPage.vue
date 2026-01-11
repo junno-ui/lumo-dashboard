@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, h, ref, resolveComponent, watch } from 'vue'
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 import type { DropdownMenuItem, TableColumn } from '@nuxt/ui'
 import { useClipboard } from '@vueuse/core'
 import { invoices as initialInvoices } from '@/data/billing'

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 import { computed, reactive, ref } from 'vue'
 import type { DropdownMenuItem, FormSubmitEvent } from '@nuxt/ui'
 import * as yup from 'yup'

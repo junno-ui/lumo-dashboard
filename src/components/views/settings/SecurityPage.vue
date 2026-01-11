@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 import { computed, h, ref, resolveComponent } from 'vue'
 import { securitySettings, loginAttempts, auditEvents } from '@/data/settings'
 

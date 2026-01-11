@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, h, reactive, ref, resolveComponent, watch } from 'vue'
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 import type { DropdownMenuItem, FormSubmitEvent, TableColumn } from '@nuxt/ui'
 import * as yup from 'yup'
 import { users as mockUsers } from '@/data/users'

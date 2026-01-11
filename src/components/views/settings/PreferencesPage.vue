@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 import { preferences as mockPreferences } from '@/data/settings'
 
 type Theme = 'System' | 'Light' | 'Dark'
