@@ -8,8 +8,9 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
   <div class="mt-auto pt-6 sm:pt-10 w-full">
     <div class="relative w-full max-w-3xl xl:max-w-5xl 2xl:max-w-6xl mx-auto">
       <!-- Base card (interactive) -->
-      <UCard class="w-full dark:bg-gray-900 group rounded-2xl overflow-hidden
-               border border-black/5 bg-white/90 text-neutral-900 shadow-2xl shadow-black/20
+      <UCard class="w-full dark:bg-gray-900/60 group rounded-2xl overflow-hidden
+               border border-black/5 bg-white/60 text-neutral-900 shadow-2xl shadow-black/20
+               backdrop-blur-xl
                transition-all duration-300 ease-out
                hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/30
                dark:border-white/10 dark:text-white dark:shadow-black/50"
@@ -177,8 +178,9 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
       </UCard>
 
       <!-- Floating small KPI: on small screens behave as stacked card (relative full width), on md+ keep absolute */ -->
-       <UCard class=" dark:bg-gray-900 relative mt-4 md:mt-0 md:absolute md:-top-8 md:left-5 w-full md:w-44 rounded-2xl
-         border border-black/5 bg-white/95 text-neutral-900 shadow-xl
+       <UCard class=" dark:bg-gray-900/80 relative mt-4 md:mt-0 md:absolute md:-top-8 md:left-5 w-full md:w-44 rounded-2xl
+         border border-black/5 bg-white/80 text-neutral-900 shadow-xl
+         backdrop-blur-md
          transition-all duration-300 ease-out
          hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
                dark:border-white/10 dark:text-white dark:hover:shadow-black/50"
@@ -192,8 +194,9 @@ import { loginDashboardStats as stats, recentActivity, transactions } from '@/da
       </UCard>
 
       <!-- Floating chart: switch to stacked/relative on small screens -->
-       <UCard class=" dark:bg-gray-900 relative mt-4 md:mt-0 md:absolute md:top-10 md:-right-10 w-full md:w-56 rounded-2xl
-         border border-black/5 bg-white/95 text-neutral-900 shadow-xl
+       <UCard class=" dark:bg-gray-900/80 relative mt-4 md:mt-0 md:absolute md:top-10 md:-right-10 w-full md:w-56 rounded-2xl
+         border border-black/5 bg-white/80 text-neutral-900 shadow-xl
+         backdrop-blur-md
          transition-all duration-300 ease-out
          hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
                dark:border-white/10 dark:text-white dark:hover:shadow-black/50"

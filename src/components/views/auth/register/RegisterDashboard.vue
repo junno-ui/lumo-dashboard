@@ -9,7 +9,8 @@ import { registerDashboardStats as stats, features, recentSignups } from '@/data
 
       <!-- Base card -->
       <UCard class="group rounded-2xl overflow-hidden
-             border border-black/5 bg-white/90 text-neutral-900 shadow-2xl shadow-black/20
+             border border-black/5 bg-white/60 text-neutral-900 shadow-2xl shadow-black/20
+             backdrop-blur-xl
              transition-all duration-300 ease-out
              hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/30
              dark:border-white/10 dark:bg-gray-950/60 dark:text-white dark:shadow-black/50"
@@ -127,7 +128,8 @@ import { registerDashboardStats as stats, features, recentSignups } from '@/data
 
       <!-- Floating mini card (top-left) -->
       <UCard class="relative mt-4 md:mt-0 md:absolute md:-top-8 md:left-5 w-full md:w-44 rounded-2xl
-             border border-black/5 bg-white/95 text-neutral-900 shadow-xl
+             border border-black/5 bg-white/80 text-neutral-900 shadow-xl
+             backdrop-blur-md
              transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20
              dark:border-white/10 dark:bg-gray-950/75 dark:text-white dark:hover:shadow-black/50"
         :ui="{ body: 'p-3' }">
@@ -140,7 +142,8 @@ import { registerDashboardStats as stats, features, recentSignups } from '@/data
       </UCard>
 
       <UCard class="relative mt-4 md:mt-0 md:absolute md:-top-20 md:right-6 z-20 w-full md:w-60 rounded-2xl
-         border border-black/5 bg-white/95 text-neutral-900 shadow-xl
+         border border-black/5 bg-white/80 text-neutral-900 shadow-xl
+         backdrop-blur-md
          transition-all duration-300 ease-out
          hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/25
          hover:scale-[1.02]
