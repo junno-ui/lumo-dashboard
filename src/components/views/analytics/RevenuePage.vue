@@ -6,6 +6,7 @@ import type { TableColumn } from '@nuxt/ui'
 import type { Row } from '@tanstack/vue-table'
 import { useClipboard, useColorMode } from '@vueuse/core'
 import { CalendarDate, DateFormatter, getLocalTimeZone, today } from '@internationalized/date'
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 
 /**
  * ======================================================

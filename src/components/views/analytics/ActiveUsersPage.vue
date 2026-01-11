@@ -4,6 +4,7 @@ import type { ApexOptions } from 'apexcharts'
 import VueApexCharts from 'vue3-apexcharts'
 import { activeUsersData } from '@/mock/analytics'
 import { useColorMode } from '@vueuse/core'
+import { useToast } from '@nuxt/ui/runtime/composables/useToast.js'
 
 const ApexChart = VueApexCharts
 const toast = useToast()
