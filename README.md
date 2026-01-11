@@ -1,91 +1,118 @@
 # Junno UI – Premium Nuxt UI Dashboard Template
 
-Refactor this Nuxt UI dashboard into a static ThemeForest template.
-Remove all dynamic data and backend logic.
-Use hardcoded data and clear structure.
-Add step-by-step documentation and branding as Junno UI.
+<p align="center">
+  <img src="public/images/junnoui.png" alt="Junno UI Banner" width="100%">
+</p>
 
-## Overview
+---
 
-Junno UI is a premium, clean, and modern dashboard template built with **Vue.js**, **Nuxt 3**, and **Nuxt UI**. It is designed to be beginner-friendly, fully customizable, and production-ready for frontend projects.
+## ✨ Overview
 
-**This is a static template.** No backend, API, or database is required. All data is managed via simple JSON/TypeScript files, making it incredibly easy to customize for your own needs.
+**Junno UI** is a premium, clean, and modern dashboard template built with **Vue.js**, **Nuxt 3**, and **Nuxt UI**. It is designed to feel high-end, extremely fast, and developer-friendly. Whether you are building a SaaS, a CRM, or an internal admin tool, Junno UI provides the perfect foundation.
 
-## Tech Stack
+> [!NOTE]
+> **100% Static & Flexible**: This is a pure frontend template. No backend, API, or database is required. All data is managed via simple TypeScript files in `src/data/`.
 
-- **Framework**: [Nuxt 3](https://nuxt.com) (Vue.js)
-- **UI Component Library**: [Nuxt UI](https://ui.nuxt.com)
-- **Styling**: Tailwind CSS
-- **Icons**: Iconify / Heroicons
+---
 
-## Core Goals
+## 📸 Preview & Screenshots
 
-- **100% Static Data**: No API calls, axios, or Pinia stores.
-- **Easy Customization**: Change data in one place (`/src/data`) to update the UI.
-- **Beginner Friendly**: Simple, readable code with no complex async logic.
+### Main Dashboard
+![Main Dashboard](public/images/dashboard.png)
 
-## Project Structure
+<div align="center">
+  <table>
+    <tr>
+      <td width="50%">
+        <p align="center"><b>Sign In Page</b></p>
+        <img src="public/images/signin.png" alt="Sign In">
+      </td>
+      <td width="50%">
+        <p align="center"><b>Register Page</b></p>
+        <img src="public/images/register.png" alt="Register">
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 🛠 Tech Stack
+
+Junno UI is built with the most modern and high-performance web technologies:
+
+| Category | Technology |
+| :--- | :--- |
+| **Framework** | <img src="https://img.shields.io/badge/Nuxt_3-00DC82?style=for-the-badge&logo=nuxtdotjs&logoColor=white" /> |
+| **Library** | <img src="https://img.shields.io/badge/Vue.js_3-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white" /> |
+| **UI Kit** | <img src="https://img.shields.io/badge/Nuxt_UI-4ade80?style=for-the-badge&logo=nuxtdotjs&logoColor=white" /> |
+| **Styling** | <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" /> |
+| **Language** | <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" /> |
+| **Icons** | <img src="https://img.shields.io/badge/Iconify-84CC16?style=for-the-badge&logo=iconify&logoColor=white" /> |
+
+---
+
+## 🚀 Key Features
+
+- **Built-in Dark Mode**: Seamlessly switches between light and dark themes using Nuxt UI's color system.
+- **Responsive Design**: Optimized for everything from small mobiles to large 4K monitors.
+- **Modular Components**: Over 50+ reusable components (Stats, Charts, Tables, Forms).
+- **Glassmorphism Effects**: Modern, semi-transparent UI elements for a premium feel.
+- **Pure Static Data**: Easy to prototype and present without worrying about backend logic.
+
+---
+
+## 📂 Project Structure
 
 ```bash
 ├── src/
-│   ├── components/       # Reusable UI components
-│   ├── data/             # Static mock data (JSON/TS)
-│   ├── layouts/          # Main application layouts
-│   ├── pages/            # Application routes/pages
-│   └── app.vue           # Root component
-├── nuxt.config.ts        # Nuxt configuration
-└── package.json          # Dependencies
+│   ├── components/       # Reusable UI components & Layout parts
+│   ├── data/             # Your static data (Edit this to change UI content)
+│   ├── layouts/          # Dashboard & Auth layouts
+│   ├── pages/            # Application routes
+│   └── app.vue           # Entry point
+├── public/               # Static assets (images, icons)
+├── nuxt.config.ts        # Nuxt ecosystem configuration
+└── package.json          # Project scripts and dependencies
 ```
 
-## Getting Started
+---
 
-Follow these steps to get your project running in minutes.
+## 🏁 Getting Started
 
-### 1. Install Dependencies
+Get your dashboard up and running in less than 2 minutes.
 
-Ensure you have Node.js installed. Then run:
-
+### 1. Installation
 ```bash
 npm install
 ```
 
-### 2. Run Development Server
-
-Start the local development server at `http://localhost:5173`:
-
+### 2. Launch Development
 ```bash
 npm run dev
 ```
+Open **[http://localhost:5173](http://localhost:5173)** in your browser.
 
-### 3. Customize Data
-
-All data is stored in simple TypeScript files within `src/data/`. To customize the dashboard:
-
-1.  Open any file in `src/data/` (e.g., `dashboard.ts`, `users.ts`).
-2.  Replace the dummy data with your own values.
-3.  Save the file. The UI will update automatically.
-
-No backend or API knowledge is required.
-
-### 4. Customize UI
-
-The UI is built using Nuxt UI components. To change the look and feel:
-
-1.  Navigate to `src/components/`.
-2.  Edit the Vue components as needed.
-3.  Utilize the [Nuxt UI Documentation](https://ui.nuxt.com) for component references.
-
-### 5. Build for Production
-
-When you are ready to deploy:
-
+### 3. Build for Production
 ```bash
 npm run build
 ```
 
-This will create a production-ready `.output` directory.
+---
 
-## copyright
+## ⚙️ How to Customize
 
-Junno UI – Premium Nuxt UI Dashboard Template
+Updating the dashboard content is incredibly easy. **No coding knowledge for logic is required.**
+
+1.  **Change Data**: Navigate to `src/data/`. Open any file (e.g., `dashboard.ts`).
+2.  **Edit Values**: Update names, numbers, or chart labels.
+3.  **Real-time Update**: The dashboard updates instantly without any complex API setup.
+
+---
+
+## ⚖️ Copyright & License
+
+**Junno UI – Premium Nuxt UI Dashboard Template**
 © 2026 Junno UI. All rights reserved.
+
+Licensed for use in personal and commercial projects. Redistribution or resale of the source code as a template is strictly prohibited.
