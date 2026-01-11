@@ -37,8 +37,8 @@ const sizeMap = computed(() => {
     case 'sm':
       return {
         wrap: 'py-1.5',
-        badge: 'h-8 w-8 rounded-lg',
-        icon: 'h-4 w-4',
+        badge: 'h-9 w-9 rounded-lg',
+        icon: 'h-6 w-6',
         title: 'text-[13px]',
         subtitle: 'text-[10px]',
         textWidth: 'w-[160px]'
@@ -46,19 +46,19 @@ const sizeMap = computed(() => {
     case 'lg':
       return {
         wrap: 'py-2.5',
-        badge: 'h-10 w-10 rounded-2xl',
-        icon: 'h-6 w-6',
-        title: 'text-base',
-        subtitle: 'text-xs',
+        badge: 'h-12 w-12 rounded-2xl',
+        icon: 'h-9 w-9',
+        title: 'text-lg',
+        subtitle: 'text-sm',
         textWidth: 'w-[220px]'
       }
     default:
       return {
         wrap: 'py-2',
-        badge: 'h-9 w-9 rounded-xl',
-        icon: 'h-5 w-5',
-        title: 'text-sm',
-        subtitle: 'text-[11px]',
+        badge: 'h-11 w-11 rounded-xl',
+        icon: 'h-8 w-8',
+        title: 'text-base',
+        subtitle: 'text-xs',
         textWidth: 'w-[180px]'
       }
   }
@@ -136,7 +136,9 @@ const iconClasses = computed(() => {
   >
     <!-- Icon badge -->
     <span :class="badgeClasses">
-      <UIcon :name="appConfig.icon" :class="iconClasses" />
+      <!-- <UIcon :name="appConfig.icon" :class="iconClasses" /> -->
+      <img src="/images/logo-black.png" alt="Lumo" class="block dark:hidden object-contain" :class="iconClasses" />
+      <img src="/images/logo-white.png" alt="Lumo" class="hidden dark:block object-contain" :class="iconClasses" />
     </span>
 
     <!-- Text (collapsible) -->

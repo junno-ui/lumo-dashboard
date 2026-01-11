@@ -2,7 +2,7 @@
 ### Premium Admin Template built with **Junno UI**
 
 <p align="center">
-  <img src="public/images/junnoui.png" alt="Lumo Dashboard Banner" width="100%">
+  <img src="public/images/logo-black.png" alt="Lumo Dashboard Logo" width="120">
 </p>
 
 ---
