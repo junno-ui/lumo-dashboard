@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
-import './style/style.css'
-import App from './App.vue'
+import './shared/styles/style.css'
+import App from './app/App.vue'
 import ui from '@nuxt/ui/vue-plugin'
-import router from './router/router'
+import router from './app/router'
 
 const app = createApp(App)
 app.use(ui)

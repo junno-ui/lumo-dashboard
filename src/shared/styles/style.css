@@ -1,0 +1,208 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap");
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+  --color-primary-50: #f7f7f8;
+  --color-primary-100: #eeeeef;
+  --color-primary-200: #e3e3e6;
+  --color-primary-300: #cdced3;
+  --color-primary-400: #9698a1;
+  --color-primary-500: #6b6f76;
+  --color-primary-600: #4f5359;
+  --color-primary-700: #3f4248;
+  --color-primary-800: #25272b;
+  --color-primary-900: #17181a;
+  --color-primary-950: #0a0a0b;
+
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f4f4f5;
+  --color-gray-200: #e4e4e7;
+  --color-gray-300: #d4d4d8;
+  --color-gray-400: #a1a1aa;
+  --color-gray-500: #71717a;
+  --color-gray-600: #52525b;
+  --color-gray-700: #3f3f46;
+  --color-gray-800: #27272a;
+  --color-gray-900: #18181b;
+  --color-gray-950: #09090b;
+}
+
+:root {
+  color-scheme: dark;
+  --ui-radius: 14px;
+  --ui-primary: #fafafa;
+  --ui-color-primary-DEFAULT: #fafafa;
+  --ui-neutral: #fafafa;
+  --ui-color-neutral-DEFAULT: #fafafa;
+  --ui-bg: #09090b;
+  --ui-bg-muted: #111113;
+  --ui-bg-elevated: #141417;
+  --ui-bg-accented: #1b1b20;
+  --ui-bg-inverted: #fafafa;
+  --ui-border: rgba(255, 255, 255, 0.08);
+  --ui-border-muted: rgba(255, 255, 255, 0.08);
+  --ui-border-accented: rgba(255, 255, 255, 0.14);
+  --ui-border-inverted: rgba(9, 9, 11, 0.1);
+  --ui-text-dimmed: #8f9098;
+  --ui-text-muted: #a1a1aa;
+  --ui-text-toned: #d4d4d8;
+  --ui-text: #ededee;
+  --ui-text-highlighted: #ffffff;
+  --ui-text-inverted: #09090b;
+}
+
+html {
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 34%),
+    linear-gradient(180deg, #0b0b0d 0%, #09090b 100%);
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  background: transparent;
+  color: #ededee;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.app-shell {
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.06), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 26%),
+    #09090b;
+}
+
+.page-frame {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.page-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.surface-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.02));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 24px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
+}
+
+.surface-subtle {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(16px);
+}
+
+.page-title {
+  font-size: clamp(1.875rem, 2.2vw, 2.6rem);
+  line-height: 1.05;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.page-copy {
+  max-width: 44rem;
+  color: #8f9098;
+}
+
+.table-shell {
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.table-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+}
+
+.metric-badge {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #d4d4d8;
+}
+
+.vercel-grid {
+  position: relative;
+}
+
+.vercel-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(circle at top, rgba(0, 0, 0, 0.9), transparent 82%);
+  opacity: 0.24;
+}
+
+@media (min-width: 640px) {
+  .page-frame {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-frame {
+    padding-inline: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2.5rem;
+  }
+}
