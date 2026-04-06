@@ -5,18 +5,18 @@ import Footer from '@/shared/components/navigation/Footer.vue'
 </script>
 
 <template>
-  <UDashboardGroup class="app-shell vercel-grid font-sans">
+  <div class="app-shell vercel-grid font-sans flex flex-1 h-screen w-full bg-background text-foreground">
     <Sidebar />
 
-    <UDashboardPanel grow>
+    <div class="flex-1 flex flex-col overflow-hidden m-4 lg:ms-0 rounded-xl shadow-sm ring ring-border bg-card text-card-foreground">
       <Header />
 
-      <UDashboardPanelContent class="flex min-h-0 flex-col overflow-auto bg-transparent">
-        <div class="flex-1">
+      <div class="flex-1 flex flex-col overflow-auto bg-transparent relative">
+        <UContainer class="flex-1 min-h-0 w-full py-4 sm:py-6">
           <RouterView />
-        </div>
+        </UContainer>
         <Footer />
-      </UDashboardPanelContent>
-    </UDashboardPanel>
-  </UDashboardGroup>
+      </div>
+    </div>
+  </div>
 </template>

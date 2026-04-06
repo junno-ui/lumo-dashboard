@@ -53,15 +53,15 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
 </script>
 
 <template>
-  <UDashboardNavbar
-    :ui="{
-      wrapper: 'sticky top-0 z-50 border-b border-white/8 bg-black/55 backdrop-blur-2xl supports-[backdrop-filter]:bg-black/45',
-      container: 'mx-auto h-16 max-w-[1440px] px-4 sm:px-6 lg:px-8'
-    }"
-  >
-    <template #leading>
+  <header class="sticky top-0 z-50 border-b border-white/8 bg-card/55 backdrop-blur-2xl supports-[backdrop-filter]:bg-card/45">
+    <div class="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-8">
       <div class="flex items-center gap-4">
-        <UDashboardSidebarCollapse class="rounded-xl border border-white/8 bg-white/[0.03] p-2 text-zinc-300 transition hover:bg-white/[0.08] lg:hidden" />
+        <UButton
+          icon="i-lucide-menu"
+          color="neutral"
+          variant="ghost"
+          class="rounded-xl border border-white/8 bg-white/[0.03] p-2 text-zinc-300 transition hover:bg-white/[0.08] lg:hidden"
+        />
 
         <div class="hidden lg:block">
           <UBreadcrumb
@@ -71,9 +71,7 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
           />
         </div>
       </div>
-    </template>
 
-    <template #right>
       <div class="flex items-center gap-2 sm:gap-3">
         <UTooltip text="Inbox">
           <MailMenu />
@@ -89,6 +87,6 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
           <ProfileMenu />
         </UTooltip>
       </div>
-    </template>
-  </UDashboardNavbar>
+    </div>
+  </header>
 </template>
