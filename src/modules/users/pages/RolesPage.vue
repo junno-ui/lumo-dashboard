@@ -397,7 +397,7 @@ const sortItems = [
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors">
+  <div class="min-h-screen     transition-colors">
     <div class=" px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       <!-- Header -->
       <div class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60 bg-white/70 dark:bg-gray-950/50 backdrop-blur p-5 sm:p-6">
@@ -619,7 +619,7 @@ const sortItems = [
       <template #body>
         <div class="p-5 sm:p-6 space-y-6">
           <!-- Role details -->
-          <div class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60 bg-white/70 dark:bg-gray-950/40 backdrop-blur p-4 sm:p-5">
+          <div class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60    backdrop-blur p-4 sm:p-5">
             <div class="flex items-start gap-3">
               <div class="h-10 w-10 rounded-2xl bg-primary-50 dark:bg-primary-950/40 flex items-center justify-center">
                 <UIcon :name="isEditing ? 'i-lucide-pencil' : 'i-lucide-plus'" class="w-5 h-5 text-primary-600 dark:text-primary-400" />

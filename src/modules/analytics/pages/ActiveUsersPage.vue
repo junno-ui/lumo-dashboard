@@ -232,11 +232,11 @@ function refresh() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-950 transition-colors">
+  <div class="min-h-screen  ">
     <div class=" px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       <!-- Header (glass) -->
       <UCard
-        class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60 bg-white/70 dark:bg-gray-950/40 backdrop-blur"
+        class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60    backdrop-blur"
         :ui="{ body: 'p-5' }"
       >
         <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">

@@ -457,10 +457,10 @@ const columns: TableColumn<Payment>[] = [
 </script>
 
 <template>
-  <div class="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-950 transition-colors">
+  <div class="min-h-screen  ">
     <div class=" px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       <!-- Header / Toolbar -->
-      <div class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60 bg-white/70 dark:bg-gray-950/40 backdrop-blur p-4 sm:p-5">
+      <div class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60    backdrop-blur p-4 sm:p-5">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div class="min-w-0">
             <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
@@ -689,7 +689,7 @@ const columns: TableColumn<Payment>[] = [
         <!-- Empty helper -->
         <div
           v-if="filteredPayments.length === 0"
-          class="mt-4 rounded-2xl p-4 bg-white/70 dark:bg-gray-950/40 backdrop-blur ring-1 ring-gray-200/60 dark:ring-gray-800/60"
+          class="mt-4 rounded-2xl p-4    backdrop-blur ring-1 ring-gray-200/60 dark:ring-gray-800/60"
         >
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>

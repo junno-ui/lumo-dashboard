@@ -23,14 +23,14 @@ const open = ref(false)
       <UButton
         color="neutral"
         variant="ghost"
-        class="rounded-xl border border-white/8 bg-white/[0.03] text-zinc-400 hover:bg-white/[0.08] hover:text-white"
+        class="rounded-lg border border-white/8 bg-black/30 text-zinc-400 hover:bg-white/[0.06] hover:text-white"
         aria-label="Open inbox notifications"
         icon="i-heroicons-envelope"
       />
     </UChip>
 
     <template #content>
-      <div class="w-88 rounded-3xl border border-white/8 bg-black/85 p-2 shadow-2xl backdrop-blur-2xl">
+      <div class="w-88 rounded-2xl border border-white/8 bg-zinc-950/96 p-2 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
         <div class="flex items-center justify-between px-2 py-2">
           <div class="flex items-center gap-2">
             <div class="text-sm font-semibold text-white">Inbox</div>
@@ -54,7 +54,7 @@ const open = ref(false)
           <div
             v-for="mail in visibleMails"
             :key="mail.id"
-            class="w-full cursor-pointer rounded-2xl px-2 py-3 text-left transition hover:bg-white/[0.04]"
+            class="w-full cursor-pointer rounded-xl px-2 py-3 text-left transition hover:bg-white/[0.04]"
           >
             <div class="flex items-start gap-3">
               <span class="mt-2 h-2 w-2 rounded-full" :class="mail.unread ? 'bg-white' : 'bg-transparent'" />
@@ -75,7 +75,7 @@ const open = ref(false)
         <div class="flex items-center justify-between px-2 pt-2">
           <div class="text-xs text-zinc-500">Showing {{ visibleMails.length }} of {{ mails.length }}</div>
 
-          <UButton color="neutral" variant="outline" size="sm" class="rounded-xl border-white/8 bg-white/[0.03] hover:bg-white/[0.06]" to="/dashboard/inbox">
+          <UButton color="neutral" variant="outline" size="sm" class="rounded-lg border-white/8 bg-black/30 hover:bg-white/[0.06]" to="/dashboard/inbox">
             Open inbox
           </UButton>
         </div>

@@ -16,7 +16,7 @@ defineProps<{
       size="sm"
       :icon="icon || 'i-lucide-ellipsis'"
       :aria-label="label || 'Actions'"
-      class="rounded-xl border border-white/8 bg-white/[0.03] text-zinc-400 hover:bg-white/[0.08] hover:text-white"
+      class="rounded-lg border border-white/8 bg-black/40 text-zinc-400 hover:bg-white/[0.06] hover:text-white"
     />
   </UDropdownMenu>
 </template>

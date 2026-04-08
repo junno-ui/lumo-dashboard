@@ -38,9 +38,9 @@ const sizeMap = computed(() => {
       }
     default:
       return {
-        wrap: 'py-2',
-        mark: 'h-10 w-10 rounded-xl',
-        icon: 'h-6 w-6',
+        wrap: 'py-1.5',
+        mark: 'h-10 w-10 rounded-[14px]',
+        icon: 'h-5 w-5',
         title: 'text-[15px]',
         subtitle: 'text-xs',
         textWidth: 'w-[180px]'
@@ -51,12 +51,12 @@ const sizeMap = computed(() => {
 
 <template>
   <div
-    class="group flex items-center rounded-2xl select-none transition-all duration-200"
-    :class="[sizeMap.wrap, props.collapsed ? 'justify-center gap-0 px-0' : 'gap-2.5 pr-1']"
+    class="group flex select-none items-center transition-all duration-200"
+    :class="[sizeMap.wrap, props.collapsed ? 'justify-center gap-0 px-0' : 'gap-3 pr-1']"
     :aria-label="props.title"
   >
     <span
-      class="flex shrink-0 items-center justify-center border border-white/8 bg-white/[0.04] text-white shadow-[0_0_0_1px_rgba(255,255,255,0.02)_inset] transition group-hover:bg-white/[0.08]"
+      class="flex shrink-0 items-center justify-center border border-white/8 bg-black/35 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.02)_inset] transition group-hover:bg-white/[0.05]"
       :class="sizeMap.mark"
     >
       <img src="/images/logo-white.png" alt="Lumo" class="object-contain opacity-95" :class="sizeMap.icon" />
@@ -69,7 +69,7 @@ const sizeMap = computed(() => {
       <div class="truncate font-semibold tracking-[-0.03em] text-white" :class="sizeMap.title">
         {{ props.title }}
       </div>
-      <div class="truncate text-zinc-500" :class="sizeMap.subtitle">
+      <div class="truncate text-zinc-500/90" :class="sizeMap.subtitle">
         {{ props.subtitle }}
       </div>
     </div>

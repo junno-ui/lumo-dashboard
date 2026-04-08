@@ -332,7 +332,7 @@ function save(close?: () => void) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-950">
+  <div class="min-h-screen    ">
     <div class=" px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <!-- Header -->
       <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">

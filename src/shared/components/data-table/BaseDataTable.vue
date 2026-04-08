@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T">
 import type { TableColumn } from '@nuxt/ui'
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   data: T[]
   columns: TableColumn<T>[]
   loading?: boolean
@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<{
     label?: string
     description?: string
   }
-  pageSizeOptions?: Array<{ label: string; value: number }>
+  pageSizeOptions?: Array<{ label: string, value: number }>
 }>(), {
   loading: false,
   searchPlaceholder: 'Search...',
@@ -39,36 +39,49 @@ const pageSize = defineModel<number>('pageSize', { default: 10 })
 </script>
 
 <template>
-  <UCard class="surface-card rounded-[28px]" :ui="{ body: 'p-0', header: 'p-0' }">
-    <div class="flex flex-col gap-5 p-5 sm:p-6">
+  <UCard class="surface-card overflow-hidden rounded-2xl" :ui="{ body: 'p-0', header: 'p-0' }">
+    <div class="flex flex-col gap-5 p-4 sm:p-5">
       <div class="table-toolbar">
-        <div v-if="title || description" class="space-y-1.5">
-          <h2 v-if="title" class="text-lg font-semibold tracking-[-0.03em] text-white">
-            {{ title }}
-          </h2>
-          <p v-if="description" class="text-sm text-zinc-500">
+        <div v-if="title || description" class="space-y-1">
+          <div class="flex flex-wrap items-center gap-2">
+            <h2 v-if="title" class="text-base font-semibold tracking-[-0.03em] text-white sm:text-lg">
+              {{ title }}
+            </h2>
+            <span
+              v-if="totalItems > 0"
+              class="inline-flex items-center rounded-full border border-white/8 bg-white/[0.03] px-2.5 py-1 text-[11px] font-medium text-zinc-400"
+            >
+              {{ totalItems }} records
+            </span>
+          </div>
+          <p v-if="description" class="max-w-2xl text-sm text-zinc-500">
             {{ description }}
           </p>
         </div>
 
-        <div class="flex w-full flex-col gap-3 lg:w-auto lg:flex-row lg:items-center">
-          <div v-if="$slots.filters" class="flex flex-wrap items-center gap-2">
-            <slot name="filters" />
+        <div class="flex w-full flex-col gap-3 lg:w-auto lg:min-w-[24rem] lg:items-end">
+          <div class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+            <UInput
+              v-model="search"
+              icon="i-lucide-search"
+              size="sm"
+              color="neutral"
+              variant="outline"
+              :placeholder="searchPlaceholder"
+              class="w-full sm:max-w-72"
+              :ui="{
+                base: 'h-10 rounded-lg border-white/8 bg-black/40 text-sm text-white placeholder:text-zinc-600',
+                leadingIcon: 'text-zinc-500'
+              }"
+            />
+
+            <div v-if="$slots.actions" class="flex items-center gap-2">
+              <slot name="actions" />
+            </div>
           </div>
 
-          <UInput
-            v-model="search"
-            icon="i-lucide-search"
-            size="sm"
-            color="neutral"
-            variant="outline"
-            :placeholder="searchPlaceholder"
-            class="w-full lg:w-72"
-            :ui="{ base: 'rounded-xl border-white/8 bg-white/[0.03] text-white placeholder:text-zinc-600' }"
-          />
-
-          <div v-if="$slots.actions" class="flex items-center gap-2">
-            <slot name="actions" />
+          <div v-if="$slots.filters" class="flex w-full flex-wrap items-center gap-2 lg:justify-end">
+            <slot name="filters" />
           </div>
         </div>
       </div>
@@ -81,10 +94,11 @@ const pageSize = defineModel<number>('pageSize', { default: 10 })
           :empty-state="emptyState"
           :ui="{
             base: 'min-w-full',
-            thead: 'bg-white/[0.03]',
-            th: 'h-11 px-4 text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500',
-            tr: 'border-t border-white/6 transition-colors hover:bg-white/[0.03]',
-            td: 'px-4 py-4 align-middle text-zinc-200'
+            thead: 'bg-zinc-950/90 backdrop-blur',
+            tbody: 'divide-y divide-white/6',
+            th: 'h-11 px-4 text-[11px] font-medium uppercase tracking-[0.16em] text-zinc-500',
+            tr: 'transition-colors hover:bg-white/[0.02]',
+            td: 'px-4 py-3.5 align-middle text-sm text-zinc-200'
           }"
         />
       </div>
@@ -95,15 +109,15 @@ const pageSize = defineModel<number>('pageSize', { default: 10 })
           <span class="font-semibold text-white">{{ data.length }}</span>
           of
           <span class="font-semibold text-white">{{ totalItems }}</span>
-          results
-          <span class="mx-2 text-zinc-700">•</span>
+          records
+          <span class="mx-2 text-zinc-700">/</span>
           Page
           <span class="font-semibold text-white">{{ page }}</span>
           of
           <span class="font-semibold text-white">{{ totalPages }}</span>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2 lg:justify-end">
           <USelectMenu
             v-model="pageSize"
             size="sm"
@@ -113,6 +127,7 @@ const pageSize = defineModel<number>('pageSize', { default: 10 })
             :items="pageSizeOptions"
             value-key="value"
             label-key="label"
+            :ui="{ base: 'rounded-lg border-white/8 bg-black/40' }"
           />
 
           <UButton
@@ -120,7 +135,7 @@ const pageSize = defineModel<number>('pageSize', { default: 10 })
             color="neutral"
             variant="outline"
             icon="i-lucide-chevron-left"
-            class="rounded-xl border-white/8 bg-white/[0.03] hover:bg-white/[0.06]"
+            class="rounded-lg border-white/8 bg-black/40 hover:bg-white/[0.06]"
             :disabled="page <= 1"
             @click="page = Math.max(1, page - 1)"
           >
@@ -132,7 +147,7 @@ const pageSize = defineModel<number>('pageSize', { default: 10 })
             color="neutral"
             variant="outline"
             trailing-icon="i-lucide-chevron-right"
-            class="rounded-xl border-white/8 bg-white/[0.03] hover:bg-white/[0.06]"
+            class="rounded-lg border-white/8 bg-black/40 hover:bg-white/[0.06]"
             :disabled="page >= totalPages"
             @click="page = Math.min(totalPages, page + 1)"
           >

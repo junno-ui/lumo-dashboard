@@ -351,10 +351,10 @@ const getActivityIconColor = (type: string) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-950">
+  <div class="min-h-screen ">
     <div class="px-4 sm:px-6 lg:px-8 py-6">
       <!-- Top toolbar -->
-      <div class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60 bg-white/70 dark:bg-gray-950/50 backdrop-blur p-4 sm:p-5">
+      <div class="rounded-3xl border border-gray-200/70 dark:border-gray-800/60 backdrop-blur p-4 sm:p-5">
         <DashboardHeader
           :user="userName"
           :greeting="getGreeting"
