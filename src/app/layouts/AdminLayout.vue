@@ -15,7 +15,6 @@ import Footer from '@/shared/components/navigation/Footer.vue'
         <UContainer class="flex-1 min-h-0 w-full py-5 sm:py-6">
           <RouterView />
         </UContainer>
-        <Footer />
       </div>
     </div>
   </div>
